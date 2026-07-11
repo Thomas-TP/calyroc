@@ -305,6 +305,8 @@ export const fr: Dictionary = {
     title: "Un développeur, pas une agence.",
     subtitle:
       "Calyroc, c'est moi — Thomas. Pas de chef de projet, pas de sous-traitance, pas de frais de structure à répercuter sur ton devis.",
+    portfolioLabel: "Mon portfolio",
+    linkedinLabel: "LinkedIn",
     storyTitle: "Mon parcours",
     storyParagraphs: [
       "Je m'appelle Thomas Prud'homme. Je suis en formation d'apprenti CFC Informaticien en exploitation et infrastructure, basé à Gland, dans le canton de Vaud.",

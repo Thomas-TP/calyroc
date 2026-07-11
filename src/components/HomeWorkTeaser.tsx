@@ -15,10 +15,8 @@ export function HomeWorkTeaser({
     <section className="border-t border-paper/8 bg-onyx-soft/40">
       <div className="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32">
         <Reveal>
-          <p className="font-display text-xs font-medium uppercase tracking-[0.25em] text-bronze">
-            {dictionary.home.workEyebrow}
-          </p>
-          <h2 className="mt-4 max-w-2xl text-balance font-display text-3xl font-bold tracking-tight text-paper md:text-4xl">
+          <p className="text-eyebrow">{dictionary.home.workEyebrow}</p>
+          <h2 className="text-display-md mt-4 max-w-2xl text-balance text-paper">
             {dictionary.home.workTitle}
           </h2>
         </Reveal>

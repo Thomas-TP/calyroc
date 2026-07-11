@@ -304,6 +304,8 @@ export const de: Dictionary = {
     title: "Ein Entwickler, keine Agentur.",
     subtitle:
       "Calyroc bin ich — Thomas. Kein Projektleiter, keine Unterauftragnehmer, keine Agentur-Gemeinkosten in deinem Angebot.",
+    portfolioLabel: "Mein Portfolio",
+    linkedinLabel: "LinkedIn",
     storyTitle: "Mein Werdegang",
     storyParagraphs: [
       "Ich heisse Thomas Prud'homme und absolviere eine CFC-Lehre als Informatiker Betrieb und Infrastruktur, mit Sitz in Gland, Kanton Waadt.",

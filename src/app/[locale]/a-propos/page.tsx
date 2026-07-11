@@ -32,6 +32,27 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <section className="mx-auto max-w-3xl px-6 pb-24 pt-32 md:px-10">
       <PageHeader eyebrow={aboutPage.eyebrow} title={aboutPage.title} subtitle={aboutPage.subtitle} />
 
+      <Reveal delay={0.08}>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="https://thomastp.ch"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-secondary !px-5 !py-2.5 text-sm"
+          >
+            {aboutPage.portfolioLabel} ↗
+          </a>
+          <a
+            href="https://www.linkedin.com/in/thomas-tp"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-secondary !px-5 !py-2.5 text-sm"
+          >
+            {aboutPage.linkedinLabel} ↗
+          </a>
+        </div>
+      </Reveal>
+
       <Reveal delay={0.1}>
         <div className="mt-16">
           <h2 className="font-display text-lg font-bold text-paper">{aboutPage.storyTitle}</h2>

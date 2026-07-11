@@ -21,17 +21,11 @@ export function Hero({ dictionary, locale }: { dictionary: Dictionary; locale: L
       />
 
       <div className="relative z-10 flex max-w-5xl flex-col items-center">
-        <motion.p
-          {...fadeUp(0)}
-          className="mb-6 font-display text-xs font-medium uppercase tracking-[0.25em] text-bronze md:text-sm"
-        >
+        <motion.p {...fadeUp(0)} className="text-eyebrow mb-6">
           {dictionary.home.eyebrow}
         </motion.p>
 
-        <motion.h1
-          {...fadeUp(0.1)}
-          className="text-balance font-display text-5xl font-bold leading-[1.05] tracking-tight text-paper sm:text-6xl md:text-7xl lg:text-8xl"
-        >
+        <motion.h1 {...fadeUp(0.1)} className="text-display-xl text-balance text-paper">
           {dictionary.home.heroTitle}
         </motion.h1>
 

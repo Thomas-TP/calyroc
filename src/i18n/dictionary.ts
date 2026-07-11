@@ -133,6 +133,8 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     subtitle: string;
+    portfolioLabel: string;
+    linkedinLabel: string;
     storyTitle: string;
     storyParagraphs: string[];
     whyTitle: string;

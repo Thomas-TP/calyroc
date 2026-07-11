@@ -89,6 +89,7 @@ Une tâche demandée ("mets à jour la doc", "pousse sur GitHub") n'autorise pas
 
 - [`PLAN.md`](PLAN.md) — positionnement produit, identité de marque, roadmap, décisions business. Mets-le à jour à chaque changement de contenu/scope notable.
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — comment les briques techniques s'articulent (i18n, D1, chatbot, paiement, auth admin, anti-spam).
+- [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) — palette, échelle typographique nommée, composants. À consulter avant d'écrire une classe `text-*` à la main.
 - [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — déploiement, secrets, DNS, domaine custom.
 - [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) — comment le contenu (dictionnaire, légal, chatbot) est organisé et comment le modifier sans casser une locale.
 - [`CLAUDE.md`](CLAUDE.md) — pointeur vers ce fichier, pour les outils qui cherchent spécifiquement `CLAUDE.md`.

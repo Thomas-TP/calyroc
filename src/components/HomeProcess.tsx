@@ -7,12 +7,8 @@ export function HomeProcess({ dictionary }: { dictionary: Dictionary }) {
   return (
     <section className="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32">
       <Reveal>
-        <p className="font-display text-xs font-medium uppercase tracking-[0.25em] text-bronze">
-          {processEyebrow}
-        </p>
-        <h2 className="mt-4 max-w-2xl text-balance font-display text-3xl font-bold tracking-tight text-paper md:text-4xl">
-          {processTitle}
-        </h2>
+        <p className="text-eyebrow">{processEyebrow}</p>
+        <h2 className="text-display-md mt-4 max-w-2xl text-balance text-paper">{processTitle}</h2>
       </Reveal>
 
       <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6">
