@@ -11,6 +11,13 @@
   "ai": {
     "binding": "AI"
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "calyroc-leads",
+      "database_id": "5473c00d-1bba-410d-b6ca-e686e699f437"
+    }
+  ],
   "observability": {
     "enabled": true
   }

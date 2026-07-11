@@ -1,0 +1,13 @@
+export interface Lead {
+  id: number;
+  name: string;
+  email: string;
+  budget: string;
+  message: string;
+  locale: string;
+  status: "new" | "contacted" | "quoted" | "won" | "lost";
+  notes: string;
+  created_at: string;
+}
+
+export const LEAD_STATUSES: Lead["status"][] = ["new", "contacted", "quoted", "won", "lost"];
