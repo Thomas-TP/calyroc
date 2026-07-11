@@ -5,6 +5,7 @@ import { Hero } from "@/components/Hero";
 import { HomeProcess } from "@/components/HomeProcess";
 import { HomeServicesTeaser } from "@/components/HomeServicesTeaser";
 import { HomeWorkTeaser } from "@/components/HomeWorkTeaser";
+import { PriceCompareWidget } from "@/components/PriceCompareWidget";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { buildAlternates, SITE_URL } from "@/i18n/seo";
@@ -54,6 +55,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero dictionary={dictionary} locale={locale as Locale} />
+      <PriceCompareWidget dictionary={dictionary} />
       <HomeProcess dictionary={dictionary} />
       <HomeServicesTeaser dictionary={dictionary} locale={locale as Locale} />
       <HomeWorkTeaser dictionary={dictionary} locale={locale as Locale} />

@@ -50,6 +50,11 @@ export interface WhyPoint {
   description: string;
 }
 
+export interface PriceCompareItem {
+  label: string;
+  range: string;
+}
+
 export interface Dictionary {
   meta: {
     title: string;
@@ -72,6 +77,13 @@ export interface Dictionary {
     processEyebrow: string;
     processTitle: string;
     processSteps: ProcessStep[];
+    priceCompareEyebrow: string;
+    priceCompareTitle: string;
+    priceCompareAgencyLabel: string;
+    priceCompareItems: PriceCompareItem[];
+    priceCompareAgencyTotal: string;
+    priceCompareCalyrocLabel: string;
+    priceCompareNote: string;
     servicesEyebrow: string;
     servicesTitle: string;
     servicesCta: string;
