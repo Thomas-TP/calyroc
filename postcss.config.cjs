@@ -1,6 +1,6 @@
 /** @type {import('postcss-load-config').Config} */
-export default {
+module.exports = {
   plugins: {
-    "@unocss/postcss": {},
+    "./scripts/unocss-postcss-wrapper.cjs": {},
   },
 };

@@ -17,6 +17,8 @@ next-env.d.ts
 next-dev.log
 wrangler-dev.log
 preview.log
+deploy.log
+tail.log
 
 # code coverage
 coverage
