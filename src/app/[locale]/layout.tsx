@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { AskCalyroc } from "@/components/AskCalyroc";
 import { GrainOverlay } from "@/components/GrainOverlay";
+import { MotionProvider } from "@/components/MotionProvider";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getDictionary } from "@/i18n/dictionary";
@@ -71,11 +72,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className="dark">
       <body className="bg-onyx font-body text-paper antialiased">
-        <GrainOverlay />
-        <SiteHeader locale={locale as Locale} dictionary={dictionary} />
-        {children}
-        <SiteFooter locale={locale as Locale} dictionary={dictionary} />
-        <AskCalyroc locale={locale as Locale} dictionary={dictionary} />
+        <MotionProvider>
+          <GrainOverlay />
+          <SiteHeader locale={locale as Locale} dictionary={dictionary} />
+          {children}
+          <SiteFooter locale={locale as Locale} dictionary={dictionary} />
+          <AskCalyroc locale={locale as Locale} dictionary={dictionary} />
+        </MotionProvider>
       </body>
     </html>
   );
