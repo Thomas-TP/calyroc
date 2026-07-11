@@ -56,6 +56,15 @@ export interface Dictionary {
     heroSubtitle: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    servicesEyebrow: string;
+    servicesTitle: string;
+    servicesCta: string;
+    workEyebrow: string;
+    workTitle: string;
+    workCta: string;
+    ctaBandTitle: string;
+    ctaBandSubtitle: string;
+    ctaBandLabel: string;
   };
   footer: {
     tagline: string;

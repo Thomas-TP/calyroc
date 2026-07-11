@@ -1,5 +1,9 @@
 import "./globals.css";
 
+export const metadata = {
+  title: "404 — Page introuvable",
+};
+
 export default function RootNotFound() {
   return (
     <html lang="fr" className="dark">

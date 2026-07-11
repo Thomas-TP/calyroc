@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "404 — Page introuvable",
+};
+
 export default function NotFound() {
   return (
     <section className="flex min-h-[70vh] flex-col items-center justify-center px-6 pt-24 text-center">

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
+import { HomeServicesTeaser } from "@/components/HomeServicesTeaser";
+import { HomeWorkTeaser } from "@/components/HomeWorkTeaser";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { buildAlternates, SITE_URL } from "@/i18n/seo";
@@ -50,6 +53,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero dictionary={dictionary} locale={locale as Locale} />
+      <HomeServicesTeaser dictionary={dictionary} locale={locale as Locale} />
+      <HomeWorkTeaser dictionary={dictionary} locale={locale as Locale} />
+      <CtaBand dictionary={dictionary} locale={locale as Locale} />
     </>
   );
 }
