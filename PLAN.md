@@ -66,7 +66,7 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 
 **Repo** : public, [`Thomas-TP/calyroc`](https://github.com/Thomas-TP/calyroc)
 
-**i18n** : routing `/{locale}/...` via App Router (`src/app/[locale]/`), dictionnaire par langue dans `src/i18n/dictionaries/`, détection de langue à la racine via `src/proxy.ts` (nouvelle convention Next 16, remplace `middleware.ts`).
+**i18n** : routing `/{locale}/...` via App Router (`src/app/[locale]/`), dictionnaire par langue dans `src/i18n/dictionaries/`, détection de langue à la racine via `src/middleware.ts`. Reste volontairement sur l'ancienne convention `middleware.ts` (pas `proxy.ts`, la nouvelle convention Next 16) : testé le 11.07, la migration casse le build OpenNext Cloudflare (`ERROR Node.js middleware is not currently supported` — `proxy.ts` force un runtime Node.js que l'adaptateur ne supporte pas encore). Voir `AGENTS.md` §"Règles non négociables".
 
 **Contenu légal** : rédigé uniquement en français (version faisant foi), affiché tel quel sur toutes les locales avec une notice traduite expliquant que c'est la version de référence — évite de publier des traductions IA non relues sur des pages à risque de conformité.
 

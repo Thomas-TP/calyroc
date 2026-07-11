@@ -1,15 +1,34 @@
-# calyroc
+# Calyroc
 
-To install dependencies:
+Site vitrine multilingue (6 langues) de [Calyroc](https://calyroc.com), studio web solo de Thomas Prud'homme (Gland, VD, Suisse). Next.js 16 sur Cloudflare Workers.
+
+## Démarrer
 
 ```bash
 bun install
+bun run dev
 ```
 
-To run:
+Copie `.env.example` vers `.dev.vars` et remplis les valeurs pour le développement local (Turnstile, Resend, admin, Stripe).
+
+## Documentation
+
+- [`AGENTS.md`](AGENTS.md) — **à lire avant toute modification.** Règles critiques (build, PostCSS, OG image, secrets), structure du projet, checklist pour ajouter une page.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — comment les briques techniques s'articulent (i18n, D1, chatbot, admin, paiement).
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — déploiement, secrets, DNS, domaine.
+- [`docs/CONTENT_GUIDE.md`](docs/CONTENT_GUIDE.md) — comment le contenu (dictionnaire i18n, chatbot, contenu légal) est organisé.
+- [`PLAN.md`](PLAN.md) — positionnement produit, identité de marque, roadmap, décisions business.
+
+## Commandes principales
 
 ```bash
-bun run index.ts
+bun run dev                 # serveur de dev
+bun run typecheck           # tsc --noEmit
+bun run build                # next build --webpack (voir AGENTS.md — pas turbopack)
+bun run deploy:cloudflare    # build + déploie sur le Worker Cloudflare
+bun run check                # biome check .
 ```
 
-This project was created using `bun init` in bun v1.3.11. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+## Stack
+
+Bun · Next.js 16 (App Router) + OpenNext · React 19 · TypeScript · UnoCSS · Cloudflare Workers (D1, Workers AI) · Resend · Stripe · Biome.
