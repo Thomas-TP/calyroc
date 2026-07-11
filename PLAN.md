@@ -147,16 +147,19 @@ Le premier déploiement affichait une **Internal Server Error** sur absolument t
 ### Déploiement — comment ça marche
 
 - **Manuel** : `bun run deploy:cloudflare` (build + déploie sur le Worker `calyroc`)
-- **Secrets de production déjà configurés** sur le Worker : `RESEND_API_KEY`, `ADMIN_PASSWORD` (`cuivre-vaudois-9282`), `ADMIN_SESSION_SECRET`
-- **Auto-déploiement sur push GitHub** (Cloudflare Workers Builds) — à connecter dans le dashboard :
+- **Secrets de production déjà configurés** sur le Worker (valeurs non stockées ici — repo public — demande-les directement si besoin) : `RESEND_API_KEY`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `STRIPE_SECRET_KEY`
+- **Domaine** : ✅ **calyroc.com et www.calyroc.com pointent maintenant sur ce Worker** (custom domains attachés via `wrangler.jsonc` → `routes`). L'URL `calyroc.thomastp.workers.dev` reste active en fallback (`workers_dev: true`).
+- **Auto-déploiement sur push GitHub** (Cloudflare Workers Builds), déjà connecté par l'utilisateur — **correction importante** : dans le dashboard, utilise `bunx` et pas `npx` pour rester cohérent avec la stack Bun du projet :
   1. Cloudflare dashboard → Compute (Workers & Pages) → Worker **calyroc** → onglet **Settings** → section **Build**
-  2. **Connect to Git** → autoriser l'accès au repo si demandé → sélectionner `Thomas-TP/calyroc`
-  3. Production branch : `main`
-  4. Build command : `npx opennextjs-cloudflare build`
-  5. Deploy command : `npx wrangler deploy`
-  6. Sauvegarder — chaque push sur `main` déclenche un build + déploiement automatique (l'environnement de build de Cloudflare est Linux, donc le bug Turbopack/Windows ne s'y pose pas, mais on garde `--webpack` par sécurité/cohérence)
+  2. Build command : `bunx opennextjs-cloudflare build` (pas `npx`)
+  3. Deploy command : `bunx wrangler deploy` (pas `npx`)
+  4. (`npx` fonctionnerait aussi techniquement — Node/npm sont présents dans l'environnement de build Cloudflare — mais `bunx` est plus cohérent avec `bun.lock` et évite un package manager mixte)
 
 **Turnstile** : widget `calyroc (Spin)` créé (sitekey `0x4AAAAAADz0gll1MFJs2mni`), Worker de vérification déployé séparément (`turnstile-siteverify-calyroc`, secret configuré, CORS verrouillé sur calyroc.com), câblé dans `src/lib/turnstile.ts` + `src/components/ContactForm.tsx` + `src/app/actions.ts`.
+
+**Email (DNS)** : vérifié le 11.07 — les 8 enregistrements DNS sur calyroc.com sont corrects et complets : 3× MX + SPF + DKIM pour Cloudflare Email Routing (réception sur l'apex), MX + SPF + DKIM pour Resend sur le sous-domaine `send.calyroc.com` (envoi, via le Custom Return-Path). Aucun conflit entre les deux — rien à ajouter/changer.
+
+> ⚠️ **Sécurité** : une version précédente de ce fichier contenait le mot de passe admin en clair. Comme ce repo est public, ce mot de passe a été considéré compromis et **remplacé** (nouveau secret déployé). Ne plus jamais committer de secrets ici, même dans un repo qu'on pense privé au départ.
 
 ---
 
