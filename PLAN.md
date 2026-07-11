@@ -54,7 +54,7 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 **Composant transverse**
 - **Chatbot "Ask Calyroc"** — ✅ widget flottant, Workers AI, testé en production avec de vraies réponses
 
-**SEO technique** — ✅ sitemap.xml + hreflang, robots.txt, JSON-LD (ProfessionalService + FAQPage), metadata par page (title/description/canonical). Pas d'image OG dynamique (voir §4, incompatibilité Windows/OpenNext) — favicon statique (`src/app/icon.svg`) à la place.
+**SEO technique** — ✅ sitemap.xml + hreflang, robots.txt (`/admin` exclu), JSON-LD (ProfessionalService + FAQPage), metadata par page (title/description/canonical), Open Graph + Twitter Card sur toutes les pages/langues avec image statique (`public/og-image.png`, générée hors du build OpenNext via `scripts/gen-og-image.mjs` pour éviter le bug WASM — voir §4), favicon statique (`src/app/icon.svg`).
 
 ---
 
@@ -72,7 +72,7 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 
 **Autres briques** :
 - Devise : CHF uniquement pour l'instant — EUR/GBP/USD pas encore implémenté (les tarifs affichent une équivalence € indicative en texte statique)
-- Paiement : **fait, groundwork** — pas de self-checkout sur la page Tarifs (volontaire : un acompte se négocie après discussion, pas en un clic depuis une page publique). À la place : générateur de lien de paiement Stripe **dans l'admin**, par lead, montant libre (`src/lib/stripe.ts`, `src/app/admin/actions.ts::createPaymentLink`, UI dans `src/components/PaymentLinkGenerator.tsx`). Nécessite `STRIPE_SECRET_KEY` (pas encore configuré, échoue proprement avec un message clair en attendant)
+- Paiement : **fait, groundwork, `STRIPE_SECRET_KEY` configuré en prod** — pas de self-checkout sur la page Tarifs (volontaire : un acompte se négocie après discussion, pas en un clic depuis une page publique). À la place : générateur de lien de paiement Stripe **dans l'admin**, par lead, montant libre (`src/lib/stripe.ts`, `src/app/admin/actions.ts::createPaymentLink`, UI dans `src/components/PaymentLinkGenerator.tsx`)
 - Chatbot : **fait et testé en prod** — Workers AI (`@cf/meta/llama-3.1-8b-instruct-fast`), `src/app/api/chat/route.ts` + `src/components/AskCalyroc.tsx`, contexte injecté depuis le dictionnaire réel (services/tarifs/FAQ), garde-fous anti-promesse ferme. Répond correctement en conditions réelles (testé sur https://calyroc.thomastp.workers.dev)
 - Formulaire de contact : **fait et testé en prod** — protégé par Turnstile, stocke chaque lead dans D1 (table `leads`) puis tente l'envoi Resend en best-effort (le lead reste capturé même si l'email échoue), `src/app/actions.ts`
 - Admin : **fait et testé en prod** — `/admin` protégé par mot de passe (cookie signé HMAC, `src/lib/adminAuth.ts`), liste des leads D1 avec statut/notes éditables, export CSV (`/admin/export`), génération de liens de paiement Stripe. Secrets déjà configurés en prod : `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`
@@ -83,7 +83,7 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
   - `hello@calyroc.com` — contact client (utilisée partout sur le site)
   - `contact@calyroc.com` / `info@calyroc.com` — alias de secours
   - `admin@calyroc.com` — comptes de service (Resend, GitHub, etc.), à utiliser pour créer le compte Resend
-- **Envoi** (formulaire de contact) : reste sur Resend (le service natif "Email Sending" de Cloudflare est payant, écarté sur demande explicite) — reste à faire côté utilisateur : créer un compte resend.com avec `admin@calyroc.com`, ajouter le domaine calyroc.com, puis ajouter les enregistrements DNS (SPF/DKIM) fournis par Resend dans le dashboard Cloudflare (le token wrangler actuel n'a que `zone:read`, pas les droits pour écrire ces enregistrements automatiquement)
+- **Envoi** (formulaire de contact) : reste sur Resend (le service natif "Email Sending" de Cloudflare est payant, écarté sur demande explicite) — ✅ compte resend.com créé avec `admin@calyroc.com`, domaine calyroc.com vérifié, DNS SPF/DKIM en place et vérifiés (voir note DNS plus bas), envoi testé en prod
 - Analytics : Cloudflare Web Analytics (cookieless) — pas encore implémenté
 
 ---
@@ -103,13 +103,13 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 
 ## 6. Contenu page par page
 
-**Accueil** : Hero → bande de confiance → services (cards) → réalisations en vedette → différenciateurs → à propos condensé → aperçu tarifs → FAQ courte → CTA final
+**Accueil** : ✅ Hero (animé) → aperçu services (3 premières prestations, `HomeServicesTeaser`) → réalisations en vedette (`HomeWorkTeaser`) → bandeau CTA final (`CtaBand`). Version livrée plus resserrée que le plan initial (pas de "bande de confiance"/"différenciateurs"/"à propos condensé" séparés — jugé redondant avec le reste du site pour une page d'accueil qui doit rester rapide à scanner).
 
 **Services** : une fiche par prestation (vitrine / e-commerce / refonte / landing page / maintenance / SEO / identité visuelle) — pour qui, inclus, techno, délai, CTA devis
 
-**Réalisations** : grille filtrable. Swiss3Design en vedette (problème → stack → fonctionnalités → résultats mesurés), thomastp.ch (perf, animations, i18n). Métriques uniquement si mesurées réellement.
+**Réalisations** : liste des 2 case studies (pas de filtre — inutile à ce nombre). Swiss3Design en vedette (problème → stack → fonctionnalités → résultats mesurés), thomastp.ch (perf, animations, i18n). Métriques uniquement si mesurées réellement.
 
-**Tarifs** : grille des 3 packs, tableau comparatif, configurateur de devis interactif, FAQ tarifaire
+**Tarifs** : grille des 3 packs + maintenance, conditions, FAQ en accordéon (`FaqAccordion`). Pas de tableau comparatif ni de configurateur de devis interactif — jamais implémentés, la grille de 3 cartes a suffi.
 
 **Contact** : formulaire (nom, email, budget, description) → Resend, email direct, lien chatbot, engagement réponse 48h
 
@@ -127,15 +127,16 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 6. ~~Espace admin~~ ✅ (D1 + auth par mot de passe + export CSV + liens de paiement Stripe), testé en prod
 7. ~~Turnstile anti-spam~~ ✅ widget créé + Worker de vérification déployé + câblé au formulaire, validé en prod
 8. ~~Premier déploiement~~ ✅ **https://calyroc.thomastp.workers.dev** (Worker, pas Pages)
-9. ~~Paiement Stripe — groundwork~~ ✅ générateur de lien de paiement admin (voir §4) — reste à faire : `STRIPE_SECRET_KEY`
-10. ~~Design polish~~ ✅ polices auto-hébergées (Inter + Space Grotesk variables), favicon, animations au scroll (services/réalisations/tarifs), **menu mobile** (bug trouvé : Services/Réalisations/Tarifs étaient inatteignables sur mobile, corrigé)
-11. QA multilingue approfondie, perf, bascule du domaine calyroc.com vers ce Worker (actuellement il pointe encore vers l'ancien site Next.js)
+9. ~~Paiement Stripe — groundwork~~ ✅ générateur de lien de paiement admin (voir §4), `STRIPE_SECRET_KEY` configuré
+10. ~~Design polish~~ ✅ polices auto-hébergées (Inter + Space Grotesk variables), favicon, animations au scroll, **menu mobile** (bug trouvé : Services/Réalisations/Tarifs étaient inatteignables sur mobile, refait en overlay plein écran animé), hover/focus states sur cards et boutons, nav active mise en évidence, accessibilité clavier (focus-visible) + `prefers-reduced-motion` respecté partout
+11. ~~Bascule du domaine~~ ✅ calyroc.com et www.calyroc.com pointent sur ce Worker
+12. ~~Sections homepage~~ ✅ aperçu services + réalisations + CTA final (page d'accueil n'était qu'un hero seul avant)
+13. ~~SEO social~~ ✅ Open Graph + Twitter Card (image statique générée, voir §4)
+14. ~~404~~ ✅ bug de routing corrigé (l'ancienne page catch-all affichait un placeholder "en construction" au lieu d'un vrai 404 ; lien "retour à l'accueil" désormais dans la bonne langue)
+15. QA multilingue approfondie, perf — reste à faire
 
 ### Ce qu'il reste à faire côté utilisateur
 
-- Finir la vérification de domaine Resend (DNS SPF/DKIM) pour activer l'envoi d'email réel
-- Créer une clé Stripe et l'ajouter comme secret (`wrangler secret put STRIPE_SECRET_KEY`) pour activer les liens de paiement admin
-- Décider quand basculer calyroc.com vers ce nouveau Worker (actuellement testable uniquement sur l'URL workers.dev)
 - Relire les traductions ES/IT/DE/PT (assistées par IA, jamais relues par un locuteur natif)
 
 ### Bug critique trouvé et corrigé lors du premier déploiement
@@ -149,20 +150,13 @@ Le premier déploiement affichait une **Internal Server Error** sur absolument t
 - **Manuel** : `bun run deploy:cloudflare` (build + déploie sur le Worker `calyroc`)
 - **Secrets de production déjà configurés** sur le Worker (valeurs non stockées ici — repo public — demande-les directement si besoin) : `RESEND_API_KEY`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `STRIPE_SECRET_KEY`
 - **Domaine** : ✅ **calyroc.com et www.calyroc.com pointent maintenant sur ce Worker** (custom domains attachés via `wrangler.jsonc` → `routes`). L'URL `calyroc.thomastp.workers.dev` reste active en fallback (`workers_dev: true`).
-- **Auto-déploiement sur push GitHub** (Cloudflare Workers Builds), déjà connecté par l'utilisateur — **correction importante** : dans le dashboard, utilise `bunx` et pas `npx` pour rester cohérent avec la stack Bun du projet :
-  1. Cloudflare dashboard → Compute (Workers & Pages) → Worker **calyroc** → onglet **Settings** → section **Build**
-  2. Build command : `bunx opennextjs-cloudflare build` (pas `npx`)
-  3. Deploy command : `bunx wrangler deploy` (pas `npx`)
-  4. (`npx` fonctionnerait aussi techniquement — Node/npm sont présents dans l'environnement de build Cloudflare — mais `bunx` est plus cohérent avec `bun.lock` et évite un package manager mixte)
+- **Auto-déploiement sur push GitHub** (Cloudflare Workers Builds) : ✅ connecté par l'utilisateur, configuré avec `bunx` (build command `bunx opennextjs-cloudflare build`, deploy command `bunx wrangler deploy`) pour rester cohérent avec `bun.lock` plutôt que `npx`.
 
 **Turnstile** : widget `calyroc (Spin)` créé (sitekey `0x4AAAAAADz0gll1MFJs2mni`), Worker de vérification déployé séparément (`turnstile-siteverify-calyroc`, secret configuré, CORS verrouillé sur calyroc.com), câblé dans `src/lib/turnstile.ts` + `src/components/ContactForm.tsx` + `src/app/actions.ts`.
 
 **Email (DNS)** : vérifié le 11.07 — les 8 enregistrements DNS sur calyroc.com sont corrects et complets : 3× MX + SPF + DKIM pour Cloudflare Email Routing (réception sur l'apex), MX + SPF + DKIM pour Resend sur le sous-domaine `send.calyroc.com` (envoi, via le Custom Return-Path). Aucun conflit entre les deux — rien à ajouter/changer.
 
-> ⚠️ **Sécurité — action requise** : une version précédente de ce fichier a commité `ADMIN_PASSWORD` en clair dans ce repo **public** (commit `1141f41`). Le mot de passe encore actif en prod à ce jour est **celui qui a fuité** — il n'a **pas** été changé (une rotation automatique du secret n'a pas été effectuée volontairement, une action de ce type doit venir directement de toi). À faire dès que possible :
-> 1. `wrangler secret put ADMIN_PASSWORD` (choisis un nouveau mot de passe, pas celui qui est dans l'historique git)
-> 2. Idem pour `ADMIN_SESSION_SECRET` par précaution (invalide les sessions actives)
-> 3. Ne plus jamais committer de secrets ici, même dans un repo qu'on pense privé au départ.
+> ⚠️ **Sécurité — incident résolu** : une version précédente de ce fichier a commité `ADMIN_PASSWORD` en clair dans ce repo **public** (commit `1141f41`, toujours présent dans l'historique git). Le mot de passe compromis a été **roté le 11.07** (`ADMIN_SESSION_SECRET` aussi, par précaution, ce qui invalide les anciennes sessions). Nouvelle valeur communiquée directement à l'utilisateur, jamais écrite dans ce fichier ni dans le repo. Ne plus jamais committer de secrets ici, même dans un repo qu'on pense privé au départ.
 
 ---
 
