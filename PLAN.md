@@ -123,13 +123,32 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 2. ~~Pages publiques (Accueil, Services, Tarifs, Contact, légal)~~ ✅
 3. ~~Réalisations (case studies)~~ ✅
 4. ~~SEO technique (sitemap, hreflang, JSON-LD)~~ ✅
-5. ~~Chatbot Ask Calyroc (Workers AI)~~ ✅ (code fait, test live en attente)
-6. ~~Espace admin~~ ✅ (D1 + auth par mot de passe + export CSV)
-7. Turnstile anti-spam — **bloqué**, attend un token API avec scope `Turnstile:Edit`
-8. Paiement Stripe (acompte checkout) — pas commencé
-9. QA multilingue, perf, mise en prod sur calyroc.com (bascule domaine, désactivation de l'ancien déploiement Next.js)
+5. ~~Chatbot Ask Calyroc (Workers AI)~~ ✅ testé en live, fonctionne
+6. ~~Espace admin~~ ✅ (D1 + auth par mot de passe + export CSV), testé en live
+7. ~~Turnstile anti-spam~~ ✅ widget créé + Worker de vérification déployé + câblé au formulaire, validé en live
+8. ~~Premier déploiement~~ ✅ **https://calyroc.thomastp.workers.dev** (Worker, pas Pages)
+9. Paiement Stripe (acompte checkout) — pas commencé
+10. QA multilingue, perf, bascule du domaine calyroc.com vers ce Worker (actuellement il pointe encore vers l'ancien site Next.js)
 
-**Note environnement** : ce sandbox de dev ne peut pas établir le tunnel de bindings distants de `wrangler` (`AI` notamment) — build/typecheck/Biome sont systématiquement vérifiés après chaque changement, mais les fonctionnalités qui dépendent d'un binding distant (chatbot) n'ont pas pu être testées en conditions réelles ici.
+### Bug critique trouvé et corrigé lors du premier déploiement
+
+Le premier déploiement affichait une **Internal Server Error** sur absolument toutes les pages. Cause : Next.js 16 utilise **Turbopack** par défaut, et le bundler Turbopack casse le chargement des chunks serveur une fois passé par OpenNext sur cet environnement Windows (`ChunkLoadError` sur chaque page). L'ancien site (tom-web.ch) avait déjà buté sur ce problème et le contournait avec `next build --webpack` dans son `package.json` — j'ai appliqué le même correctif. Ça a fait apparaître un second problème (le chargeur PostCSS custom de Next.js n'arrivait pas à charger `@unocss/postcss` sous webpack), réglé avec un petit wrapper (`scripts/unocss-postcss-wrapper.cjs`). Le déploiement suivant a fonctionné.
+
+**Retenir pour la suite** : `bun run build` utilise maintenant `next build --webpack` — ne pas repasser sur Turbopack sans re-tester un vrai déploiement (le build local passe très bien avec Turbopack, seul le comportement en prod casse).
+
+### Déploiement — comment ça marche
+
+- **Manuel** : `bun run deploy:cloudflare` (build + déploie sur le Worker `calyroc`)
+- **Secrets de production déjà configurés** sur le Worker : `RESEND_API_KEY`, `ADMIN_PASSWORD` (`cuivre-vaudois-9282`), `ADMIN_SESSION_SECRET`
+- **Auto-déploiement sur push GitHub** (Cloudflare Workers Builds) — à connecter dans le dashboard :
+  1. Cloudflare dashboard → Compute (Workers & Pages) → Worker **calyroc** → onglet **Settings** → section **Build**
+  2. **Connect to Git** → autoriser l'accès au repo si demandé → sélectionner `Thomas-TP/calyroc`
+  3. Production branch : `main`
+  4. Build command : `npx opennextjs-cloudflare build`
+  5. Deploy command : `npx wrangler deploy`
+  6. Sauvegarder — chaque push sur `main` déclenche un build + déploiement automatique (l'environnement de build de Cloudflare est Linux, donc le bug Turbopack/Windows ne s'y pose pas, mais on garde `--webpack` par sécurité/cohérence)
+
+**Turnstile** : widget `calyroc (Spin)` créé (sitekey `0x4AAAAAADz0gll1MFJs2mni`), Worker de vérification déployé séparément (`turnstile-siteverify-calyroc`, secret configuré, CORS verrouillé sur calyroc.com), câblé dans `src/lib/turnstile.ts` + `src/components/ContactForm.tsx` + `src/app/actions.ts`.
 
 ---
 
