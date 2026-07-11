@@ -76,8 +76,11 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 - Admin : route protégée, stockage leads en D1 ou KV — pas encore implémenté
 
 **Email du domaine (calyroc.com)** :
-- **Réception** : Cloudflare Email Routing activé, `hello@calyroc.com` redirige vers `t+calyroc@prudhomme.li` — fait, gratuit
-- **Envoi** (formulaire de contact) : reste sur Resend (le service natif "Email Sending" de Cloudflare est payant, écarté sur demande explicite) — reste à faire côté utilisateur : créer un compte resend.com, ajouter le domaine calyroc.com, puis ajouter les enregistrements DNS (SPF/DKIM) fournis par Resend dans le dashboard Cloudflare (le token wrangler actuel n'a que `zone:read`, pas les droits pour écrire ces enregistrements automatiquement)
+- **Réception** : Cloudflare Email Routing activé (gratuit). Adresses actives, toutes redirigées vers `t+calyroc@prudhomme.li` :
+  - `hello@calyroc.com` — contact client (utilisée partout sur le site)
+  - `contact@calyroc.com` / `info@calyroc.com` — alias de secours
+  - `admin@calyroc.com` — comptes de service (Resend, GitHub, etc.), à utiliser pour créer le compte Resend
+- **Envoi** (formulaire de contact) : reste sur Resend (le service natif "Email Sending" de Cloudflare est payant, écarté sur demande explicite) — reste à faire côté utilisateur : créer un compte resend.com avec `admin@calyroc.com`, ajouter le domaine calyroc.com, puis ajouter les enregistrements DNS (SPF/DKIM) fournis par Resend dans le dashboard Cloudflare (le token wrangler actuel n'a que `zone:read`, pas les droits pour écrire ces enregistrements automatiquement)
 - Analytics : Cloudflare Web Analytics (cookieless) — pas encore implémenté
 
 ---
