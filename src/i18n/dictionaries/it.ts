@@ -316,12 +316,11 @@ export const it: Dictionary = {
     subtitle:
       "Calyroc sono io — Thomas. Nessun project manager, nessuna subappalto, nessun costo di struttura scaricato sul tuo preventivo.",
     founderRole: "Sviluppatore solo · Apprendista CFC Informatica",
-    founderSkills: ["React", "TypeScript", "Cloudflare Workers"],
     portfolioLabel: "Il mio portfolio",
     linkedinLabel: "LinkedIn",
     storyTitle: "Il mio percorso",
     storyParagraphs: [
-      "Mi chiamo Thomas Prud'homme. Sto svolgendo un apprendistato CFC come informatico in esercizio e infrastruttura, con base a Gland, nel canton Vaud.",
+      "Mi chiamo Thomas Prud'homme. Sto svolgendo un apprendistato CFC come informatico in esercizio e infrastruttura, con base a Ginevra, in Svizzera.",
       "Calyroc è nato da un'osservazione semplice: la maggior parte dei liberi professionisti e delle piccole imprese non ha bisogno di un'agenzia da dieci persone per avere un sito veloce e ben costruito. Ha bisogno di una persona competente che risponda in fretta e rispetti le scadenze.",
       "Lavoro con un flusso assistito dall'IA — questo accelera la scrittura del codice, non la riflessione su cosa il tuo sito deve fare. Risultato: tempi più brevi e prezzi più bassi rispetto a un'agenzia tradizionale, senza compromessi sulla qualità.",
       "La prova migliore: Swiss3Design, una piattaforma e-commerce di stampa 3D con pagamenti Stripe reali in produzione. Non un mockup — un sito vero, con clienti veri.",

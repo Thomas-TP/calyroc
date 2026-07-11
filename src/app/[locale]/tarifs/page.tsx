@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PageHeader } from "@/components/PageHeader";
+import { PriceCompareWidget } from "@/components/PriceCompareWidget";
 import { PricingCard } from "@/components/PricingCard";
 import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/i18n/dictionary";
@@ -76,6 +77,8 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
         </h2>
         <p className="mt-2 text-stone">{pricingPage.maintenanceText}</p>
       </div>
+
+      <PriceCompareWidget dictionary={dictionary} bare />
 
       <div className="mx-auto mt-16 max-w-3xl">
         <h2 className="font-display text-lg font-bold text-paper">{pricingPage.termsTitle}</h2>

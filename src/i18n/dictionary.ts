@@ -146,7 +146,6 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     founderRole: string;
-    founderSkills: string[];
     portfolioLabel: string;
     linkedinLabel: string;
     storyTitle: string;

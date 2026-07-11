@@ -311,12 +311,11 @@ export const en: Dictionary = {
     subtitle:
       "Calyroc is me — Thomas. No project manager, no subcontracting, no agency overhead baked into your quote.",
     founderRole: "Solo developer · CFC IT Apprentice",
-    founderSkills: ["React", "TypeScript", "Cloudflare Workers"],
     portfolioLabel: "My portfolio",
     linkedinLabel: "LinkedIn",
     storyTitle: "My background",
     storyParagraphs: [
-      "I'm Thomas Prud'homme, training as a CFC apprentice in IT infrastructure and operations, based in Gland, in the canton of Vaud.",
+      "I'm Thomas Prud'homme, training as a CFC apprentice in IT infrastructure and operations, based in Geneva, Switzerland.",
       "Calyroc came from a simple observation: most freelancers and small businesses don't need a ten-person agency to get a fast, well-built website. They need one competent person who replies quickly and keeps their deadlines.",
       "I build with an AI-augmented workflow — it speeds up writing code, not thinking through what your site needs to do. The result: shorter timelines and lower prices than a traditional agency, without cutting corners on quality.",
       "The best proof: Swiss3Design, a 3D-printing e-commerce platform with live Stripe payments in production. Not a mockup — a real site, with real customers.",

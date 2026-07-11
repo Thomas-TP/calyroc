@@ -1,12 +1,22 @@
 import { Reveal } from "@/components/Reveal";
 import type { Dictionary } from "@/i18n/dictionary";
 
-export function PriceCompareWidget({ dictionary }: { dictionary: Dictionary }) {
+export function PriceCompareWidget({
+  dictionary,
+  bare = false,
+}: {
+  dictionary: Dictionary;
+  /** Skip the outer max-w/padding wrapper -- use when embedding inside a page
+   * that already provides its own section container (e.g. /tarifs). */
+  bare?: boolean;
+}) {
   const { home, pricingPage } = dictionary;
   const proPack = pricingPage.packs.find((pack) => pack.highlighted) ?? pricingPage.packs[0]!;
 
+  const Wrapper = bare ? "div" : "section";
+
   return (
-    <section className="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32">
+    <Wrapper className={bare ? "mt-16" : "mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-32"}>
       <Reveal>
         <p className="text-eyebrow">{home.priceCompareEyebrow}</p>
         <h2 className="text-display-md mt-4 max-w-2xl text-balance text-paper">
@@ -54,6 +64,6 @@ export function PriceCompareWidget({ dictionary }: { dictionary: Dictionary }) {
       <Reveal delay={0.3}>
         <p className="mt-6 max-w-2xl text-xs leading-relaxed text-stone">{home.priceCompareNote}</p>
       </Reveal>
-    </section>
+    </Wrapper>
   );
 }

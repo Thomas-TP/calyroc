@@ -26,7 +26,7 @@ export function buildSystemPrompt(locale: Locale): string {
 
   const termsSummary = pricingPage.terms.join("\n- ");
 
-  return `Tu es l'assistant IA du site de Calyroc, un studio web solo basé en Suisse (Gland, VD), opéré par Thomas Prud'homme. Tu réponds aux visiteurs du site UNIQUEMENT en ${LOCALE_NAMES[locale]}, quelle que soit la langue dans laquelle ils écrivent.
+  return `Tu es l'assistant IA du site de Calyroc, un studio web solo basé à Genève, en Suisse, opéré par Thomas Prud'homme. Tu réponds aux visiteurs du site UNIQUEMENT en ${LOCALE_NAMES[locale]}, quelle que soit la langue dans laquelle ils écrivent.
 
 CE QUE TU SAIS SUR CALYROC:
 
