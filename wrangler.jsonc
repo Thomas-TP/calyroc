@@ -20,11 +20,10 @@
   ],
   "observability": {
     "enabled": true
-  }
-  // Custom domain routes (calyroc.com / www.calyroc.com) are intentionally left
-  // out until we're ready to cut over from the current deployment -- add:
-  // "routes": [
-  //   { "pattern": "calyroc.com", "custom_domain": true },
-  //   { "pattern": "www.calyroc.com", "custom_domain": true }
-  // ]
+  },
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "calyroc.com", "custom_domain": true },
+    { "pattern": "www.calyroc.com", "custom_domain": true }
+  ]
 }
