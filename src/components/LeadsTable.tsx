@@ -1,4 +1,5 @@
 import { updateLead } from "@/app/admin/actions";
+import { CustomSelect } from "@/components/CustomSelect";
 import { PaymentLinkGenerator } from "@/components/PaymentLinkGenerator";
 import { LEAD_STATUSES, type Lead } from "@/lib/leads";
 
@@ -28,20 +29,16 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
 
           <form action={updateLead} className="mt-4 flex flex-wrap items-end gap-3">
             <input type="hidden" name="id" value={lead.id} />
-            <label className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
               <span className="text-xs text-stone">Statut</span>
-              <select
+              <CustomSelect
                 name="status"
+                ariaLabel="Statut"
                 defaultValue={lead.status}
-                className="rounded-lg border border-paper/15 bg-transparent px-3 py-2 text-sm text-paper outline-none focus:border-bronze"
-              >
-                {LEAD_STATUSES.map((status) => (
-                  <option key={status} value={status} className="bg-onyx">
-                    {status}
-                  </option>
-                ))}
-              </select>
-            </label>
+                options={LEAD_STATUSES.map((status) => ({ value: status, label: status }))}
+                triggerClassName="px-3 py-2 text-sm"
+              />
+            </div>
             <label className="flex flex-1 min-w-[12rem] flex-col gap-1">
               <span className="text-xs text-stone">Notes</span>
               <input

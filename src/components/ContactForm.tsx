@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { useActionState } from "react";
 import { type ContactState, submitContactForm } from "@/app/actions";
+import { CustomSelect } from "@/components/CustomSelect";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
 import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
@@ -33,19 +34,15 @@ export function ContactForm({
         <Field label={contactPage.formEmail} name="email" type="email" required />
       </div>
 
-      <label className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         <span className="font-display text-sm text-paper/80">{contactPage.formBudget}</span>
-        <select
+        <CustomSelect
           name="budget"
-          className="rounded-lg border border-paper/15 bg-transparent px-4 py-3 text-paper outline-none transition-colors focus:border-bronze"
-        >
-          {contactPage.formBudgetOptions.map((opt) => (
-            <option key={opt} value={opt} className="bg-onyx">
-              {opt}
-            </option>
-          ))}
-        </select>
-      </label>
+          ariaLabel={contactPage.formBudget}
+          options={contactPage.formBudgetOptions.map((opt) => ({ value: opt, label: opt }))}
+          triggerClassName="w-full px-4 py-3"
+        />
+      </div>
 
       <label className="flex flex-col gap-2">
         <span className="font-display text-sm text-paper/80">{contactPage.formMessage}</span>

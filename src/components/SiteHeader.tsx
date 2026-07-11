@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { CustomSelect } from "@/components/CustomSelect";
 import type { Dictionary } from "@/i18n/dictionary";
 import { type Locale, locales } from "@/i18n/locales";
 
@@ -116,7 +117,7 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
               transition={{ duration: 0.4, delay: 0.35 }}
               className="flex items-center justify-between px-6 py-6"
             >
-              <LocaleSwitcher locale={locale} />
+              <LocaleSwitcher locale={locale} variant="menu" />
               <span className="text-xs text-stone">calyroc.com</span>
             </motion.div>
           </motion.div>
@@ -126,21 +127,29 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
   );
 }
 
-function LocaleSwitcher({ locale }: { locale: Locale }) {
+const localeOptions = locales.map((code) => ({ value: code, label: code.toUpperCase() }));
+
+function LocaleSwitcher({
+  locale,
+  variant = "header",
+}: {
+  locale: Locale;
+  variant?: "header" | "menu";
+}) {
   return (
-    <select
-      defaultValue={locale}
-      aria-label="Language"
-      className="rounded border border-paper/12 bg-transparent px-2 py-1.5 font-display text-xs uppercase tracking-wide text-stone outline-none transition-colors hover:border-paper/30 hover:text-paper"
-      onChange={(event) => {
-        window.location.href = `/${event.target.value}/`;
+    <CustomSelect
+      options={localeOptions}
+      value={locale}
+      onChange={(next) => {
+        window.location.href = `/${next}/`;
       }}
-    >
-      {locales.map((code) => (
-        <option key={code} value={code} className="bg-onyx text-paper">
-          {code.toUpperCase()}
-        </option>
-      ))}
-    </select>
+      ariaLabel="Language"
+      panelAlign={variant === "header" ? "right" : "left"}
+      triggerClassName={
+        variant === "header"
+          ? "px-2.5 py-1.5 font-display text-xs uppercase tracking-wide"
+          : "px-3.5 py-2.5 font-display text-sm uppercase tracking-wide"
+      }
+    />
   );
 }
