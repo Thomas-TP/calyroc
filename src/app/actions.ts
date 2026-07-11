@@ -3,6 +3,7 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { Resend } from "resend";
 import { z } from "zod";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 const ContactSchema = z.object({
   name: z.string().min(1).max(200),
@@ -31,6 +32,14 @@ export async function submitContactForm(
 
   if (!parsed.success) {
     return { status: "error", message: "invalid" };
+  }
+
+  const turnstileToken = formData.get("cf-turnstile-response");
+  if (typeof turnstileToken !== "string" || !turnstileToken) {
+    return { status: "error", message: "captcha-missing" };
+  }
+  if (!(await verifyTurnstileToken(turnstileToken))) {
+    return { status: "error", message: "captcha-failed" };
   }
 
   const { name, email, budget, message, locale } = parsed.data;

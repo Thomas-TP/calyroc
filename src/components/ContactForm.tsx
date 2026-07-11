@@ -1,9 +1,11 @@
 "use client";
 
+import Script from "next/script";
 import { useActionState } from "react";
 import { type ContactState, submitContactForm } from "@/app/actions";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
+import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 
 const initialState: ContactState = { status: "idle" };
 
@@ -18,6 +20,12 @@ export function ContactForm({
 
   return (
     <form action={formAction} className="mt-10 flex flex-col gap-5">
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="afterInteractive"
+        async
+        defer
+      />
       <input type="hidden" name="locale" value={locale} />
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -50,6 +58,13 @@ export function ContactForm({
           className="resize-none rounded-lg border border-paper/15 bg-transparent px-4 py-3 text-paper outline-none transition-colors focus:border-bronze"
         />
       </label>
+
+      <div
+        className="cf-turnstile"
+        data-sitekey={TURNSTILE_SITE_KEY}
+        data-action="turnstile-spin-v1"
+        data-theme="dark"
+      />
 
       <button
         type="submit"
