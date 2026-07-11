@@ -16,6 +16,7 @@ dist
 next-env.d.ts
 next-dev.log
 wrangler-dev.log
+preview.log
 
 # code coverage
 coverage
