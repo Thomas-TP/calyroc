@@ -5,7 +5,7 @@ import { GrainOverlay } from "@/components/GrainOverlay";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getDictionary } from "@/i18n/dictionary";
-import { isLocale, locales, type Locale } from "@/i18n/locales";
+import { isLocale, type Locale, locales } from "@/i18n/locales";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -44,7 +44,7 @@ export default async function LocaleLayout({
         <GrainOverlay />
         <SiteHeader locale={locale as Locale} dictionary={dictionary} />
         {children}
-        <SiteFooter dictionary={dictionary} />
+        <SiteFooter locale={locale as Locale} dictionary={dictionary} />
       </body>
     </html>
   );

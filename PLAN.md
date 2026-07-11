@@ -23,12 +23,12 @@
 - **Nom** : Calyroc
 - **Domaine** : calyroc.com (déjà réservé sur Cloudflare)
 - **Ton** : tutoiement, direct, sans jargon d'agence, honnête sur les délais et le scope
-- **Style visuel** : coloré et créatif — s'écarte volontairement de l'univers plus sombre/tech de thomastp.ch pour bien séparer "portfolio personnel de candidature" et "studio commercial"
+- **Style visuel** : sobre et premium — fond onyx quasi-noir, accent bronze unique, beaucoup d'espace négatif (remplace la direction "colorée et créative" initiale, jugée trop générique/pas assez premium après un premier essai)
 - **Palette** :
-  - Accent primaire : violet électrique `#7C3AED`
-  - Accent secondaire : corail chaud `#FF6B4A`
-  - Neutre sombre (mode dark, texte) : `#12101A`
-  - Neutre clair (mode light, fond) : `#FAF9F7`
+  - Fond (dark, par défaut) : onyx `#0B0B0C`, panneaux `#131316`
+  - Texte : blanc cassé `#F5F3EF`
+  - Texte secondaire / bordures : stone `#8C887F`
+  - Accent unique : bronze `#C9A567` (clin d'œil à "roc" — minéral, se démarque du violet/indigo générique des sites d'agences tech)
 - **Typographie** : display géométrique pour les titres (Space Grotesk / General Sans), sans-serif lisible pour le corps (Inter). Polices auto-hébergées.
 - **Logo** : géré par l'utilisateur en dehors de ce projet — le design réserve l'espace (header, footer, favicon, OG image)
 
@@ -58,20 +58,23 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 
 ## 4. Fonctionnalités & architecture technique
 
-**Stack** : Bun · Rsbuild/Rspack · UnoCSS · React 19 · TypeScript strict · Cloudflare Workers · Biome · Resend · Zod · Stripe · motion/GSAP
+**Stack** : Bun · **Next.js 16 (App Router) + OpenNext** · UnoCSS · React 19 · TypeScript strict · Cloudflare Workers · Biome · Resend · Zod · Stripe · motion
 
-**Repo** : public, `Thomas-TP/calyroc`
+*(Pivot depuis Rsbuild + SSR maison : décision explicite de repasser sur Next.js/OpenNext, le pattern déjà éprouvé sur l'ancien tom-web.ch. UnoCSS/Biome/Bun conservés.)*
 
-**SSR sans Next.js** : SSR maison dans le Worker via `react-dom/server` `renderToReadableStream` (API web-standard, tourne nativement sur Cloudflare Workers). Le Worker détermine locale + route, rend le HTML avec meta/hreflang/JSON-LD, le client hydrate avec le bundle Rsbuild.
+**Repo** : public, [`Thomas-TP/calyroc`](https://github.com/Thomas-TP/calyroc)
+
+**i18n** : routing `/{locale}/...` via App Router (`src/app/[locale]/`), dictionnaire par langue dans `src/i18n/dictionaries/`, détection de langue à la racine via `src/proxy.ts` (nouvelle convention Next 16, remplace `middleware.ts`).
+
+**Contenu légal** : rédigé uniquement en français (version faisant foi), affiché tel quel sur toutes les locales avec une notice traduite expliquant que c'est la version de référence — évite de publier des traductions IA non relues sur des pages à risque de conformité.
 
 **Autres briques** :
-- i18n : dictionnaire par langue, détection via `Accept-Language` + `request.cf.country` pour la devise
-- Devise : CHF par défaut (CH), EUR zone euro, extensible GBP/USD
-- Paiement : Stripe Checkout (acompte 30-50%), idempotence côté Worker
-- Chatbot : Workers AI, contexte = contenu réel du site, garde-fou anti-promesse ferme de prix/délai
-- Formulaire : Resend + Zod + Turnstile
-- Admin : route protégée, stockage leads en D1 ou KV
-- Analytics : Cloudflare Web Analytics (cookieless)
+- Devise : CHF par défaut (CH), EUR zone euro, extensible GBP/USD (pas encore implémenté)
+- Paiement : Stripe Checkout (acompte 30-50%) — pas encore implémenté, page Tarifs pointe vers le formulaire de contact pour l'instant
+- Chatbot : Workers AI — pas encore implémenté
+- Formulaire de contact : **fait** — Resend + Zod, `src/app/actions.ts` (nécessite `RESEND_API_KEY` en variable d'environnement, voir `.env.example`)
+- Admin : route protégée, stockage leads en D1 ou KV — pas encore implémenté
+- Analytics : Cloudflare Web Analytics (cookieless) — pas encore implémenté
 
 ---
 
@@ -106,13 +109,13 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 
 ## 7. Roadmap de livraison
 
-1. Fondations (scaffold, design system, SSR/i18n)
-2. Pages publiques (Accueil, Services, Tarifs, Contact, légal)
-3. Réalisations (case studies)
-4. Paiement (Stripe, Resend, Turnstile)
+1. ~~Fondations (scaffold, design system, i18n)~~ ✅
+2. ~~Pages publiques (Accueil, Services, Tarifs, Contact, légal)~~ ✅
+3. ~~Réalisations (case studies)~~ ✅
+4. Paiement (Stripe) + Turnstile anti-spam — formulaire Resend déjà fait
 5. Chatbot Ask Calyroc (Workers AI)
 6. Espace admin
-7. QA multilingue, SEO technique, perf, mise en prod
+7. QA multilingue, SEO technique (sitemap, hreflang, JSON-LD), perf, mise en prod sur calyroc.com
 
 ---
 

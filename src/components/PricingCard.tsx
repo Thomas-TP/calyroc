@@ -1,0 +1,24 @@
+import type { PricingPack } from "@/i18n/dictionary";
+
+export function PricingCard({ pack }: { pack: PricingPack }) {
+  return (
+    <div
+      className={`flex flex-col rounded-2xl border p-8 ${
+        pack.highlighted ? "border-bronze/50 bg-onyx-soft" : "border-paper/10 bg-onyx-soft/50"
+      }`}
+    >
+      <h3 className="font-display text-xl font-bold text-paper">{pack.name}</h3>
+      <p className="mt-4 font-display text-3xl font-bold text-paper">{pack.price}</p>
+      <p className="text-xs text-stone">{pack.priceNote}</p>
+      <p className="mt-4 leading-relaxed text-stone">{pack.description}</p>
+      <ul className="mt-6 flex-1 space-y-2">
+        {pack.features.map((f) => (
+          <li key={f} className="flex items-start gap-2 text-sm text-paper/85">
+            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-bronze" />
+            {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

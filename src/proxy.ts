@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { pickLocaleFromAcceptLanguage } from "@/i18n/locales";
 
 export function proxy(request: NextRequest) {

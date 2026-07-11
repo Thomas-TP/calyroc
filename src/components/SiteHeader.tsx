@@ -1,7 +1,7 @@
 "use client";
 
 import type { Dictionary } from "@/i18n/dictionary";
-import { locales, type Locale } from "@/i18n/locales";
+import { type Locale, locales } from "@/i18n/locales";
 
 export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   return (
