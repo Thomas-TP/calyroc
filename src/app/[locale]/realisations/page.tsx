@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { PageHeader } from "@/components/PageHeader";
+import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { buildAlternates } from "@/i18n/seo";
@@ -34,7 +35,9 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
 
       <div className="mt-16 flex flex-col gap-10">
         {workPage.caseStudies.map((study) => (
-          <CaseStudyCard key={study.title} study={study} labels={workPage} />
+          <Reveal key={study.title}>
+            <CaseStudyCard study={study} labels={workPage} />
+          </Reveal>
         ))}
       </div>
 

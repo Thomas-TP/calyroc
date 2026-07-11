@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { PricingCard } from "@/components/PricingCard";
+import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { buildAlternates } from "@/i18n/seo";
@@ -54,8 +55,10 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       />
 
       <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3">
-        {pricingPage.packs.map((pack) => (
-          <PricingCard key={pack.name} pack={pack} />
+        {pricingPage.packs.map((pack, index) => (
+          <Reveal key={pack.name} delay={index * 0.08}>
+            <PricingCard pack={pack} />
+          </Reveal>
         ))}
       </div>
 

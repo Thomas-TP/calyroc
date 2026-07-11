@@ -17,8 +17,8 @@ export default defineConfig({
       },
     },
     font: {
-      display: "'Space Grotesk', 'General Sans', sans-serif",
-      body: "'Inter', sans-serif",
+      display: "'Space Grotesk Variable', 'Space Grotesk', 'General Sans', sans-serif",
+      body: "'Inter Variable', 'Inter', sans-serif",
     },
   },
   shortcuts: {

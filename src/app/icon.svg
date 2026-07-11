@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Calyroc</title>
+  <rect width="32" height="32" rx="8" fill="#0B0B0C" />
+  <path
+    d="M21.5 11.2c-1.2-1.6-3-2.4-5-2.4-4 0-7.2 3.3-7.2 7.2s3.2 7.2 7.2 7.2c2.1 0 3.9-.9 5.1-2.5"
+    fill="none"
+    stroke="#C9A567"
+    stroke-width="2.6"
+    stroke-linecap="round"
+  />
+</svg>
