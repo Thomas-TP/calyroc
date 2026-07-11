@@ -49,10 +49,12 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 8. **CGV** (`/cgv`)
 
 **Zone privée**
-9. **`/admin`** — dashboard protégé, gestion des leads/devis
+9. **`/admin`** — ✅ dashboard protégé (mot de passe), gestion des leads/devis (D1), export CSV
 
 **Composant transverse**
-- **Chatbot "Ask Calyroc"** — widget flottant, Workers AI
+- **Chatbot "Ask Calyroc"** — ✅ widget flottant, Workers AI (code fait, non testé en live — voir §4)
+
+**SEO technique** — ✅ sitemap.xml + hreflang, robots.txt, JSON-LD (ProfessionalService + FAQPage), metadata par page (title/description/canonical). Pas d'image OG dynamique (voir §4, incompatibilité Windows/OpenNext).
 
 ---
 
@@ -71,9 +73,10 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 **Autres briques** :
 - Devise : CHF par défaut (CH), EUR zone euro, extensible GBP/USD (pas encore implémenté)
 - Paiement : Stripe Checkout (acompte 30-50%) — pas encore implémenté, page Tarifs pointe vers le formulaire de contact pour l'instant
-- Chatbot : Workers AI — pas encore implémenté
-- Formulaire de contact : **fait** — Resend + Zod, `src/app/actions.ts` (nécessite `RESEND_API_KEY` en variable d'environnement, voir `.env.example`)
-- Admin : route protégée, stockage leads en D1 ou KV — pas encore implémenté
+- Chatbot : **fait** — Workers AI (`@cf/meta/llama-3.1-8b-instruct-fast`), `src/app/api/chat/route.ts` + `src/components/AskCalyroc.tsx`, contexte injecté depuis le dictionnaire réel (services/tarifs/FAQ), garde-fous anti-promesse ferme. Build/typecheck OK, **non testé en conditions réelles** : le tunnel `wrangler preview`/`dev` pour les bindings distants reste bloqué dans le sandbox de dev (hangs indéfiniment sur "Establishing remote connection"), à tester par l'utilisateur via `bun run preview:cloudflare` sur sa propre machine
+- Formulaire de contact : **fait** — stocke chaque lead dans D1 (table `leads`) puis tente l'envoi Resend en best-effort (le lead reste capturé même si l'email échoue), `src/app/actions.ts`
+- Admin : **fait** — `/admin` protégé par mot de passe (cookie signé HMAC, `src/lib/adminAuth.ts`), liste des leads D1 avec statut/notes éditables, export CSV (`/admin/export`). Variables requises : `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET` (voir `.env.example`)
+- Anti-spam (Turnstile) : **bloqué** — nécessite un token API Cloudflare séparé avec le scope `Account.Turnstile:Edit` (le token wrangler actuel ne l'a pas) ; l'utilisateur doit en créer un depuis dash.cloudflare.com/profile/api-tokens avant de relancer le skill `turnstile-spin`
 
 **Email du domaine (calyroc.com)** :
 - **Réception** : Cloudflare Email Routing activé (gratuit). Adresses actives, toutes redirigées vers `t+calyroc@prudhomme.li` :
@@ -119,10 +122,14 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 1. ~~Fondations (scaffold, design system, i18n)~~ ✅
 2. ~~Pages publiques (Accueil, Services, Tarifs, Contact, légal)~~ ✅
 3. ~~Réalisations (case studies)~~ ✅
-4. Paiement (Stripe) + Turnstile anti-spam — formulaire Resend déjà fait
-5. Chatbot Ask Calyroc (Workers AI)
-6. Espace admin
-7. QA multilingue, SEO technique (sitemap, hreflang, JSON-LD), perf, mise en prod sur calyroc.com
+4. ~~SEO technique (sitemap, hreflang, JSON-LD)~~ ✅
+5. ~~Chatbot Ask Calyroc (Workers AI)~~ ✅ (code fait, test live en attente)
+6. ~~Espace admin~~ ✅ (D1 + auth par mot de passe + export CSV)
+7. Turnstile anti-spam — **bloqué**, attend un token API avec scope `Turnstile:Edit`
+8. Paiement Stripe (acompte checkout) — pas commencé
+9. QA multilingue, perf, mise en prod sur calyroc.com (bascule domaine, désactivation de l'ancien déploiement Next.js)
+
+**Note environnement** : ce sandbox de dev ne peut pas établir le tunnel de bindings distants de `wrangler` (`AI` notamment) — build/typecheck/Biome sont systématiquement vérifiés après chaque changement, mais les fonctionnalités qui dépendent d'un binding distant (chatbot) n'ont pas pu être testées en conditions réelles ici.
 
 ---
 
