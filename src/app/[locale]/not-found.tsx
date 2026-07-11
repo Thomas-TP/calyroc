@@ -1,8 +1,13 @@
-export const metadata = {
-  title: "404 — Page introuvable",
-};
+"use client";
+
+import { usePathname } from "next/navigation";
+import { isLocale } from "@/i18n/locales";
 
 export default function NotFound() {
+  const pathname = usePathname();
+  const segment = pathname?.split("/")[1];
+  const locale = segment && isLocale(segment) ? segment : "fr";
+
   return (
     <section className="flex min-h-[70vh] flex-col items-center justify-center px-6 pt-24 text-center">
       <p className="font-display text-xs font-medium uppercase tracking-[0.25em] text-bronze">
@@ -14,7 +19,7 @@ export default function NotFound() {
       <p className="mt-4 max-w-md text-stone">
         Cette page n'existe pas. / This page doesn't exist.
       </p>
-      <a href="/fr/" className="btn-primary mt-8">
+      <a href={`/${locale}/`} className="btn-primary mt-8">
         Retour à l'accueil / Back home
       </a>
     </section>
