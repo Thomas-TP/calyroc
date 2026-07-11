@@ -310,6 +310,8 @@ export const en: Dictionary = {
     title: "A developer, not an agency.",
     subtitle:
       "Calyroc is me — Thomas. No project manager, no subcontracting, no agency overhead baked into your quote.",
+    founderRole: "Solo developer · CFC IT Apprentice",
+    founderSkills: ["React", "TypeScript", "Cloudflare Workers"],
     portfolioLabel: "My portfolio",
     linkedinLabel: "LinkedIn",
     storyTitle: "My background",

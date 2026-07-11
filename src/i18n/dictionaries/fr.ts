@@ -318,6 +318,8 @@ export const fr: Dictionary = {
     title: "Un développeur, pas une agence.",
     subtitle:
       "Calyroc, c'est moi — Thomas. Pas de chef de projet, pas de sous-traitance, pas de frais de structure à répercuter sur ton devis.",
+    founderRole: "Développeur solo · Apprenti CFC Informatique",
+    founderSkills: ["React", "TypeScript", "Cloudflare Workers"],
     portfolioLabel: "Mon portfolio",
     linkedinLabel: "LinkedIn",
     storyTitle: "Mon parcours",

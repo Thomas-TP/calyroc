@@ -30,10 +30,13 @@ export function HomeWorkTeaser({
                 rel="noreferrer"
                 className="group block h-full rounded-2xl border border-paper/10 bg-onyx p-8 transition-colors duration-300 hover:border-bronze/25"
               >
-                <span className="font-display text-xs font-medium uppercase tracking-[0.2em] text-bronze">
+                <span className="rounded-full border border-paper/15 px-2.5 py-0.5 text-xs uppercase tracking-wide text-stone">
                   {study.category}
                 </span>
-                <h3 className="mt-3 font-display text-2xl font-bold text-paper">{study.title}</h3>
+                <p className="mt-3 font-display text-xs font-medium uppercase tracking-[0.15em] text-bronze">
+                  {study.results[0]}
+                </p>
+                <h3 className="mt-2 font-display text-2xl font-bold text-paper">{study.title}</h3>
                 <p className="mt-2 text-stone">{study.tagline}</p>
                 <span
                   aria-hidden

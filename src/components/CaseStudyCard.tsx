@@ -10,10 +10,13 @@ export function CaseStudyCard({
   return (
     <article className="overflow-hidden rounded-2xl border border-paper/10 bg-onyx-soft transition-colors duration-300 hover:border-bronze/25">
       <div className="border-b border-paper/8 bg-gradient-to-br from-bronze/10 via-transparent to-transparent p-8 md:p-10">
-        <span className="font-display text-xs font-medium uppercase tracking-[0.2em] text-bronze">
+        <span className="rounded-full border border-paper/15 px-3 py-1 text-xs uppercase tracking-wide text-stone">
           {study.category}
         </span>
-        <h2 className="mt-3 font-display text-2xl font-bold text-paper md:text-3xl">
+        <p className="mt-4 font-display text-sm font-medium uppercase tracking-[0.15em] text-bronze">
+          {study.results[0]}
+        </p>
+        <h2 className="mt-2 font-display text-2xl font-bold text-paper md:text-3xl">
           {study.title}
         </h2>
         <p className="mt-2 text-stone">{study.tagline}</p>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { FounderCard } from "@/components/FounderCard";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { getDictionary } from "@/i18n/dictionary";
@@ -33,23 +34,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <PageHeader eyebrow={aboutPage.eyebrow} title={aboutPage.title} subtitle={aboutPage.subtitle} />
 
       <Reveal delay={0.08}>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="https://thomastp.ch"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-secondary !px-5 !py-2.5 text-sm"
-          >
-            {aboutPage.portfolioLabel} ↗
-          </a>
-          <a
-            href="https://www.linkedin.com/in/thomas-tp"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-secondary !px-5 !py-2.5 text-sm"
-          >
-            {aboutPage.linkedinLabel} ↗
-          </a>
+        <div className="mt-8">
+          <FounderCard aboutPage={aboutPage} />
         </div>
       </Reveal>
 

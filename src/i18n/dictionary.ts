@@ -145,6 +145,8 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     subtitle: string;
+    founderRole: string;
+    founderSkills: string[];
     portfolioLabel: string;
     linkedinLabel: string;
     storyTitle: string;
