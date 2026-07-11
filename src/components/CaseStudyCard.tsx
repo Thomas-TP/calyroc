@@ -8,7 +8,7 @@ export function CaseStudyCard({
   labels: Dictionary["workPage"];
 }) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-paper/10 bg-onyx-soft">
+    <article className="overflow-hidden rounded-2xl border border-paper/10 bg-onyx-soft transition-colors duration-300 hover:border-bronze/25">
       <div className="border-b border-paper/8 bg-gradient-to-br from-bronze/10 via-transparent to-transparent p-8 md:p-10">
         <span className="font-display text-xs font-medium uppercase tracking-[0.2em] text-bronze">
           {study.category}

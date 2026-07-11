@@ -23,8 +23,8 @@ export default defineConfig({
   },
   shortcuts: {
     "btn-primary":
-      "inline-flex items-center justify-center rounded-full bg-bronze px-7 py-3.5 font-display text-sm font-medium text-onyx transition-colors duration-200 hover:bg-bronze-soft",
+      "inline-flex items-center justify-center rounded-full bg-bronze px-7 py-3.5 font-display text-sm font-medium text-onyx transition-colors duration-200 hover:bg-bronze-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bronze",
     "btn-secondary":
-      "inline-flex items-center justify-center rounded-full border border-paper/15 px-7 py-3.5 font-display text-sm font-medium text-paper transition-colors duration-200 hover:border-paper/35 hover:bg-paper/5",
+      "inline-flex items-center justify-center rounded-full border border-paper/15 px-7 py-3.5 font-display text-sm font-medium text-paper transition-colors duration-200 hover:border-paper/35 hover:bg-paper/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bronze",
   },
 });

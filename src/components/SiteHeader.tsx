@@ -1,12 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Dictionary } from "@/i18n/dictionary";
 import { type Locale, locales } from "@/i18n/locales";
 
 export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -33,16 +35,18 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
             Calyroc
           </a>
 
-          <nav className="hidden items-center gap-8 font-display text-sm text-stone md:flex">
-            <a href={`/${locale}/services`} className="transition-colors hover:text-paper">
-              {dictionary.nav.services}
-            </a>
-            <a href={`/${locale}/realisations`} className="transition-colors hover:text-paper">
-              {dictionary.nav.work}
-            </a>
-            <a href={`/${locale}/tarifs`} className="transition-colors hover:text-paper">
-              {dictionary.nav.pricing}
-            </a>
+          <nav className="hidden items-center gap-8 font-display text-sm md:flex">
+            {navLinks.slice(0, 3).map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`transition-colors hover:text-paper ${
+                  pathname === item.href ? "text-paper" : "text-stone"
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
 
           <div className="hidden items-center gap-4 md:flex">

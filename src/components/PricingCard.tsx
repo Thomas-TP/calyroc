@@ -3,10 +3,18 @@ import type { PricingPack } from "@/i18n/dictionary";
 export function PricingCard({ pack }: { pack: PricingPack }) {
   return (
     <div
-      className={`flex flex-col rounded-2xl border p-8 ${
-        pack.highlighted ? "border-bronze/50 bg-onyx-soft" : "border-paper/10 bg-onyx-soft/50"
+      className={`relative flex flex-col rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
+        pack.highlighted
+          ? "border-bronze/50 bg-onyx-soft shadow-[0_0_60px_-15px_rgba(201,165,103,0.35)] hover:border-bronze/70 md:scale-105"
+          : "border-paper/10 bg-onyx-soft/50 hover:border-bronze/30"
       }`}
     >
+      {pack.highlighted && (
+        <span
+          aria-hidden
+          className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-bronze to-transparent"
+        />
+      )}
       <h3 className="font-display text-xl font-bold text-paper">{pack.name}</h3>
       <p className="mt-4 font-display text-3xl font-bold text-paper">{pack.price}</p>
       <p className="text-xs text-stone">{pack.priceNote}</p>
