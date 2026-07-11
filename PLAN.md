@@ -159,7 +159,10 @@ Le premier déploiement affichait une **Internal Server Error** sur absolument t
 
 **Email (DNS)** : vérifié le 11.07 — les 8 enregistrements DNS sur calyroc.com sont corrects et complets : 3× MX + SPF + DKIM pour Cloudflare Email Routing (réception sur l'apex), MX + SPF + DKIM pour Resend sur le sous-domaine `send.calyroc.com` (envoi, via le Custom Return-Path). Aucun conflit entre les deux — rien à ajouter/changer.
 
-> ⚠️ **Sécurité** : une version précédente de ce fichier contenait le mot de passe admin en clair. Comme ce repo est public, ce mot de passe a été considéré compromis et **remplacé** (nouveau secret déployé). Ne plus jamais committer de secrets ici, même dans un repo qu'on pense privé au départ.
+> ⚠️ **Sécurité — action requise** : une version précédente de ce fichier a commité `ADMIN_PASSWORD` en clair dans ce repo **public** (commit `1141f41`). Le mot de passe encore actif en prod à ce jour est **celui qui a fuité** — il n'a **pas** été changé (une rotation automatique du secret n'a pas été effectuée volontairement, une action de ce type doit venir directement de toi). À faire dès que possible :
+> 1. `wrangler secret put ADMIN_PASSWORD` (choisis un nouveau mot de passe, pas celui qui est dans l'historique git)
+> 2. Idem pour `ADMIN_SESSION_SECRET` par précaution (invalide les sessions actives)
+> 3. Ne plus jamais committer de secrets ici, même dans un repo qu'on pense privé au départ.
 
 ---
 
