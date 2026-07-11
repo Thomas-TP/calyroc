@@ -284,4 +284,14 @@ export const fr: Dictionary = {
   },
   legalPageNotice:
     "Cette page légale n'existe qu'en français, version juridiquement valable de référence.",
+  chatbot: {
+    label: "Demander à Calyroc",
+    title: "Ask Calyroc",
+    intro:
+      "Salut ! Je peux répondre à tes questions sur les services et les tarifs de Calyroc. Pour un vrai devis, direction le formulaire de contact.",
+    placeholder: "Pose ta question...",
+    send: "Envoyer",
+    errorMessage: "Une erreur est survenue, réessaie ou écris à hello@calyroc.com.",
+    disclaimer: "Réponses générées par IA, sans valeur contractuelle.",
+  },
 };

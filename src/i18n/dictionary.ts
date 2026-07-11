@@ -120,6 +120,15 @@ export interface Dictionary {
     responseTime: string;
   };
   legalPageNotice: string;
+  chatbot: {
+    label: string;
+    title: string;
+    intro: string;
+    placeholder: string;
+    send: string;
+    errorMessage: string;
+    disclaimer: string;
+  };
 }
 
 const dictionaries: Record<Locale, Dictionary> = { fr, en, es, it, de, pt };

@@ -279,4 +279,14 @@ export const en: Dictionary = {
   },
   legalPageNotice:
     "This legal page only exists in French, the legally authoritative reference version.",
+  chatbot: {
+    label: "Ask Calyroc",
+    title: "Ask Calyroc",
+    intro:
+      "Hi! I can answer questions about Calyroc's services and pricing. For a real quote, head to the contact form.",
+    placeholder: "Ask a question...",
+    send: "Send",
+    errorMessage: "Something went wrong, try again or email hello@calyroc.com.",
+    disclaimer: "AI-generated answers, not contractually binding.",
+  },
 };

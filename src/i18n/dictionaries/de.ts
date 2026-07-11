@@ -287,4 +287,14 @@ export const de: Dictionary = {
   },
   legalPageNotice:
     "Diese rechtliche Seite existiert nur auf Französisch, der rechtsgültigen Referenzversion.",
+  chatbot: {
+    label: "Frag Calyroc",
+    title: "Ask Calyroc",
+    intro:
+      "Hallo! Ich beantworte Fragen zu den Leistungen und Preisen von Calyroc. Für ein echtes Angebot geht's zum Kontaktformular.",
+    placeholder: "Stell deine Frage...",
+    send: "Senden",
+    errorMessage: "Etwas ist schiefgelaufen, versuch's nochmal oder schreib an hello@calyroc.com.",
+    disclaimer: "KI-generierte Antworten, ohne vertragliche Verbindlichkeit.",
+  },
 };

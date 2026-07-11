@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import { AskCalyroc } from "@/components/AskCalyroc";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -50,6 +51,7 @@ export default async function LocaleLayout({
         <SiteHeader locale={locale as Locale} dictionary={dictionary} />
         {children}
         <SiteFooter locale={locale as Locale} dictionary={dictionary} />
+        <AskCalyroc locale={locale as Locale} dictionary={dictionary} />
       </body>
     </html>
   );
