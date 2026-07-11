@@ -1,6 +1,12 @@
 import type { PricingPack } from "@/i18n/dictionary";
 
-export function PricingCard({ pack }: { pack: PricingPack }) {
+export function PricingCard({
+  pack,
+  timelineLabel,
+}: {
+  pack: PricingPack;
+  timelineLabel: string;
+}) {
   return (
     <div
       className={`relative flex flex-col rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
@@ -27,6 +33,9 @@ export function PricingCard({ pack }: { pack: PricingPack }) {
           </li>
         ))}
       </ul>
+      <p className="mt-6 border-t border-paper/8 pt-4 text-xs text-stone">
+        <span className="text-paper/60">{timelineLabel}:</span> {pack.timeline}
+      </p>
     </div>
   );
 }

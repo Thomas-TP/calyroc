@@ -22,6 +22,7 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
     { href: `/${locale}/services`, label: dictionary.nav.services },
     { href: `/${locale}/realisations`, label: dictionary.nav.work },
     { href: `/${locale}/tarifs`, label: dictionary.nav.pricing },
+    { href: `/${locale}/a-propos`, label: dictionary.nav.about },
     { href: `/${locale}/contact`, label: dictionary.nav.contact },
   ];
 
@@ -37,7 +38,7 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
           </a>
 
           <nav className="hidden items-center gap-8 font-display text-sm md:flex">
-            {navLinks.slice(0, 3).map((item) => (
+            {navLinks.slice(0, 4).map((item) => (
               <a
                 key={item.href}
                 href={item.href}

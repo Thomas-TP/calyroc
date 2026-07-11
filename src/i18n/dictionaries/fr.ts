@@ -10,6 +10,7 @@ export const fr: Dictionary = {
     services: "Services",
     work: "Réalisations",
     pricing: "Tarifs",
+    about: "À propos",
     contact: "Contact",
   },
   home: {
@@ -19,6 +20,32 @@ export const fr: Dictionary = {
       "Calyroc conçoit et développe des sites vitrines et e-commerce modernes pour indépendants, PME et startups — stack de pointe, contact direct, prix clairs.",
     ctaPrimary: "Demander un devis",
     ctaSecondary: "Voir les réalisations",
+    trustLine:
+      "Tu parles à Thomas, pas à un chef de projet — de la première réponse à la mise en ligne.",
+    processEyebrow: "Comment ça se passe",
+    processTitle: "Quatre étapes, aucune zone grise.",
+    processSteps: [
+      {
+        title: "Tu décris ton projet",
+        description:
+          "Par le formulaire de contact ou directement avec Ask Calyroc — deux minutes suffisent pour poser les bases.",
+      },
+      {
+        title: "Devis clair sous 48h",
+        description:
+          "Un prix fixe et un délai réaliste, pas une fourchette qui explose en cours de route.",
+      },
+      {
+        title: "Développement avec points d'étape",
+        description:
+          "Tu vois le site avancer, tu donnes ton avis avant la livraison finale, pas après.",
+      },
+      {
+        title: "Livraison + 2 révisions incluses",
+        description:
+          "Le site est à toi, avec deux tours de retouches inclus dans le prix annoncé.",
+      },
+    ],
     servicesEyebrow: "Ce que je fais",
     servicesTitle: "Trois façons de démarrer, une approche sur-mesure.",
     servicesCta: "Voir tous les services",
@@ -189,6 +216,8 @@ export const fr: Dictionary = {
     title: "Des prix clairs, sans case cachée.",
     subtitle:
       "Trois formules de base pour démarrer vite, et un devis sur-mesure pour tout ce qui sort du cadre.",
+    guaranteeLabel: "Prix annoncé, prix payé — aucun coût caché.",
+    deliveryLabel: "Délai",
     packs: [
       {
         name: "Essentiel",
@@ -202,6 +231,7 @@ export const fr: Dictionary = {
           "Formulaire de contact",
           "2 langues (FR/EN)",
         ],
+        timeline: "1 à 2 semaines",
         highlighted: false,
       },
       {
@@ -216,6 +246,7 @@ export const fr: Dictionary = {
           "SEO technique inclus",
           "Blog en option",
         ],
+        timeline: "2 à 4 semaines",
         highlighted: true,
       },
       {
@@ -230,6 +261,7 @@ export const fr: Dictionary = {
           "Intégrations complexes",
           "Jusqu'à 6 langues",
         ],
+        timeline: "Dès 4 semaines",
         highlighted: false,
       },
     ],
@@ -267,6 +299,44 @@ export const fr: Dictionary = {
       },
     ],
     ctaLabel: "Demander un devis",
+  },
+  aboutPage: {
+    eyebrow: "À propos",
+    title: "Un développeur, pas une agence.",
+    subtitle:
+      "Calyroc, c'est moi — Thomas. Pas de chef de projet, pas de sous-traitance, pas de frais de structure à répercuter sur ton devis.",
+    storyTitle: "Mon parcours",
+    storyParagraphs: [
+      "Je m'appelle Thomas Prud'homme. Je suis en formation d'apprenti CFC Informaticien en exploitation et infrastructure, basé à Gland, dans le canton de Vaud.",
+      "Calyroc est né d'un constat simple : la plupart des indépendants et petites entreprises n'ont pas besoin d'une agence de dix personnes pour avoir un site rapide et bien construit. Ils ont besoin de quelqu'un de compétent qui répond vite et qui tient ses délais.",
+      "Je construis avec un workflow assisté par l'IA — ça accélère l'écriture du code, pas la réflexion sur ce que ton site doit faire. Résultat : des délais plus courts et des prix plus bas qu'une agence classique, sans sacrifier la qualité.",
+      "La meilleure preuve : Swiss3Design, une plateforme e-commerce d'impression 3D avec paiements Stripe en production. Pas une maquette — un vrai site, avec de vrais clients.",
+    ],
+    whyTitle: "Pourquoi ça change quelque chose pour toi",
+    whyPoints: [
+      {
+        title: "Contact direct",
+        description:
+          "Tu m'écris, je te réponds. Pas de ticket, pas de rotation d'équipe en cours de projet.",
+      },
+      {
+        title: "Prix maîtrisés",
+        description: "Pas de frais de structure d'agence à répercuter sur ton devis.",
+      },
+      {
+        title: "Stack moderne",
+        description:
+          "Cloudflare Workers, React, TypeScript — la stack que j'utilise aussi pour mes propres projets en production.",
+      },
+      {
+        title: "Honnêteté",
+        description:
+          "Je suis en formation, je le dis clairement. C'est un gage d'agilité et de prix justes, pas une excuse.",
+      },
+    ],
+    ctaTitle: "On en discute ?",
+    ctaSubtitle: "Décris-moi ton projet, je te réponds sous 48h.",
+    ctaLabel: "Démarrer la conversation",
   },
   contactPage: {
     eyebrow: "Contact",

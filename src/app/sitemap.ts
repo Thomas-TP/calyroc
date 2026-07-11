@@ -7,6 +7,7 @@ const routes = [
   "services",
   "realisations",
   "tarifs",
+  "a-propos",
   "contact",
   "mentions-legales",
   "confidentialite",

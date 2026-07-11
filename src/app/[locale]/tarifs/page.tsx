@@ -55,10 +55,17 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
         subtitle={pricingPage.subtitle}
       />
 
-      <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3">
+      <Reveal>
+        <p className="mx-auto mt-10 flex w-fit items-center gap-2 rounded-full border border-bronze/30 bg-bronze/10 px-4 py-2 text-sm text-bronze">
+          <span aria-hidden>✓</span>
+          {pricingPage.guaranteeLabel}
+        </p>
+      </Reveal>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
         {pricingPage.packs.map((pack, index) => (
           <Reveal key={pack.name} delay={index * 0.08}>
-            <PricingCard pack={pack} />
+            <PricingCard pack={pack} timelineLabel={pricingPage.deliveryLabel} />
           </Reveal>
         ))}
       </div>

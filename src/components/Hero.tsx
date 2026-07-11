@@ -53,6 +53,10 @@ export function Hero({ dictionary, locale }: { dictionary: Dictionary; locale: L
             {dictionary.home.ctaSecondary}
           </a>
         </motion.div>
+
+        <motion.p {...fadeUp(0.46)} className="mt-6 text-sm text-stone">
+          {dictionary.home.trustLine}
+        </motion.p>
       </div>
 
       <motion.div

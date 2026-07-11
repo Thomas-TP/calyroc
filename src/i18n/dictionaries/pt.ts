@@ -12,6 +12,7 @@ export const pt: Dictionary = {
     services: "Serviços",
     work: "Projetos",
     pricing: "Preços",
+    about: "Sobre mim",
     contact: "Contacto",
   },
   home: {
@@ -21,6 +22,28 @@ export const pt: Dictionary = {
       "A Calyroc projeta e desenvolve sites institucionais e de e-commerce modernos para autónomos, PMEs e startups — stack de ponta, contacto direto, preços claros.",
     ctaPrimary: "Pedir orçamento",
     ctaSecondary: "Ver projetos",
+    trustLine: "Falas com o Thomas, não com um gestor de projeto — desde a primeira resposta até à publicação.",
+    processEyebrow: "Como funciona",
+    processTitle: "Quatro passos, sem zonas cinzentas.",
+    processSteps: [
+      {
+        title: "Descreves o teu projeto",
+        description:
+          "Através do formulário de contacto ou diretamente com o Ask Calyroc — dois minutos chegam para lançar as bases.",
+      },
+      {
+        title: "Orçamento claro em 48h",
+        description: "Um preço fixo e um prazo realista, não um intervalo que dispara mais tarde.",
+      },
+      {
+        title: "Desenvolvimento com pontos de situação",
+        description: "Vês o site a avançar e dás a tua opinião antes da entrega final, não depois.",
+      },
+      {
+        title: "Entrega + 2 revisões incluídas",
+        description: "O site é teu, com duas rondas de ajustes incluídas no preço acordado.",
+      },
+    ],
     servicesEyebrow: "O que eu faço",
     servicesTitle: "Três formas de começar, uma abordagem sob medida.",
     servicesCta: "Ver todos os serviços",
@@ -190,6 +213,8 @@ export const pt: Dictionary = {
     title: "Preços claros, sem letras miúdas.",
     subtitle:
       "Três planos base para começar depressa, e um orçamento sob medida para tudo o resto.",
+    guaranteeLabel: "O preço acordado é o preço que pagas — sem custos escondidos.",
+    deliveryLabel: "Prazo",
     packs: [
       {
         name: "Essencial",
@@ -203,6 +228,7 @@ export const pt: Dictionary = {
           "Formulário de contacto",
           "2 idiomas (FR/EN)",
         ],
+        timeline: "1 a 2 semanas",
         highlighted: false,
       },
       {
@@ -217,6 +243,7 @@ export const pt: Dictionary = {
           "SEO técnico incluído",
           "Blog opcional",
         ],
+        timeline: "2 a 4 semanas",
         highlighted: true,
       },
       {
@@ -231,6 +258,7 @@ export const pt: Dictionary = {
           "Integrações complexas",
           "Até 6 idiomas",
         ],
+        timeline: "Desde 4 semanas",
         highlighted: false,
       },
     ],
@@ -268,6 +296,43 @@ export const pt: Dictionary = {
       },
     ],
     ctaLabel: "Pedir orçamento",
+  },
+  aboutPage: {
+    eyebrow: "Sobre mim",
+    title: "Um developer, não uma agência.",
+    subtitle:
+      "A Calyroc sou eu — Thomas. Sem gestor de projeto, sem subcontratação, sem custos de estrutura repercutidos no teu orçamento.",
+    storyTitle: "O meu percurso",
+    storyParagraphs: [
+      "Chamo-me Thomas Prud'homme. Estou em formação como aprendiz CFC em informática de exploração e infraestrutura, sediado em Gland, no cantão de Vaud.",
+      "A Calyroc nasceu de uma constatação simples: a maioria dos autónomos e pequenas empresas não precisa de uma agência de dez pessoas para ter um site rápido e bem construído. Precisa de alguém competente que responda depressa e cumpra prazos.",
+      "Construo com um fluxo de trabalho assistido por IA — isso acelera a escrita de código, não a reflexão sobre o que o teu site precisa de fazer. Resultado: prazos mais curtos e preços mais baixos do que uma agência tradicional, sem abdicar da qualidade.",
+      "A melhor prova: Swiss3Design, uma plataforma e-commerce de impressão 3D com pagamentos Stripe reais em produção. Não é uma maquete — é um site real, com clientes reais.",
+    ],
+    whyTitle: "Porque é que isto importa para ti",
+    whyPoints: [
+      {
+        title: "Contacto direto",
+        description: "Escreves-me, eu respondo. Sem tickets, sem rotação de equipa a meio do projeto.",
+      },
+      {
+        title: "Preços controlados",
+        description: "Sem custos de estrutura de agência repercutidos no teu orçamento.",
+      },
+      {
+        title: "Stack moderna",
+        description:
+          "Cloudflare Workers, React, TypeScript — a mesma stack que uso para os meus próprios projetos em produção.",
+      },
+      {
+        title: "Honestidade",
+        description:
+          "Estou em formação e digo-o claramente. É garantia de agilidade e preços justos, não uma desculpa.",
+      },
+    ],
+    ctaTitle: "Falamos?",
+    ctaSubtitle: "Descreve-me o teu projeto, respondo em 48h.",
+    ctaLabel: "Iniciar a conversa",
   },
   contactPage: {
     eyebrow: "Contacto",

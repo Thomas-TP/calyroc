@@ -12,6 +12,7 @@ export const de: Dictionary = {
     services: "Leistungen",
     work: "Projekte",
     pricing: "Preise",
+    about: "Über mich",
     contact: "Kontakt",
   },
   home: {
@@ -21,6 +22,28 @@ export const de: Dictionary = {
       "Calyroc entwirft und entwickelt moderne Websites und Online-Shops für Selbstständige, KMU und Startups — modernster Stack, direkter Kontakt, klare Preise.",
     ctaPrimary: "Angebot anfragen",
     ctaSecondary: "Projekte ansehen",
+    trustLine: "Du sprichst mit Thomas, nicht mit einem Projektleiter — von der ersten Antwort bis zum Livegang.",
+    processEyebrow: "So läuft es ab",
+    processTitle: "Vier Schritte, keine Grauzonen.",
+    processSteps: [
+      {
+        title: "Du beschreibst dein Projekt",
+        description:
+          "Über das Kontaktformular oder direkt mit Ask Calyroc — zwei Minuten reichen für den Grundstein.",
+      },
+      {
+        title: "Klares Angebot innert 48h",
+        description: "Ein Fixpreis und ein realistischer Zeitrahmen, keine Spanne, die später explodiert.",
+      },
+      {
+        title: "Entwicklung mit regelmässigen Updates",
+        description: "Du siehst die Website wachsen und gibst Feedback vor der finalen Lieferung, nicht danach.",
+      },
+      {
+        title: "Lieferung + 2 Überarbeitungen inbegriffen",
+        description: "Die Website gehört dir, mit zwei Überarbeitungsrunden im vereinbarten Preis inbegriffen.",
+      },
+    ],
     servicesEyebrow: "Was ich mache",
     servicesTitle: "Drei Wege zum Start, ein massgeschneiderter Ansatz.",
     servicesCta: "Alle Services ansehen",
@@ -192,6 +215,8 @@ export const de: Dictionary = {
     title: "Klare Preise, keine versteckten Posten.",
     subtitle:
       "Drei Basispakete für einen schnellen Start, und ein individuelles Angebot für alles andere.",
+    guaranteeLabel: "Der vereinbarte Preis ist der Preis, den du zahlst — keine versteckten Kosten.",
+    deliveryLabel: "Frist",
     packs: [
       {
         name: "Essential",
@@ -205,6 +230,7 @@ export const de: Dictionary = {
           "Kontaktformular",
           "2 Sprachen (FR/EN)",
         ],
+        timeline: "1-2 Wochen",
         highlighted: false,
       },
       {
@@ -219,6 +245,7 @@ export const de: Dictionary = {
           "Technische SEO inbegriffen",
           "Optionaler Blog",
         ],
+        timeline: "2-4 Wochen",
         highlighted: true,
       },
       {
@@ -233,6 +260,7 @@ export const de: Dictionary = {
           "Komplexe Integrationen",
           "Bis zu 6 Sprachen",
         ],
+        timeline: "Ab 4 Wochen",
         highlighted: false,
       },
     ],
@@ -270,6 +298,43 @@ export const de: Dictionary = {
       },
     ],
     ctaLabel: "Angebot anfragen",
+  },
+  aboutPage: {
+    eyebrow: "Über mich",
+    title: "Ein Entwickler, keine Agentur.",
+    subtitle:
+      "Calyroc bin ich — Thomas. Kein Projektleiter, keine Unterauftragnehmer, keine Agentur-Gemeinkosten in deinem Angebot.",
+    storyTitle: "Mein Werdegang",
+    storyParagraphs: [
+      "Ich heisse Thomas Prud'homme und absolviere eine CFC-Lehre als Informatiker Betrieb und Infrastruktur, mit Sitz in Gland, Kanton Waadt.",
+      "Calyroc entstand aus einer einfachen Beobachtung: Die meisten Selbstständigen und kleinen Unternehmen brauchen keine Zehn-Personen-Agentur für eine schnelle, gut gebaute Website. Sie brauchen eine kompetente Person, die schnell antwortet und Fristen einhält.",
+      "Ich arbeite mit einem KI-gestützten Workflow — das beschleunigt das Schreiben von Code, nicht das Nachdenken darüber, was deine Website leisten muss. Ergebnis: kürzere Fristen und niedrigere Preise als bei einer klassischen Agentur, ohne Abstriche bei der Qualität.",
+      "Der beste Beweis: Swiss3Design, eine E-Commerce-Plattform für 3D-Druck mit echten Stripe-Zahlungen im Live-Betrieb. Kein Mockup — eine echte Website mit echten Kunden.",
+    ],
+    whyTitle: "Warum das für dich etwas ändert",
+    whyPoints: [
+      {
+        title: "Direkter Kontakt",
+        description: "Du schreibst mir, ich antworte. Kein Ticket-System, kein Teamwechsel mitten im Projekt.",
+      },
+      {
+        title: "Kontrollierte Preise",
+        description: "Keine Agentur-Gemeinkosten, die auf dein Angebot abgewälzt werden.",
+      },
+      {
+        title: "Moderner Stack",
+        description:
+          "Cloudflare Workers, React, TypeScript — derselbe Stack, den ich auch für meine eigenen Projekte im Live-Betrieb nutze.",
+      },
+      {
+        title: "Ehrlichkeit",
+        description:
+          "Ich bin noch in Ausbildung und sage das klar. Das ist ein Zeichen für Agilität und faire Preise, keine Ausrede.",
+      },
+    ],
+    ctaTitle: "Reden wir darüber?",
+    ctaSubtitle: "Beschreib mir dein Projekt, ich melde mich innert 48h.",
+    ctaLabel: "Gespräch starten",
   },
   contactPage: {
     eyebrow: "Kontakt",

@@ -10,6 +10,7 @@ export const en: Dictionary = {
     services: "Services",
     work: "Work",
     pricing: "Pricing",
+    about: "About",
     contact: "Contact",
   },
   home: {
@@ -19,6 +20,29 @@ export const en: Dictionary = {
       "Calyroc designs and builds modern showcase and e-commerce websites for freelancers, SMEs and startups — cutting-edge stack, direct contact, clear pricing.",
     ctaPrimary: "Request a quote",
     ctaSecondary: "See the work",
+    trustLine: "You talk to Thomas, not a project manager — from the first reply to launch day.",
+    processEyebrow: "How it works",
+    processTitle: "Four steps, no grey areas.",
+    processSteps: [
+      {
+        title: "You describe your project",
+        description:
+          "Through the contact form or directly with Ask Calyroc — two minutes is enough to lay the groundwork.",
+      },
+      {
+        title: "Clear quote within 48h",
+        description: "A fixed price and a realistic timeline, not a range that balloons later.",
+      },
+      {
+        title: "Development with progress check-ins",
+        description:
+          "You see the site take shape and give feedback before final delivery, not after.",
+      },
+      {
+        title: "Delivery + 2 rounds of revisions included",
+        description: "The site is yours, with two rounds of tweaks included in the quoted price.",
+      },
+    ],
     servicesEyebrow: "What I do",
     servicesTitle: "Three ways to start, one tailored approach.",
     servicesCta: "View all services",
@@ -184,6 +208,8 @@ export const en: Dictionary = {
     eyebrow: "Pricing",
     title: "Clear pricing, no hidden line items.",
     subtitle: "Three base packages to start fast, and a custom quote for anything beyond that.",
+    guaranteeLabel: "The price you're quoted is the price you pay — no hidden costs.",
+    deliveryLabel: "Timeline",
     packs: [
       {
         name: "Essential",
@@ -197,6 +223,7 @@ export const en: Dictionary = {
           "Contact form",
           "2 languages (FR/EN)",
         ],
+        timeline: "1 to 2 weeks",
         highlighted: false,
       },
       {
@@ -211,6 +238,7 @@ export const en: Dictionary = {
           "Technical SEO included",
           "Optional blog",
         ],
+        timeline: "2 to 4 weeks",
         highlighted: true,
       },
       {
@@ -225,6 +253,7 @@ export const en: Dictionary = {
           "Complex integrations",
           "Up to 6 languages",
         ],
+        timeline: "From 4 weeks",
         highlighted: false,
       },
     ],
@@ -262,6 +291,43 @@ export const en: Dictionary = {
       },
     ],
     ctaLabel: "Request a quote",
+  },
+  aboutPage: {
+    eyebrow: "About",
+    title: "A developer, not an agency.",
+    subtitle:
+      "Calyroc is me — Thomas. No project manager, no subcontracting, no agency overhead baked into your quote.",
+    storyTitle: "My background",
+    storyParagraphs: [
+      "I'm Thomas Prud'homme, training as a CFC apprentice in IT infrastructure and operations, based in Gland, in the canton of Vaud.",
+      "Calyroc came from a simple observation: most freelancers and small businesses don't need a ten-person agency to get a fast, well-built website. They need one competent person who replies quickly and keeps their deadlines.",
+      "I build with an AI-augmented workflow — it speeds up writing code, not thinking through what your site needs to do. The result: shorter timelines and lower prices than a traditional agency, without cutting corners on quality.",
+      "The best proof: Swiss3Design, a 3D-printing e-commerce platform with live Stripe payments in production. Not a mockup — a real site, with real customers.",
+    ],
+    whyTitle: "Why that matters for you",
+    whyPoints: [
+      {
+        title: "Direct contact",
+        description: "You email me, I reply. No ticket queue, no team rotation mid-project.",
+      },
+      {
+        title: "Controlled pricing",
+        description: "No agency overhead getting passed on to your quote.",
+      },
+      {
+        title: "Modern stack",
+        description:
+          "Cloudflare Workers, React, TypeScript — the same stack I use for my own projects in production.",
+      },
+      {
+        title: "Honesty",
+        description:
+          "I'm still in training, and I say so upfront. It's a sign of agility and fair pricing, not an excuse.",
+      },
+    ],
+    ctaTitle: "Got a project in mind?",
+    ctaSubtitle: "Describe it to me, I'll reply within 48h.",
+    ctaLabel: "Start the conversation",
   },
   contactPage: {
     eyebrow: "Contact",

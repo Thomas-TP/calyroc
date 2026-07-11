@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
+import { HomeProcess } from "@/components/HomeProcess";
 import { HomeServicesTeaser } from "@/components/HomeServicesTeaser";
 import { HomeWorkTeaser } from "@/components/HomeWorkTeaser";
 import { getDictionary } from "@/i18n/dictionary";
@@ -53,6 +54,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero dictionary={dictionary} locale={locale as Locale} />
+      <HomeProcess dictionary={dictionary} />
       <HomeServicesTeaser dictionary={dictionary} locale={locale as Locale} />
       <HomeWorkTeaser dictionary={dictionary} locale={locale as Locale} />
       <CtaBand dictionary={dictionary} locale={locale as Locale} />

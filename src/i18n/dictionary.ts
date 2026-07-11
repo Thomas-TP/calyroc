@@ -31,12 +31,23 @@ export interface PricingPack {
   priceNote: string;
   description: string;
   features: string[];
+  timeline: string;
   highlighted: boolean;
 }
 
 export interface FaqItem {
   question: string;
   answer: string;
+}
+
+export interface ProcessStep {
+  title: string;
+  description: string;
+}
+
+export interface WhyPoint {
+  title: string;
+  description: string;
 }
 
 export interface Dictionary {
@@ -48,6 +59,7 @@ export interface Dictionary {
     services: string;
     work: string;
     pricing: string;
+    about: string;
     contact: string;
   };
   home: {
@@ -56,6 +68,10 @@ export interface Dictionary {
     heroSubtitle: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    trustLine: string;
+    processEyebrow: string;
+    processTitle: string;
+    processSteps: ProcessStep[];
     servicesEyebrow: string;
     servicesTitle: string;
     servicesCta: string;
@@ -102,6 +118,8 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     subtitle: string;
+    guaranteeLabel: string;
+    deliveryLabel: string;
     packs: PricingPack[];
     maintenanceTitle: string;
     maintenanceText: string;
@@ -109,6 +127,18 @@ export interface Dictionary {
     terms: string[];
     faqTitle: string;
     faq: FaqItem[];
+    ctaLabel: string;
+  };
+  aboutPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    storyTitle: string;
+    storyParagraphs: string[];
+    whyTitle: string;
+    whyPoints: WhyPoint[];
+    ctaTitle: string;
+    ctaSubtitle: string;
     ctaLabel: string;
   };
   contactPage: {
