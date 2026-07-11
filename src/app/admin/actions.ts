@@ -4,7 +4,9 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { SITE_URL } from "@/i18n/seo";
 import { clearSessionCookie, isAuthenticated, setSessionCookie } from "@/lib/adminAuth";
+import { getStripeClient } from "@/lib/stripe";
 
 const LoginSchema = z.object({ password: z.string().min(1) });
 
@@ -51,4 +53,65 @@ export async function updateLead(formData: FormData): Promise<void> {
     .run();
 
   revalidatePath("/admin");
+}
+
+const CreatePaymentLinkSchema = z.object({
+  leadId: z.coerce.number(),
+  amountChf: z.coerce.number().min(1).max(50000),
+  description: z.string().min(1).max(200),
+});
+
+export interface PaymentLinkState {
+  status: "idle" | "success" | "error";
+  url?: string;
+  message?: string;
+}
+
+export async function createPaymentLink(
+  _prevState: PaymentLinkState,
+  formData: FormData,
+): Promise<PaymentLinkState> {
+  if (!(await isAuthenticated())) redirect("/admin/login");
+
+  const parsed = CreatePaymentLinkSchema.safeParse({
+    leadId: formData.get("leadId"),
+    amountChf: formData.get("amountChf"),
+    description: formData.get("description"),
+  });
+  if (!parsed.success) {
+    return { status: "error", message: "invalid" };
+  }
+
+  const stripe = getStripeClient();
+  if (!stripe) {
+    return { status: "error", message: "not-configured" };
+  }
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "chf",
+            product_data: { name: parsed.data.description },
+            unit_amount: Math.round(parsed.data.amountChf * 100),
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: `${SITE_URL}/fr/contact?payment=success`,
+      cancel_url: `${SITE_URL}/fr/contact?payment=cancelled`,
+      metadata: { leadId: String(parsed.data.leadId) },
+    });
+
+    if (!session.url) {
+      return { status: "error", message: "no-url" };
+    }
+    return { status: "success", url: session.url };
+  } catch (error) {
+    console.error("Failed to create Stripe checkout session", error);
+    return { status: "error", message: "stripe-error" };
+  }
 }

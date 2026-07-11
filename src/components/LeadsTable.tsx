@@ -1,4 +1,5 @@
 import { updateLead } from "@/app/admin/actions";
+import { PaymentLinkGenerator } from "@/components/PaymentLinkGenerator";
 import { LEAD_STATUSES, type Lead } from "@/lib/leads";
 
 export function LeadsTable({ leads }: { leads: Lead[] }) {
@@ -54,6 +55,8 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
               Enregistrer
             </button>
           </form>
+
+          <PaymentLinkGenerator leadId={lead.id} />
         </article>
       ))}
     </div>
