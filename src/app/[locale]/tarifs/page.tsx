@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { FaqAccordion } from "@/components/FaqAccordion";
 import { PageHeader } from "@/components/PageHeader";
 import { PricingCard } from "@/components/PricingCard";
 import { Reveal } from "@/components/Reveal";
@@ -83,14 +84,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
 
       <div className="mx-auto mt-16 max-w-3xl">
         <h2 className="font-display text-lg font-bold text-paper">{pricingPage.faqTitle}</h2>
-        <div className="mt-4 flex flex-col divide-y divide-paper/8">
-          {pricingPage.faq.map((item) => (
-            <div key={item.question} className="py-4">
-              <h3 className="font-display text-sm font-medium text-paper">{item.question}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-stone">{item.answer}</p>
-            </div>
-          ))}
-        </div>
+        <FaqAccordion items={pricingPage.faq} />
       </div>
 
       <div className="mt-16 text-center">
