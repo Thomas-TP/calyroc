@@ -1,8 +1,26 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { PageHeader } from "@/components/PageHeader";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { buildAlternates } from "@/i18n/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const dictionary = getDictionary(locale);
+
+  return {
+    title: `${dictionary.nav.work} — Calyroc`,
+    description: dictionary.workPage.subtitle,
+    alternates: buildAlternates(locale, "realisations"),
+  };
+}
 
 export default async function WorkPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

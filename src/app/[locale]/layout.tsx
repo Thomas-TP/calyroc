@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale, locales } from "@/i18n/locales";
+import { SITE_URL } from "@/i18n/seo";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -21,7 +22,11 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
   const dictionary = getDictionary(locale);
   return {
-    title: dictionary.meta.title,
+    metadataBase: new URL(SITE_URL),
+    title: {
+      template: "%s",
+      default: dictionary.meta.title,
+    },
     description: dictionary.meta.description,
   };
 }

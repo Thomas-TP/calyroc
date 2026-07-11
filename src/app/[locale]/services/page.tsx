@@ -1,8 +1,26 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { ServicesGrid } from "@/components/ServicesGrid";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { buildAlternates } from "@/i18n/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const dictionary = getDictionary(locale);
+
+  return {
+    title: `${dictionary.nav.services} — Calyroc`,
+    description: dictionary.servicesPage.subtitle,
+    alternates: buildAlternates(locale, "services"),
+  };
+}
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

@@ -1,8 +1,26 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { PricingCard } from "@/components/PricingCard";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { buildAlternates } from "@/i18n/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const dictionary = getDictionary(locale);
+
+  return {
+    title: `${dictionary.nav.pricing} — Calyroc`,
+    description: dictionary.pricingPage.subtitle,
+    alternates: buildAlternates(locale, "tarifs"),
+  };
+}
 
 export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -10,8 +28,25 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
   const dictionary = getDictionary(locale as Locale);
   const { pricingPage } = dictionary;
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: pricingPage.faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <section className="mx-auto max-w-6xl px-6 pb-24 pt-32 md:px-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <PageHeader
         eyebrow={pricingPage.eyebrow}
         title={pricingPage.title}
