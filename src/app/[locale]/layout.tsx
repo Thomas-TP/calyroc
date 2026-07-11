@@ -14,6 +14,15 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+const ogLocales: Record<Locale, string> = {
+  fr: "fr_CH",
+  en: "en_US",
+  es: "es_ES",
+  it: "it_IT",
+  de: "de_CH",
+  pt: "pt_PT",
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -29,6 +38,21 @@ export async function generateMetadata({
       default: dictionary.meta.title,
     },
     description: dictionary.meta.description,
+    openGraph: {
+      title: dictionary.meta.title,
+      description: dictionary.meta.description,
+      url: `${SITE_URL}/${locale}/`,
+      siteName: "Calyroc",
+      locale: ogLocales[locale],
+      type: "website",
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Calyroc" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dictionary.meta.title,
+      description: dictionary.meta.description,
+      images: ["/og-image.png"],
+    },
   };
 }
 
