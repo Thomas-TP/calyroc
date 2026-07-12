@@ -17,25 +17,32 @@ function runCurtainTransition(href: string, router: ReturnType<typeof useRouter>
     router.push(href);
     return;
   }
-  curtain.style.transformOrigin = "bottom";
-  curtain.style.transition = "transform 300ms cubic-bezier(0.6, 0, 0.2, 1)";
-  curtain.style.transform = "scaleY(1)";
+  const coverMs = 280;
+  const revealMs = 320;
+  // Sweeps left -> center (covers the viewport, page swaps underneath) ->
+  // right (reveals the new page), then snaps back off-screen left with no
+  // transition so it's ready for the next trigger.
+  curtain.style.transition = `transform ${coverMs}ms cubic-bezier(0.6, 0, 0.2, 1)`;
+  curtain.style.transform = "translateX(0%)";
   window.setTimeout(() => {
     router.push(href);
     window.setTimeout(() => {
-      curtain.style.transformOrigin = "top";
-      curtain.style.transition = "transform 320ms cubic-bezier(0.6, 0, 0.2, 1)";
-      curtain.style.transform = "scaleY(0)";
+      curtain.style.transition = `transform ${revealMs}ms cubic-bezier(0.6, 0, 0.2, 1)`;
+      curtain.style.transform = "translateX(100%)";
+      window.setTimeout(() => {
+        curtain.style.transition = "none";
+        curtain.style.transform = "translateX(-100%)";
+      }, revealMs + 20);
     }, 90);
-  }, 300);
+  }, coverMs);
 }
 
 // Drop-in replacement for next-view-transitions' Link that also picks which
 // of the site's transition styles applies to this specific navigation (see
-// pageTransition.ts) -- "slide" and "diagonal" just set a data attribute the
-// CSS keys off of, "curtain" bypasses the native View Transition entirely
-// and runs a manual cover/navigate/reveal sequence instead (see
-// BronzeCurtain.tsx for why).
+// pageTransition.ts) -- "slide" just sets a data attribute the CSS keys off
+// of, "curtain" bypasses the native View Transition entirely and runs a
+// manual cover/navigate/reveal sequence instead (see BronzeCurtain.tsx for
+// why).
 export function TransitionLink({ href, onClick, ...props }: LinkProps) {
   const pathname = usePathname();
   const router = useRouter();
