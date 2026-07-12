@@ -17,40 +17,47 @@ async function renderCursor(svg, targetSize, outPath) {
     .toFile(outPath);
 }
 
-// Default: a clean arrow silhouette close to the Windows pointer's own
-// proportions, modernized (slightly slimmer, rounded joins). No dark
-// outline -- that's what made the last attempt read as chunky/pixelated
-// at cursor size; a single solid bronze fill supersamples much more
-// cleanly. Hotspot at the tip (top-left).
-const arrow = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <path d="M4 2 L4 18.5 L8.2 14.7 L11 21 L13.6 19.8 L10.9 13.6 L16.5 13.6 Z"
-    fill="#C9A567" stroke="#0B0B0C" stroke-width="0.6" stroke-linejoin="round"/>
-</svg>`;
+// Thin-outline cursor set (stroke only, no fill) in two color variants:
+// "dark" for use on the site's dark theme, "light" a deepened shade for
+// legible contrast if a light surface is ever introduced. Style: extra
+// thin stroke, hollow shapes -- not a solid-color glyph.
+const palette = {
+  dark: "#C9A567",
+  light: "#8A6A2E",
+};
 
-// Clickable elements: filled dot, kept simple and precise -- a hand/
-// pointer silhouette is hard to render cleanly at this size without
-// looking muddy, a clean dot reads clearly at a glance instead.
-const dot = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-  <circle cx="9" cy="9" r="6.2" fill="#C9A567"/>
-</svg>`;
+function arrowSvg(color) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path d="M4 2.2 L4 18.3 L8.1 14.6 L10.8 20.8 L13.3 19.7 L10.7 13.6 L16.2 13.6 Z"
+      fill="none" stroke="${color}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>`;
+}
 
-// Text / editable: thin line with short serif caps top and bottom --
-// reads clearly as a text-insertion caret without the earlier bulky
-// I-beam block ends.
-const textCursor = `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20">
-  <path d="M2.5 2 H7.5 M2.5 18 H7.5 M5 2 V18" stroke="#C9A567" stroke-width="1.4" stroke-linecap="round"/>
-</svg>`;
+function ringSvg(color) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="6.8" fill="none" stroke="${color}" stroke-width="1.4"/>
+    <circle cx="10" cy="10" r="1.1" fill="${color}"/>
+  </svg>`;
+}
 
-// Disabled: same bronze family, muted via opacity rather than switching
-// to grey, so it still reads as "this site's cursor", just dimmed.
-const disabled = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-  <circle cx="9" cy="9" r="6.2" fill="none" stroke="#C9A567" stroke-width="1.4" opacity="0.55"/>
-  <line x1="5" y1="13" x2="13" y2="5" stroke="#C9A567" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
-</svg>`;
+function textSvg(color) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20">
+    <path d="M2.5 2 H7.5 M2.5 18 H7.5 M5 2 V18" fill="none" stroke="${color}" stroke-width="1.3" stroke-linecap="round"/>
+  </svg>`;
+}
 
-await renderCursor(arrow, [24, 24], "./public/cursors/default.png");
-await renderCursor(dot, [18, 18], "./public/cursors/pointer.png");
-await renderCursor(textCursor, [10, 20], "./public/cursors/text.png");
-await renderCursor(disabled, [18, 18], "./public/cursors/disabled.png");
+function disabledSvg(color) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+    <circle cx="9" cy="9" r="6.2" fill="none" stroke="${color}" stroke-width="1.3" opacity="0.6"/>
+    <line x1="5" y1="13" x2="13" y2="5" stroke="${color}" stroke-width="1.3" stroke-linecap="round" opacity="0.6"/>
+  </svg>`;
+}
 
-console.log("Wrote default.png, pointer.png, text.png, disabled.png (8x supersampled)");
+for (const [scheme, color] of Object.entries(palette)) {
+  await renderCursor(arrowSvg(color), [24, 24], `./public/cursors/default-${scheme}.png`);
+  await renderCursor(ringSvg(color), [20, 20], `./public/cursors/pointer-${scheme}.png`);
+  await renderCursor(textSvg(color), [10, 20], `./public/cursors/text-${scheme}.png`);
+  await renderCursor(disabledSvg(color), [18, 18], `./public/cursors/disabled-${scheme}.png`);
+}
+
+console.log("Wrote 8 cursor images (4 states x dark/light) at 8x supersampling");

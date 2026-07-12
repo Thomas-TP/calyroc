@@ -51,10 +51,10 @@ textarea:focus-visible {
    tracking and zero added latency: this is not a DOM element chasing
    the pointer, it's the actual OS cursor image, just re-skinned.
    Scoped to devices with a real mouse; touch devices keep native
-   behavior. Covers every interaction state: text-bearing/editable
-   elements get a thin bronze line, clickable elements get a bronze
-   dot, disabled controls get a muted bronze slash, everything else
-   gets the bronze arrow.
+   behavior. Thin-outline style (hollow shapes, not solid fills), with
+   a dark-mode and a light-mode variant of each image selected via
+   prefers-color-scheme -- ready for a future site theme toggle, and
+   already correct today for anyone whose OS is set to light mode.
 
    IMPORTANT: no component should set its own `cursor-*` utility class
    (e.g. `cursor-pointer`) -- a class selector has higher specificity
@@ -62,7 +62,7 @@ textarea:focus-visible {
    the plain native cursor. Let this stylesheet own cursor everywhere. */
 @media (hover: hover) and (pointer: fine) {
   html {
-    cursor: url("/cursors/default.png") 4 2, auto;
+    cursor: url("/cursors/default-dark.png") 4 2, auto;
   }
 
   p,
@@ -78,7 +78,7 @@ textarea:focus-visible {
   label,
   input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
   textarea {
-    cursor: url("/cursors/text.png") 5 10, text;
+    cursor: url("/cursors/text-dark.png") 5 10, text;
   }
 
   /* A <span> or icon nested inside a link/button would otherwise pick up
@@ -103,7 +103,7 @@ textarea:focus-visible {
   input[type="button"],
   input[type="checkbox"],
   input[type="radio"] {
-    cursor: url("/cursors/pointer.png") 9 9, pointer;
+    cursor: url("/cursors/pointer-dark.png") 10 10, pointer;
   }
 
   button:disabled,
@@ -111,6 +111,48 @@ textarea:focus-visible {
   input:disabled,
   [aria-disabled="true"],
   [aria-disabled="true"] * {
-    cursor: url("/cursors/disabled.png") 9 9, not-allowed;
+    cursor: url("/cursors/disabled-dark.png") 9 9, not-allowed;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-color-scheme: light) {
+  html {
+    cursor: url("/cursors/default-light.png") 4 2, auto;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  li,
+  blockquote,
+  label,
+  input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  textarea {
+    cursor: url("/cursors/text-light.png") 5 10, text;
+  }
+
+  a,
+  button,
+  [role="button"],
+  summary,
+  select,
+  input[type="submit"],
+  input[type="button"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    cursor: url("/cursors/pointer-light.png") 10 10, pointer;
+  }
+
+  button:disabled,
+  button:disabled *,
+  input:disabled,
+  [aria-disabled="true"],
+  [aria-disabled="true"] * {
+    cursor: url("/cursors/disabled-light.png") 9 9, not-allowed;
   }
 }
