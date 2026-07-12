@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Link } from "next-view-transitions";
 import { MagneticButton } from "@/components/MagneticButton";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
 

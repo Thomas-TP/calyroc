@@ -1,4 +1,4 @@
-import { Link } from "next-view-transitions";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
 

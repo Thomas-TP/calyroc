@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Link } from "next-view-transitions";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { isLocale } from "@/i18n/locales";
 
 export default function NotFound() {

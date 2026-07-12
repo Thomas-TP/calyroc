@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Link } from "next-view-transitions";
 import { FounderCard } from "@/components/FounderCard";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { buildAlternates } from "@/i18n/seo";

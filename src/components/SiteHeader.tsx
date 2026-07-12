@@ -2,10 +2,10 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
-import { Link } from "next-view-transitions";
 import { useEffect, useState } from "react";
 import { CustomSelect } from "@/components/CustomSelect";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import type { Dictionary } from "@/i18n/dictionary";
 import { type Locale, locales } from "@/i18n/locales";
 

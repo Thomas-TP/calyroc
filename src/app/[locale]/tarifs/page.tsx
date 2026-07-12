@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Link } from "next-view-transitions";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PackFinder } from "@/components/PackFinder";
 import { PageHeader } from "@/components/PageHeader";
 import { PriceCompareWidget } from "@/components/PriceCompareWidget";
 import { PricingCard } from "@/components/PricingCard";
 import { Reveal } from "@/components/Reveal";
+import { TransitionLink as Link } from "@/components/TransitionLink";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { buildAlternates } from "@/i18n/seo";
