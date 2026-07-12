@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Link } from "next-view-transitions";
 import { isLocale } from "@/i18n/locales";
 
 export default function NotFound() {

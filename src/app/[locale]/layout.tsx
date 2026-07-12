@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
-import { type ReactNode, ViewTransition } from "react";
+import { ViewTransitions } from "next-view-transitions";
+import type { ReactNode } from "react";
 import { AskCalyroc } from "@/components/AskCalyroc";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { MotionProvider } from "@/components/MotionProvider";
@@ -72,19 +73,21 @@ export default async function LocaleLayout({
   const dictionary = getDictionary(locale as Locale);
 
   return (
-    <html lang={locale} className="dark" suppressHydrationWarning>
-      <body className="bg-onyx font-body text-paper antialiased">
-        <Script id="theme-init" strategy="beforeInteractive">
-          {THEME_INIT_SCRIPT}
-        </Script>
-        <MotionProvider>
-          <GrainOverlay />
-          <SiteHeader locale={locale as Locale} dictionary={dictionary} />
-          <ViewTransition>{children}</ViewTransition>
-          <SiteFooter locale={locale as Locale} dictionary={dictionary} />
-          <AskCalyroc locale={locale as Locale} dictionary={dictionary} />
-        </MotionProvider>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang={locale} className="dark" suppressHydrationWarning>
+        <body className="bg-onyx font-body text-paper antialiased">
+          <Script id="theme-init" strategy="beforeInteractive">
+            {THEME_INIT_SCRIPT}
+          </Script>
+          <MotionProvider>
+            <GrainOverlay />
+            <SiteHeader locale={locale as Locale} dictionary={dictionary} />
+            {children}
+            <SiteFooter locale={locale as Locale} dictionary={dictionary} />
+            <AskCalyroc locale={locale as Locale} dictionary={dictionary} />
+          </MotionProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Link } from "next-view-transitions";
 import { useEffect, useState } from "react";
 import { CustomSelect } from "@/components/CustomSelect";
 import { ThemeToggle } from "@/components/ThemeToggle";

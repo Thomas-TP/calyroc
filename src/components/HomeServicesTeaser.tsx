@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Reveal } from "@/components/Reveal";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";

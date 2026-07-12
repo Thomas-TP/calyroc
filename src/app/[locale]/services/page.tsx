@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Link } from "next-view-transitions";
 import { PageHeader } from "@/components/PageHeader";
 import { ServicesGrid } from "@/components/ServicesGrid";
 import { getDictionary } from "@/i18n/dictionary";

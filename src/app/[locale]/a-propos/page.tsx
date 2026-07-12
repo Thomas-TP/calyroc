@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Link } from "next-view-transitions";
 import { FounderCard } from "@/components/FounderCard";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
