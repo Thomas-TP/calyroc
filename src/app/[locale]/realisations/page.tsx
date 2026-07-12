@@ -34,8 +34,8 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
       <PageHeader eyebrow={workPage.eyebrow} title={workPage.title} subtitle={workPage.subtitle} />
 
       <div className="mt-16 flex flex-col gap-10">
-        {workPage.caseStudies.map((study) => (
-          <Reveal key={study.title}>
+        {workPage.caseStudies.map((study, index) => (
+          <Reveal key={study.title} variant={index % 2 === 0 ? "left" : "right"}>
             <CaseStudyCard study={study} labels={workPage} />
           </Reveal>
         ))}

@@ -12,6 +12,8 @@ export const fr: Dictionary = {
     pricing: "Tarifs",
     about: "À propos",
     contact: "Contact",
+    themeToLight: "Passer en mode clair",
+    themeToDark: "Passer en mode sombre",
   },
   home: {
     eyebrow: "Studio web basé en Suisse",
@@ -42,8 +44,7 @@ export const fr: Dictionary = {
       },
       {
         title: "Livraison + 2 révisions incluses",
-        description:
-          "Le site est à toi, avec deux tours de retouches inclus dans le prix annoncé.",
+        description: "Le site est à toi, avec deux tours de retouches inclus dans le prix annoncé.",
       },
     ],
     priceCompareEyebrow: "Le même site, ailleurs",

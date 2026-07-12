@@ -14,6 +14,8 @@ export const it: Dictionary = {
     pricing: "Prezzi",
     about: "Chi sono",
     contact: "Contatti",
+    themeToLight: "Passa alla modalità chiara",
+    themeToDark: "Passa alla modalità scura",
   },
   home: {
     eyebrow: "Studio web con sede in Svizzera",
@@ -22,7 +24,8 @@ export const it: Dictionary = {
       "Calyroc progetta e sviluppa siti vetrina ed e-commerce moderni per liberi professionisti, PMI e startup — stack all'avanguardia, contatto diretto, prezzi chiari.",
     ctaPrimary: "Richiedi un preventivo",
     ctaSecondary: "Guarda i progetti",
-    trustLine: "Parli con Thomas, non con un project manager — dalla prima risposta fino alla pubblicazione.",
+    trustLine:
+      "Parli con Thomas, non con un project manager — dalla prima risposta fino alla pubblicazione.",
     processEyebrow: "Come funziona",
     processTitle: "Quattro passaggi, nessuna zona grigia.",
     processSteps: [
@@ -33,11 +36,13 @@ export const it: Dictionary = {
       },
       {
         title: "Preventivo chiaro entro 48h",
-        description: "Un prezzo fisso e tempi realistici, non una forbice che si allarga strada facendo.",
+        description:
+          "Un prezzo fisso e tempi realistici, non una forbice che si allarga strada facendo.",
       },
       {
         title: "Sviluppo con aggiornamenti regolari",
-        description: "Vedi il sito prendere forma e dai il tuo parere prima della consegna finale, non dopo.",
+        description:
+          "Vedi il sito prendere forma e dai il tuo parere prima della consegna finale, non dopo.",
       },
       {
         title: "Consegna + 2 revisioni incluse",
@@ -362,7 +367,8 @@ export const it: Dictionary = {
     whyPoints: [
       {
         title: "Contatto diretto",
-        description: "Mi scrivi, ti rispondo. Nessun ticket, nessun cambio di team a metà progetto.",
+        description:
+          "Mi scrivi, ti rispondo. Nessun ticket, nessun cambio di team a metà progetto.",
       },
       {
         title: "Prezzi sotto controllo",

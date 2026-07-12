@@ -76,6 +76,8 @@ export interface Dictionary {
     pricing: string;
     about: string;
     contact: string;
+    themeToLight: string;
+    themeToDark: string;
   };
   home: {
     eyebrow: string;

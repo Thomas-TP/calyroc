@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import type { ReactNode } from "react";
 import { AskCalyroc } from "@/components/AskCalyroc";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale, locales } from "@/i18n/locales";
 import { SITE_URL } from "@/i18n/seo";
@@ -70,8 +72,11 @@ export default async function LocaleLayout({
   const dictionary = getDictionary(locale as Locale);
 
   return (
-    <html lang={locale} className="dark">
+    <html lang={locale} className="dark" suppressHydrationWarning>
       <body className="bg-onyx font-body text-paper antialiased">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
         <MotionProvider>
           <GrainOverlay />
           <SiteHeader locale={locale as Locale} dictionary={dictionary} />

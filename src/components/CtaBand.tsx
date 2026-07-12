@@ -1,3 +1,4 @@
+import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal } from "@/components/Reveal";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
@@ -13,9 +14,11 @@ export function CtaBand({ dictionary, locale }: { dictionary: Dictionary; locale
           <p className="mt-4 max-w-xl text-balance text-lg text-stone">
             {dictionary.home.ctaBandSubtitle}
           </p>
-          <a href={`/${locale}/contact`} className="btn-primary mt-8">
-            {dictionary.home.ctaBandLabel}
-          </a>
+          <MagneticButton className="mt-8">
+            <a href={`/${locale}/contact`} className="btn-primary">
+              {dictionary.home.ctaBandLabel}
+            </a>
+          </MagneticButton>
         </div>
       </Reveal>
     </section>

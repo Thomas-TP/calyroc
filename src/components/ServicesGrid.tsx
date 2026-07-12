@@ -5,7 +5,7 @@ export function ServicesGrid({ servicesPage }: { servicesPage: Dictionary["servi
   return (
     <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
       {servicesPage.items.map((item, index) => (
-        <Reveal key={item.title} delay={(index % 2) * 0.08}>
+        <Reveal key={item.title} delay={(index % 2) * 0.08} variant="scale">
           <article className="rounded-2xl border border-paper/10 bg-onyx-soft p-8 transition-all duration-300 hover:-translate-y-1 hover:border-bronze/30">
             <h2 className="font-display text-xl font-bold text-paper">{item.title}</h2>
             <p className="mt-3 leading-relaxed text-stone">{item.description}</p>

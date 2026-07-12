@@ -14,6 +14,8 @@ export const es: Dictionary = {
     pricing: "Precios",
     about: "Sobre mí",
     contact: "Contacto",
+    themeToLight: "Cambiar a modo claro",
+    themeToDark: "Cambiar a modo oscuro",
   },
   home: {
     eyebrow: "Estudio web con sede en Suiza",
@@ -22,7 +24,8 @@ export const es: Dictionary = {
       "Calyroc diseña y desarrolla sitios web corporativos y de comercio electrónico modernos para autónomos, pymes y startups — stack de vanguardia, contacto directo, precios claros.",
     ctaPrimary: "Solicitar presupuesto",
     ctaSecondary: "Ver proyectos",
-    trustLine: "Hablas con Thomas, no con un jefe de proyecto — desde la primera respuesta hasta la publicación.",
+    trustLine:
+      "Hablas con Thomas, no con un jefe de proyecto — desde la primera respuesta hasta la publicación.",
     processEyebrow: "Cómo funciona",
     processTitle: "Cuatro pasos, sin zonas grises.",
     processSteps: [
@@ -225,8 +228,7 @@ export const es: Dictionary = {
     deliveryLabel: "Plazo",
     finderEyebrow: "¿No sabes qué plan elegir?",
     finderTitle: "Encuentra el tuyo en 3 preguntas.",
-    finderSubtitle:
-      "Responde algunas preguntas y te decimos qué plan encaja con tu proyecto.",
+    finderSubtitle: "Responde algunas preguntas y te decimos qué plan encaja con tu proyecto.",
     finderTypeQuestion: {
       question: "¿Qué quieres construir?",
       options: [
@@ -357,7 +359,8 @@ export const es: Dictionary = {
     whyPoints: [
       {
         title: "Contacto directo",
-        description: "Me escribes, te respondo. Sin tickets, sin rotación de equipo a mitad de proyecto.",
+        description:
+          "Me escribes, te respondo. Sin tickets, sin rotación de equipo a mitad de proyecto.",
       },
       {
         title: "Precios controlados",

@@ -14,6 +14,8 @@ export const de: Dictionary = {
     pricing: "Preise",
     about: "Über mich",
     contact: "Kontakt",
+    themeToLight: "Zu hellem Modus wechseln",
+    themeToDark: "Zu dunklem Modus wechseln",
   },
   home: {
     eyebrow: "Webstudio mit Sitz in der Schweiz",
@@ -22,7 +24,8 @@ export const de: Dictionary = {
       "Calyroc entwirft und entwickelt moderne Websites und Online-Shops für Selbstständige, KMU und Startups — modernster Stack, direkter Kontakt, klare Preise.",
     ctaPrimary: "Angebot anfragen",
     ctaSecondary: "Projekte ansehen",
-    trustLine: "Du sprichst mit Thomas, nicht mit einem Projektleiter — von der ersten Antwort bis zum Livegang.",
+    trustLine:
+      "Du sprichst mit Thomas, nicht mit einem Projektleiter — von der ersten Antwort bis zum Livegang.",
     processEyebrow: "So läuft es ab",
     processTitle: "Vier Schritte, keine Grauzonen.",
     processSteps: [
@@ -33,15 +36,18 @@ export const de: Dictionary = {
       },
       {
         title: "Klares Angebot innert 48h",
-        description: "Ein Fixpreis und ein realistischer Zeitrahmen, keine Spanne, die später explodiert.",
+        description:
+          "Ein Fixpreis und ein realistischer Zeitrahmen, keine Spanne, die später explodiert.",
       },
       {
         title: "Entwicklung mit regelmässigen Updates",
-        description: "Du siehst die Website wachsen und gibst Feedback vor der finalen Lieferung, nicht danach.",
+        description:
+          "Du siehst die Website wachsen und gibst Feedback vor der finalen Lieferung, nicht danach.",
       },
       {
         title: "Lieferung + 2 Überarbeitungen inbegriffen",
-        description: "Die Website gehört dir, mit zwei Überarbeitungsrunden im vereinbarten Preis inbegriffen.",
+        description:
+          "Die Website gehört dir, mit zwei Überarbeitungsrunden im vereinbarten Preis inbegriffen.",
       },
     ],
     priceCompareEyebrow: "Dieselbe Website, anderswo",
@@ -228,11 +234,13 @@ export const de: Dictionary = {
     title: "Klare Preise, keine versteckten Posten.",
     subtitle:
       "Drei Basispakete für einen schnellen Start, und ein individuelles Angebot für alles andere.",
-    guaranteeLabel: "Der vereinbarte Preis ist der Preis, den du zahlst — keine versteckten Kosten.",
+    guaranteeLabel:
+      "Der vereinbarte Preis ist der Preis, den du zahlst — keine versteckten Kosten.",
     deliveryLabel: "Frist",
     finderEyebrow: "Unsicher, welches Paket?",
     finderTitle: "Finde deins in 3 Fragen.",
-    finderSubtitle: "Beantworte ein paar Fragen, wir sagen dir, welches Paket zu deinem Projekt passt.",
+    finderSubtitle:
+      "Beantworte ein paar Fragen, wir sagen dir, welches Paket zu deinem Projekt passt.",
     finderTypeQuestion: {
       question: "Was möchtest du bauen?",
       options: [
@@ -363,7 +371,8 @@ export const de: Dictionary = {
     whyPoints: [
       {
         title: "Direkter Kontakt",
-        description: "Du schreibst mir, ich antworte. Kein Ticket-System, kein Teamwechsel mitten im Projekt.",
+        description:
+          "Du schreibst mir, ich antworte. Kein Ticket-System, kein Teamwechsel mitten im Projekt.",
       },
       {
         title: "Kontrollierte Preise",

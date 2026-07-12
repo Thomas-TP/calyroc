@@ -53,11 +53,33 @@ function disabledSvg(color) {
   </svg>`;
 }
 
+// Windows display scaling (e.g. 225%) reports as a high devicePixelRatio,
+// and `cursor: url(...)` has no built-in DPI awareness -- a single-resolution
+// PNG gets upscaled by the browser and turns blurry/pixelated on those
+// displays. Emit @2x/@3x siblings of every image so `image-set()` in the
+// stylesheet can hand the browser a source that's already sharp at its
+// actual pixel density, the same way <img srcset> works.
+const states = {
+  default: { svg: arrowSvg, size: [24, 24] },
+  pointer: { svg: ringSvg, size: [20, 20] },
+  text: { svg: textSvg, size: [10, 20] },
+  disabled: { svg: disabledSvg, size: [18, 18] },
+};
+const scales = [1, 2, 3];
+
+let count = 0;
 for (const [scheme, color] of Object.entries(palette)) {
-  await renderCursor(arrowSvg(color), [24, 24], `./public/cursors/default-${scheme}.png`);
-  await renderCursor(ringSvg(color), [20, 20], `./public/cursors/pointer-${scheme}.png`);
-  await renderCursor(textSvg(color), [10, 20], `./public/cursors/text-${scheme}.png`);
-  await renderCursor(disabledSvg(color), [18, 18], `./public/cursors/disabled-${scheme}.png`);
+  for (const [state, { svg, size }] of Object.entries(states)) {
+    for (const scale of scales) {
+      const suffix = scale === 1 ? "" : `@${scale}x`;
+      await renderCursor(
+        svg(color),
+        [size[0] * scale, size[1] * scale],
+        `./public/cursors/${state}-${scheme}${suffix}.png`,
+      );
+      count += 1;
+    }
+  }
 }
 
-console.log("Wrote 8 cursor images (4 states x dark/light) at 8x supersampling");
+console.log(`Wrote ${count} cursor images (4 states x dark/light x 1x/2x/3x) at 8x supersampling`);

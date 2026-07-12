@@ -72,7 +72,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
 
       <div id="pricing-cards" className="mt-10 scroll-mt-24 grid grid-cols-1 gap-6 md:grid-cols-3">
         {pricingPage.packs.map((pack, index) => (
-          <Reveal key={pack.name} delay={index * 0.08}>
+          <Reveal key={pack.name} delay={index * 0.08} variant="scale">
             <PricingCard pack={pack} timelineLabel={pricingPage.deliveryLabel} />
           </Reveal>
         ))}

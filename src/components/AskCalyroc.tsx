@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { MagneticButton } from "@/components/MagneticButton";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
 
@@ -89,7 +90,7 @@ export function AskCalyroc({ locale, dictionary }: { locale: Locale; dictionary:
                   key={index}
                   className={`max-w-[85%] rounded-xl px-3 py-2 text-sm leading-relaxed ${
                     message.role === "user"
-                      ? "ml-auto bg-bronze text-onyx"
+                      ? "ml-auto bg-bronze text-ink"
                       : "bg-paper/8 text-paper/90"
                   }`}
                 >
@@ -131,13 +132,15 @@ export function AskCalyroc({ locale, dictionary }: { locale: Locale; dictionary:
         )}
       </AnimatePresence>
 
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        className="btn-primary !rounded-full !px-6 !py-3.5 shadow-xl"
-      >
-        {chatbot.label}
-      </button>
+      <MagneticButton>
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          className="btn-primary !rounded-full !px-6 !py-3.5 shadow-xl"
+        >
+          {chatbot.label}
+        </button>
+      </MagneticButton>
     </div>
   );
 }

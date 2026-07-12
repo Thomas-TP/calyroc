@@ -22,7 +22,7 @@ export function HomeServicesTeaser({
 
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {items.map((item, index) => (
-          <Reveal key={item.title} delay={index * 0.08}>
+          <Reveal key={item.title} delay={index * 0.08} variant="scale">
             <a
               href={`/${locale}/services`}
               className="group block h-full rounded-2xl border border-paper/10 bg-onyx-soft p-8 transition-all duration-300 hover:-translate-y-1 hover:border-bronze/30"

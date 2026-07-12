@@ -12,6 +12,8 @@ export const en: Dictionary = {
     pricing: "Pricing",
     about: "About",
     contact: "Contact",
+    themeToLight: "Switch to light mode",
+    themeToDark: "Switch to dark mode",
   },
   home: {
     eyebrow: "Web studio based in Switzerland",

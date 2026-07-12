@@ -16,8 +16,33 @@
   font-display: swap;
 }
 
-:root {
+/* Theme tokens: the site keeps its existing bronze/onyx/paper/stone
+   identity in both modes -- only which concrete value each name resolves
+   to changes. `.dark` is the site's original palette; `.light` inverts
+   surface/text roles and deepens bronze for AA contrast on a pale
+   background. Toggled on <html> by ThemeToggle.tsx; the inline
+   beforeInteractive script in layout.tsx sets the class before first
+   paint so there's no flash of the wrong theme. */
+.dark {
+  --color-onyx: #0b0b0c;
+  --color-onyx-soft: #131316;
+  --color-onyx-line: #b99a63;
+  --color-paper: #f5f3ef;
+  --color-stone: #8c887f;
+  --color-bronze: #c9a567;
+  --color-bronze-soft: #e4cb9c;
   color-scheme: dark;
+}
+
+.light {
+  --color-onyx: #ede9e1;
+  --color-onyx-soft: #e1dcd0;
+  --color-onyx-line: #b8862e;
+  --color-paper: #16140f;
+  --color-stone: #6b6459;
+  --color-bronze: #b8862e;
+  --color-bronze-soft: #c9a567;
+  color-scheme: light;
 }
 
 html,
@@ -32,7 +57,7 @@ body {
 }
 
 ::selection {
-  background-color: #c9a567;
+  background-color: var(--color-bronze);
   color: #0b0b0c;
 }
 
@@ -41,7 +66,7 @@ button:focus-visible,
 select:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #c9a567;
+  outline: 2px solid var(--color-bronze);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -62,7 +87,14 @@ textarea:focus-visible {
    the plain native cursor. Let this stylesheet own cursor everywhere. */
 @media (hover: hover) and (pointer: fine) {
   html {
-    cursor: url("/cursors/default-dark.png") 4 2, auto;
+    cursor:
+      image-set(
+        url("/cursors/default-dark.png") 1x,
+        url("/cursors/default-dark@2x.png") 2x,
+        url("/cursors/default-dark@3x.png") 3x
+      )
+      4 2,
+      auto;
   }
 
   p,
@@ -78,7 +110,14 @@ textarea:focus-visible {
   label,
   input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
   textarea {
-    cursor: url("/cursors/text-dark.png") 5 10, text;
+    cursor:
+      image-set(
+        url("/cursors/text-dark.png") 1x,
+        url("/cursors/text-dark@2x.png") 2x,
+        url("/cursors/text-dark@3x.png") 3x
+      )
+      5 10,
+      text;
   }
 
   /* A <span> or icon nested inside a link/button would otherwise pick up
@@ -103,7 +142,14 @@ textarea:focus-visible {
   input[type="button"],
   input[type="checkbox"],
   input[type="radio"] {
-    cursor: url("/cursors/pointer-dark.png") 10 10, pointer;
+    cursor:
+      image-set(
+        url("/cursors/pointer-dark.png") 1x,
+        url("/cursors/pointer-dark@2x.png") 2x,
+        url("/cursors/pointer-dark@3x.png") 3x
+      )
+      10 10,
+      pointer;
   }
 
   button:disabled,
@@ -111,48 +157,102 @@ textarea:focus-visible {
   input:disabled,
   [aria-disabled="true"],
   [aria-disabled="true"] * {
-    cursor: url("/cursors/disabled-dark.png") 9 9, not-allowed;
+    cursor:
+      image-set(
+        url("/cursors/disabled-dark.png") 1x,
+        url("/cursors/disabled-dark@2x.png") 2x,
+        url("/cursors/disabled-dark@3x.png") 3x
+      )
+      9 9,
+      not-allowed;
   }
 }
 
-@media (hover: hover) and (pointer: fine) and (prefers-color-scheme: light) {
-  html {
-    cursor: url("/cursors/default-light.png") 4 2, auto;
+/* Light-variant cursors follow the SITE's own theme toggle (html.light),
+   not the OS preference -- a user who flips to light mode here should get
+   the light cursor set even if their OS is still set to dark, and vice
+   versa. Ancestor-prefixed selectors (html.light p, ...) outrank the
+   plain dark-mode rules above on specificity, so no !important needed. */
+@media (hover: hover) and (pointer: fine) {
+  html.light {
+    cursor:
+      image-set(
+        url("/cursors/default-light.png") 1x,
+        url("/cursors/default-light@2x.png") 2x,
+        url("/cursors/default-light@3x.png") 3x
+      )
+      4 2,
+      auto;
   }
 
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  span,
-  li,
-  blockquote,
-  label,
-  input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
-  textarea {
-    cursor: url("/cursors/text-light.png") 5 10, text;
+  html.light p,
+  html.light h1,
+  html.light h2,
+  html.light h3,
+  html.light h4,
+  html.light h5,
+  html.light h6,
+  html.light span,
+  html.light li,
+  html.light blockquote,
+  html.light label,
+  html.light
+    input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  html.light textarea {
+    cursor:
+      image-set(
+        url("/cursors/text-light.png") 1x,
+        url("/cursors/text-light@2x.png") 2x,
+        url("/cursors/text-light@3x.png") 3x
+      )
+      5 10,
+      text;
   }
 
-  a,
-  button,
-  [role="button"],
-  summary,
-  select,
-  input[type="submit"],
-  input[type="button"],
-  input[type="checkbox"],
-  input[type="radio"] {
-    cursor: url("/cursors/pointer-light.png") 10 10, pointer;
+  /* Same descendant-inherit fix as the dark-mode block above, replicated
+     with the html.light prefix -- without this, a span/icon nested in a
+     button matches the html.light text-cursor rule above (both have the
+     same specificity as this rule now that both carry the .light class,
+     so it's a source-order tie won by whichever comes later). */
+  html.light a *,
+  html.light button *,
+  html.light [role="button"] *,
+  html.light summary *,
+  html.light select * {
+    cursor: inherit;
   }
 
-  button:disabled,
-  button:disabled *,
-  input:disabled,
-  [aria-disabled="true"],
-  [aria-disabled="true"] * {
-    cursor: url("/cursors/disabled-light.png") 9 9, not-allowed;
+  html.light a,
+  html.light button,
+  html.light [role="button"],
+  html.light summary,
+  html.light select,
+  html.light input[type="submit"],
+  html.light input[type="button"],
+  html.light input[type="checkbox"],
+  html.light input[type="radio"] {
+    cursor:
+      image-set(
+        url("/cursors/pointer-light.png") 1x,
+        url("/cursors/pointer-light@2x.png") 2x,
+        url("/cursors/pointer-light@3x.png") 3x
+      )
+      10 10,
+      pointer;
+  }
+
+  html.light button:disabled,
+  html.light button:disabled *,
+  html.light input:disabled,
+  html.light [aria-disabled="true"],
+  html.light [aria-disabled="true"] * {
+    cursor:
+      image-set(
+        url("/cursors/disabled-light.png") 1x,
+        url("/cursors/disabled-light@2x.png") 2x,
+        url("/cursors/disabled-light@3x.png") 3x
+      )
+      9 9,
+      not-allowed;
   }
 }

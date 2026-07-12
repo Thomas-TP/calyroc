@@ -2,13 +2,7 @@ import { Reveal } from "@/components/Reveal";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
 
-export function HomeWorkTeaser({
-  dictionary,
-  locale,
-}: {
-  dictionary: Dictionary;
-  locale: Locale;
-}) {
+export function HomeWorkTeaser({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   const studies = dictionary.workPage.caseStudies;
 
   return (
@@ -23,7 +17,7 @@ export function HomeWorkTeaser({
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
           {studies.map((study, index) => (
-            <Reveal key={study.title} delay={index * 0.1}>
+            <Reveal key={study.title} delay={index * 0.1} variant="scale">
               <a
                 href={study.url}
                 target="_blank"

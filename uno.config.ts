@@ -4,17 +4,24 @@ export default defineConfig({
   presets: [presetWind4()],
   theme: {
     colors: {
+      // Values come from CSS custom properties (globals.css, .dark/.light
+      // blocks) so every utility built on these tokens re-themes for free --
+      // no component here ever needs a dark:/light: variant of its own.
       onyx: {
-        DEFAULT: "#0B0B0C",
-        soft: "#131316",
-        line: "#B99A63", // hairline/border tint, mixed via opacity utilities
+        DEFAULT: "var(--color-onyx)",
+        soft: "var(--color-onyx-soft)",
+        line: "var(--color-onyx-line)", // hairline/border tint, mixed via opacity utilities
       },
-      paper: "#F5F3EF",
-      stone: "#8C887F",
+      paper: "var(--color-paper)",
+      stone: "var(--color-stone)",
       bronze: {
-        DEFAULT: "#C9A567",
-        soft: "#E4CB9C",
+        DEFAULT: "var(--color-bronze)",
+        soft: "var(--color-bronze-soft)",
       },
+      // Fixed near-black, NOT theme-reactive: for text sitting on the bronze
+      // accent (e.g. primary button label), which must stay dark regardless
+      // of theme since bronze itself stays light-ish in both modes.
+      ink: "#0B0B0C",
     },
     font: {
       display: "'Space Grotesk Variable', 'Space Grotesk', 'General Sans', sans-serif",
@@ -23,7 +30,7 @@ export default defineConfig({
   },
   shortcuts: {
     "btn-primary":
-      "inline-flex items-center justify-center rounded-full bg-bronze px-7 py-3.5 font-display text-sm font-medium text-onyx transition-colors duration-200 hover:bg-bronze-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bronze",
+      "inline-flex items-center justify-center rounded-full bg-bronze px-7 py-3.5 font-display text-sm font-medium text-ink transition-colors duration-200 hover:bg-bronze-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bronze",
     "btn-secondary":
       "inline-flex items-center justify-center rounded-full border border-paper/15 px-7 py-3.5 font-display text-sm font-medium text-paper transition-colors duration-200 hover:border-paper/35 hover:bg-paper/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bronze",
 

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CustomSelect } from "@/components/CustomSelect";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import type { Dictionary } from "@/i18n/dictionary";
 import { type Locale, locales } from "@/i18n/locales";
 
@@ -52,20 +53,30 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
           </nav>
 
           <div className="hidden items-center gap-4 md:flex">
+            <ThemeToggle
+              labelToLight={dictionary.nav.themeToLight}
+              labelToDark={dictionary.nav.themeToDark}
+            />
             <LocaleSwitcher locale={locale} />
             <a href={`/${locale}/contact`} className="btn-primary !px-5 !py-2.5 text-xs">
               {dictionary.nav.contact}
             </a>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-            className="font-display text-xs font-medium uppercase tracking-[0.2em] text-paper md:hidden"
-          >
-            Menu
-          </button>
+          <div className="flex items-center gap-3 md:hidden">
+            <ThemeToggle
+              labelToLight={dictionary.nav.themeToLight}
+              labelToDark={dictionary.nav.themeToDark}
+            />
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+              className="font-display text-xs font-medium uppercase tracking-[0.2em] text-paper"
+            >
+              Menu
+            </button>
+          </div>
         </div>
       </header>
 
@@ -118,7 +129,13 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
               transition={{ duration: 0.4, delay: 0.35 }}
               className="flex items-center justify-between px-6 py-6"
             >
-              <LocaleSwitcher locale={locale} variant="menu" />
+              <div className="flex items-center gap-3">
+                <LocaleSwitcher locale={locale} variant="menu" />
+                <ThemeToggle
+                  labelToLight={dictionary.nav.themeToLight}
+                  labelToDark={dictionary.nav.themeToDark}
+                />
+              </div>
               <span className="text-xs text-stone">calyroc.com</span>
             </motion.div>
           </motion.div>
