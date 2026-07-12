@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal } from "@/components/Reveal";
 import type { Dictionary } from "@/i18n/dictionary";
@@ -15,9 +16,9 @@ export function CtaBand({ dictionary, locale }: { dictionary: Dictionary; locale
             {dictionary.home.ctaBandSubtitle}
           </p>
           <MagneticButton className="mt-8">
-            <a href={`/${locale}/contact`} className="btn-primary">
+            <Link href={`/${locale}/contact`} className="btn-primary">
               {dictionary.home.ctaBandLabel}
-            </a>
+            </Link>
           </MagneticButton>
         </div>
       </Reveal>

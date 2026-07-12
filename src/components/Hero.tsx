@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Link from "next/link";
 import { MagneticButton } from "@/components/MagneticButton";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
@@ -42,13 +43,13 @@ export function Hero({ dictionary, locale }: { dictionary: Dictionary; locale: L
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <MagneticButton>
-            <a href={`/${locale}/contact`} className="btn-primary">
+            <Link href={`/${locale}/contact`} className="btn-primary">
               {dictionary.home.ctaPrimary}
-            </a>
+            </Link>
           </MagneticButton>
-          <a href={`/${locale}/realisations`} className="btn-secondary">
+          <Link href={`/${locale}/realisations`} className="btn-secondary">
             {dictionary.home.ctaSecondary}
-          </a>
+          </Link>
         </motion.div>
 
         <motion.p {...fadeUp(0.46)} className="mt-6 text-sm text-stone">

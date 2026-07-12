@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isLocale } from "@/i18n/locales";
 
@@ -19,9 +20,9 @@ export default function NotFound() {
       <p className="mt-4 max-w-md text-stone">
         Cette page n'existe pas. / This page doesn't exist.
       </p>
-      <a href={`/${locale}/`} className="btn-primary mt-8">
+      <Link href={`/${locale}/`} className="btn-primary mt-8">
         Retour à l'accueil / Back home
-      </a>
+      </Link>
     </section>
   );
 }

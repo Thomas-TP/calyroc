@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { PageHeader } from "@/components/PageHeader";
@@ -46,9 +47,9 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
           {workPage.ctaTitle}
         </h2>
         <p className="mt-2 text-stone">{workPage.ctaSubtitle}</p>
-        <a href={`/${locale}/contact`} className="btn-primary mt-6 inline-flex">
+        <Link href={`/${locale}/contact`} className="btn-primary mt-6 inline-flex">
           {workPage.ctaLabel}
-        </a>
+        </Link>
       </div>
     </section>
   );

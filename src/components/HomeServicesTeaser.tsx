@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
@@ -23,7 +24,7 @@ export function HomeServicesTeaser({
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {items.map((item, index) => (
           <Reveal key={item.title} delay={index * 0.08} variant="scale">
-            <a
+            <Link
               href={`/${locale}/services`}
               className="group block h-full rounded-2xl border border-paper/10 bg-onyx-soft p-8 transition-all duration-300 hover:-translate-y-1 hover:border-bronze/30"
             >
@@ -38,15 +39,15 @@ export function HomeServicesTeaser({
               >
                 →
               </span>
-            </a>
+            </Link>
           </Reveal>
         ))}
       </div>
 
       <Reveal delay={0.2}>
-        <a href={`/${locale}/services`} className="btn-secondary mt-12">
+        <Link href={`/${locale}/services`} className="btn-secondary mt-12">
           {dictionary.home.servicesCta}
-        </a>
+        </Link>
       </Reveal>
     </section>
   );

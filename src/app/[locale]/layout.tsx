@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
-import type { ReactNode } from "react";
+import { type ReactNode, ViewTransition } from "react";
 import { AskCalyroc } from "@/components/AskCalyroc";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale, locales } from "@/i18n/locales";
 import { SITE_URL } from "@/i18n/seo";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -80,7 +80,7 @@ export default async function LocaleLayout({
         <MotionProvider>
           <GrainOverlay />
           <SiteHeader locale={locale as Locale} dictionary={dictionary} />
-          {children}
+          <ViewTransition>{children}</ViewTransition>
           <SiteFooter locale={locale as Locale} dictionary={dictionary} />
           <AskCalyroc locale={locale as Locale} dictionary={dictionary} />
         </MotionProvider>

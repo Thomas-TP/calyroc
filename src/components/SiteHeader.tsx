@@ -1,12 +1,15 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CustomSelect } from "@/components/CustomSelect";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import type { Dictionary } from "@/i18n/dictionary";
 import { type Locale, locales } from "@/i18n/locales";
+
+const MotionLink = motion.create(Link);
 
 export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -31,16 +34,16 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
     <>
       <header className="fixed inset-x-0 top-0 z-40 border-b border-paper/8 bg-onyx/70 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-10">
-          <a
+          <Link
             href={`/${locale}/`}
             className="font-display text-lg font-bold tracking-tight text-paper"
           >
             Calyroc
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-8 font-display text-sm md:flex">
             {navLinks.slice(0, 4).map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className={`transition-colors hover:text-paper ${
@@ -48,7 +51,7 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
                 }`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -58,9 +61,9 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
               labelToDark={dictionary.nav.themeToDark}
             />
             <LocaleSwitcher locale={locale} />
-            <a href={`/${locale}/contact`} className="btn-primary !px-5 !py-2.5 text-xs">
+            <Link href={`/${locale}/contact`} className="btn-primary !px-5 !py-2.5 text-xs">
               {dictionary.nav.contact}
-            </a>
+            </Link>
           </div>
 
           <div className="flex items-center gap-3 md:hidden">
@@ -90,13 +93,13 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
             className="fixed inset-0 z-50 flex flex-col bg-onyx md:hidden"
           >
             <div className="flex items-center justify-between border-b border-paper/8 px-6 py-5">
-              <a
+              <Link
                 href={`/${locale}/`}
                 onClick={() => setMobileOpen(false)}
                 className="font-display text-lg font-bold text-paper"
               >
                 Calyroc
-              </a>
+              </Link>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
@@ -109,7 +112,7 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
 
             <nav className="flex flex-1 flex-col justify-center gap-1 px-6">
               {navLinks.map((item, index) => (
-                <motion.a
+                <MotionLink
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
@@ -119,7 +122,7 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
                   className="border-b border-paper/8 py-4 font-display text-4xl font-bold tracking-tight text-paper transition-colors active:text-bronze"
                 >
                   {item.label}
-                </motion.a>
+                </MotionLink>
               ))}
             </nav>
 

@@ -71,6 +71,22 @@ textarea:focus-visible {
   border-radius: 2px;
 }
 
+/* Page-navigation crossfade (React's <ViewTransition> in [locale]/layout.tsx).
+   Kept fast and understated -- speed is the site's own pitch ("livrés sans
+   détour"), so this isn't a showcase transition, just enough to avoid the
+   flash of the old page snapping straight to the new one. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0s;
+  }
+}
+
 /* Native cursor replacement -- rendered by the browser's own cursor
    pipeline (same as the system arrow), so there is zero JS-driven
    tracking and zero added latency: this is not a DOM element chasing

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
 
@@ -10,15 +11,15 @@ export function SiteFooter({ locale, dictionary }: { locale: Locale; dictionary:
           <p className="mt-1">{dictionary.footer.tagline}</p>
         </div>
         <nav className="flex flex-wrap gap-x-6 gap-y-2">
-          <a href={`/${locale}/mentions-legales`} className="transition-colors hover:text-paper">
+          <Link href={`/${locale}/mentions-legales`} className="transition-colors hover:text-paper">
             {dictionary.footer.legalLinks.mentionsLegales}
-          </a>
-          <a href={`/${locale}/confidentialite`} className="transition-colors hover:text-paper">
+          </Link>
+          <Link href={`/${locale}/confidentialite`} className="transition-colors hover:text-paper">
             {dictionary.footer.legalLinks.confidentialite}
-          </a>
-          <a href={`/${locale}/cgv`} className="transition-colors hover:text-paper">
+          </Link>
+          <Link href={`/${locale}/cgv`} className="transition-colors hover:text-paper">
             {dictionary.footer.legalLinks.cgv}
-          </a>
+          </Link>
         </nav>
       </div>
     </footer>

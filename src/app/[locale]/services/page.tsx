@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/PageHeader";
 import { ServicesGrid } from "@/components/ServicesGrid";
@@ -37,9 +38,9 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       />
       <ServicesGrid servicesPage={servicesPage} />
       <div className="mt-16 text-center">
-        <a href={`/${locale}/contact`} className="btn-primary">
+        <Link href={`/${locale}/contact`} className="btn-primary">
           {servicesPage.ctaLabel}
-        </a>
+        </Link>
       </div>
     </section>
   );

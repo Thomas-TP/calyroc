@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PackFinder } from "@/components/PackFinder";
@@ -105,9 +106,9 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       </div>
 
       <div className="mt-16 text-center">
-        <a href={`/${locale}/contact`} className="btn-primary">
+        <Link href={`/${locale}/contact`} className="btn-primary">
           {pricingPage.ctaLabel}
-        </a>
+        </Link>
       </div>
     </section>
   );

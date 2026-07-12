@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FounderCard } from "@/components/FounderCard";
 import { PageHeader } from "@/components/PageHeader";
@@ -31,7 +32,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <section className="mx-auto max-w-3xl px-6 pb-24 pt-32 md:px-10">
-      <PageHeader eyebrow={aboutPage.eyebrow} title={aboutPage.title} subtitle={aboutPage.subtitle} />
+      <PageHeader
+        eyebrow={aboutPage.eyebrow}
+        title={aboutPage.title}
+        subtitle={aboutPage.subtitle}
+      />
 
       <Reveal delay={0.08}>
         <div className="mt-8">
@@ -73,9 +78,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="mt-16 rounded-2xl border border-paper/10 bg-onyx-soft/50 p-8 text-center">
           <h2 className="font-display text-2xl font-bold text-paper">{aboutPage.ctaTitle}</h2>
           <p className="mt-2 text-stone">{aboutPage.ctaSubtitle}</p>
-          <a href={`/${locale}/contact`} className="btn-primary mt-6">
+          <Link href={`/${locale}/contact`} className="btn-primary mt-6">
             {aboutPage.ctaLabel}
-          </a>
+          </Link>
         </div>
       </Reveal>
     </section>

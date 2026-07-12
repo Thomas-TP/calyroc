@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
@@ -44,9 +45,9 @@ export function HomeWorkTeaser({ dictionary, locale }: { dictionary: Dictionary;
         </div>
 
         <Reveal delay={0.2}>
-          <a href={`/${locale}/realisations`} className="btn-secondary mt-12">
+          <Link href={`/${locale}/realisations`} className="btn-secondary mt-12">
             {dictionary.home.workCta}
-          </a>
+          </Link>
         </Reveal>
       </div>
     </section>
