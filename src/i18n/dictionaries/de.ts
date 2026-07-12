@@ -230,6 +230,38 @@ export const de: Dictionary = {
       "Drei Basispakete für einen schnellen Start, und ein individuelles Angebot für alles andere.",
     guaranteeLabel: "Der vereinbarte Preis ist der Preis, den du zahlst — keine versteckten Kosten.",
     deliveryLabel: "Frist",
+    finderEyebrow: "Unsicher, welches Paket?",
+    finderTitle: "Finde deins in 3 Fragen.",
+    finderSubtitle: "Beantworte ein paar Fragen, wir sagen dir, welches Paket zu deinem Projekt passt.",
+    finderTypeQuestion: {
+      question: "Was möchtest du bauen?",
+      options: [
+        { value: "vitrine", label: "Website" },
+        { value: "multipage", label: "Mehrseitige Website" },
+        { value: "ecommerce", label: "Online-Shop" },
+        { value: "webapp", label: "Massgeschneiderte Anwendung" },
+      ],
+    },
+    finderPagesQuestion: {
+      question: "Wie viele Seiten, ungefähr?",
+      options: [
+        { value: "1", label: "1 Seite" },
+        { value: "few", label: "2 bis 5 Seiten" },
+        { value: "many", label: "6 Seiten oder mehr" },
+      ],
+    },
+    finderLanguagesQuestion: {
+      question: "Wie viele Sprachen?",
+      options: [
+        { value: "1-2", label: "1 bis 2 Sprachen" },
+        { value: "3", label: "3 Sprachen" },
+        { value: "4-6", label: "4 bis 6 Sprachen" },
+      ],
+    },
+    finderResultTitle: "Dieses Paket passt vermutlich zu dir:",
+    finderResultCta: "Details ansehen",
+    finderRestartLabel: "Neu starten",
+    finderBackLabel: "Zurück",
     packs: [
       {
         name: "Essential",

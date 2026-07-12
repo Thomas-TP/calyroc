@@ -55,6 +55,16 @@ export interface PriceCompareItem {
   range: string;
 }
 
+export interface QuizOption {
+  value: string;
+  label: string;
+}
+
+export interface QuizQuestion {
+  question: string;
+  options: QuizOption[];
+}
+
 export interface Dictionary {
   meta: {
     title: string;
@@ -132,6 +142,16 @@ export interface Dictionary {
     subtitle: string;
     guaranteeLabel: string;
     deliveryLabel: string;
+    finderEyebrow: string;
+    finderTitle: string;
+    finderSubtitle: string;
+    finderTypeQuestion: QuizQuestion;
+    finderPagesQuestion: QuizQuestion;
+    finderLanguagesQuestion: QuizQuestion;
+    finderResultTitle: string;
+    finderResultCta: string;
+    finderRestartLabel: string;
+    finderBackLabel: string;
     packs: PricingPack[];
     maintenanceTitle: string;
     maintenanceText: string;

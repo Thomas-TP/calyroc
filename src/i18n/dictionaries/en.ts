@@ -223,6 +223,38 @@ export const en: Dictionary = {
     subtitle: "Three base packages to start fast, and a custom quote for anything beyond that.",
     guaranteeLabel: "The price you're quoted is the price you pay — no hidden costs.",
     deliveryLabel: "Timeline",
+    finderEyebrow: "Not sure which package?",
+    finderTitle: "Find yours in 3 questions.",
+    finderSubtitle: "Answer a few questions and we'll tell you which package fits your project.",
+    finderTypeQuestion: {
+      question: "What do you want to build?",
+      options: [
+        { value: "vitrine", label: "Showcase website" },
+        { value: "multipage", label: "Multi-page website" },
+        { value: "ecommerce", label: "Online store" },
+        { value: "webapp", label: "Custom application" },
+      ],
+    },
+    finderPagesQuestion: {
+      question: "Roughly how many pages?",
+      options: [
+        { value: "1", label: "1 page" },
+        { value: "few", label: "2 to 5 pages" },
+        { value: "many", label: "6+ pages" },
+      ],
+    },
+    finderLanguagesQuestion: {
+      question: "How many languages?",
+      options: [
+        { value: "1-2", label: "1 to 2 languages" },
+        { value: "3", label: "3 languages" },
+        { value: "4-6", label: "4 to 6 languages" },
+      ],
+    },
+    finderResultTitle: "This package looks like a fit:",
+    finderResultCta: "See the details",
+    finderRestartLabel: "Start over",
+    finderBackLabel: "Back",
     packs: [
       {
         name: "Essential",

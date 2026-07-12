@@ -231,6 +231,39 @@ export const fr: Dictionary = {
       "Trois formules de base pour démarrer vite, et un devis sur-mesure pour tout ce qui sort du cadre.",
     guaranteeLabel: "Prix annoncé, prix payé — aucun coût caché.",
     deliveryLabel: "Délai",
+    finderEyebrow: "Pas sûr de la formule ?",
+    finderTitle: "Trouve la tienne en 3 questions.",
+    finderSubtitle:
+      "Réponds à quelques questions, on te dit quelle formule correspond à ton projet.",
+    finderTypeQuestion: {
+      question: "Qu'est-ce que tu veux construire ?",
+      options: [
+        { value: "vitrine", label: "Site vitrine" },
+        { value: "multipage", label: "Site multipage" },
+        { value: "ecommerce", label: "Boutique en ligne" },
+        { value: "webapp", label: "Application sur-mesure" },
+      ],
+    },
+    finderPagesQuestion: {
+      question: "Combien de pages, à peu près ?",
+      options: [
+        { value: "1", label: "1 page" },
+        { value: "few", label: "2 à 5 pages" },
+        { value: "many", label: "6 pages ou plus" },
+      ],
+    },
+    finderLanguagesQuestion: {
+      question: "Combien de langues ?",
+      options: [
+        { value: "1-2", label: "1 à 2 langues" },
+        { value: "3", label: "3 langues" },
+        { value: "4-6", label: "4 à 6 langues" },
+      ],
+    },
+    finderResultTitle: "On dirait que cette formule te correspond :",
+    finderResultCta: "Voir le détail",
+    finderRestartLabel: "Recommencer",
+    finderBackLabel: "Précédent",
     packs: [
       {
         name: "Essentiel",

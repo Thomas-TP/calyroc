@@ -223,6 +223,39 @@ export const es: Dictionary = {
     subtitle: "Tres planes base para empezar rápido, y un presupuesto a medida para todo lo demás.",
     guaranteeLabel: "El precio acordado es el precio que pagas — sin costes ocultos.",
     deliveryLabel: "Plazo",
+    finderEyebrow: "¿No sabes qué plan elegir?",
+    finderTitle: "Encuentra el tuyo en 3 preguntas.",
+    finderSubtitle:
+      "Responde algunas preguntas y te decimos qué plan encaja con tu proyecto.",
+    finderTypeQuestion: {
+      question: "¿Qué quieres construir?",
+      options: [
+        { value: "vitrine", label: "Sitio corporativo" },
+        { value: "multipage", label: "Sitio multipágina" },
+        { value: "ecommerce", label: "Tienda online" },
+        { value: "webapp", label: "Aplicación a medida" },
+      ],
+    },
+    finderPagesQuestion: {
+      question: "¿Cuántas páginas, aproximadamente?",
+      options: [
+        { value: "1", label: "1 página" },
+        { value: "few", label: "2 a 5 páginas" },
+        { value: "many", label: "6 páginas o más" },
+      ],
+    },
+    finderLanguagesQuestion: {
+      question: "¿Cuántos idiomas?",
+      options: [
+        { value: "1-2", label: "1 a 2 idiomas" },
+        { value: "3", label: "3 idiomas" },
+        { value: "4-6", label: "4 a 6 idiomas" },
+      ],
+    },
+    finderResultTitle: "Este plan parece encajar contigo:",
+    finderResultCta: "Ver el detalle",
+    finderRestartLabel: "Empezar de nuevo",
+    finderBackLabel: "Atrás",
     packs: [
       {
         name: "Esencial",
