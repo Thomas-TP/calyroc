@@ -48,17 +48,69 @@ textarea:focus-visible {
 
 /* Native cursor replacement -- rendered by the browser's own cursor
    pipeline (same as the system arrow), so there is zero JS-driven
-   tracking and zero added latency. Scoped to devices with a real
-   mouse; touch devices and text inputs keep their normal cursor. */
+   tracking and zero added latency: this is not a DOM element chasing
+   the pointer, it's the actual OS cursor image, just re-skinned.
+   Scoped to devices with a real mouse; touch devices keep native
+   behavior. Covers every interaction state: text-bearing/editable
+   elements get a thin bronze line, clickable elements get a bronze
+   dot, disabled controls get a muted bronze slash, everything else
+   gets the bronze arrow.
+
+   IMPORTANT: no component should set its own `cursor-*` utility class
+   (e.g. `cursor-pointer`) -- a class selector has higher specificity
+   than the element selectors below and silently wins, falling back to
+   the plain native cursor. Let this stylesheet own cursor everywhere. */
 @media (hover: hover) and (pointer: fine) {
   html {
-    cursor: url("/cursors/default.png") 12 12, auto;
+    cursor: url("/cursors/default.png") 4 2, auto;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  li,
+  blockquote,
+  label,
+  input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  textarea {
+    cursor: url("/cursors/text.png") 5 10, text;
+  }
+
+  /* A <span> or icon nested inside a link/button would otherwise pick up
+     the text-cursor rule above (direct rules beat inherited ones, even
+     for descendants) -- force every descendant of a clickable element
+     to inherit its ancestor's cursor instead. Must come after the rule
+     above to win the specificity tie. */
+  a *,
+  button *,
+  [role="button"] *,
+  summary *,
+  select * {
+    cursor: inherit;
   }
 
   a,
-  button:not(:disabled),
+  button,
   [role="button"],
-  summary {
-    cursor: url("/cursors/pointer.png") 12 12, pointer;
+  summary,
+  select,
+  input[type="submit"],
+  input[type="button"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    cursor: url("/cursors/pointer.png") 9 9, pointer;
+  }
+
+  button:disabled,
+  button:disabled *,
+  input:disabled,
+  [aria-disabled="true"],
+  [aria-disabled="true"] * {
+    cursor: url("/cursors/disabled.png") 9 9, not-allowed;
   }
 }

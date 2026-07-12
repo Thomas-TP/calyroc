@@ -70,7 +70,7 @@ export function CustomSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={ariaLabel}
-        className={`flex cursor-pointer items-center gap-2 rounded-lg border border-paper/15 bg-transparent text-left text-paper outline-none transition-colors hover:border-bronze/50 focus-visible:border-bronze ${triggerClassName}`}
+        className={`flex items-center gap-2 rounded-lg border border-paper/15 bg-transparent text-left text-paper outline-none transition-colors hover:border-bronze/50 focus-visible:border-bronze ${triggerClassName}`}
       >
         <span className="flex-1 truncate">{selectedLabel}</span>
         <span
