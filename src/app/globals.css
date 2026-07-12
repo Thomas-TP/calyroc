@@ -71,19 +71,51 @@ textarea:focus-visible {
   border-radius: 2px;
 }
 
-/* Page-navigation crossfade (React's <ViewTransition> in [locale]/layout.tsx).
-   Kept fast and understated -- speed is the site's own pitch ("livrés sans
-   détour"), so this isn't a showcase transition, just enough to avoid the
-   flash of the old page snapping straight to the new one. */
-::view-transition-old(root),
+/* Page-navigation transition (document.startViewTransition, wired up via
+   next-view-transitions in [locale]/layout.tsx). A cinematic scale+blur
+   crossfade: the old page recedes (shrinks, blurs, fades) while the new
+   one arrives from slightly enlarged, with a short handoff delay so the
+   two don't just flatly dissolve into each other. No color/slide
+   gimmicks -- stays in the "sobre et premium" lane while still reading
+   as deliberate rather than an instant cut. */
+::view-transition-old(root) {
+  animation: 220ms cubic-bezier(0.4, 0, 1, 1) both calyroc-page-exit;
+}
+
 ::view-transition-new(root) {
-  animation-duration: 160ms;
+  animation: 420ms cubic-bezier(0, 0, 0.2, 1) 120ms both calyroc-page-enter;
+}
+
+@keyframes calyroc-page-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+    filter: blur(6px);
+  }
+}
+
+@keyframes calyroc-page-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
-    animation-duration: 0s;
+    animation: none;
   }
 }
 
