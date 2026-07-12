@@ -45,3 +45,20 @@ textarea:focus-visible {
   outline-offset: 3px;
   border-radius: 2px;
 }
+
+/* Native cursor replacement -- rendered by the browser's own cursor
+   pipeline (same as the system arrow), so there is zero JS-driven
+   tracking and zero added latency. Scoped to devices with a real
+   mouse; touch devices and text inputs keep their normal cursor. */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    cursor: url("/cursors/default.png") 12 12, auto;
+  }
+
+  a,
+  button:not(:disabled),
+  [role="button"],
+  summary {
+    cursor: url("/cursors/pointer.png") 12 12, pointer;
+  }
+}
