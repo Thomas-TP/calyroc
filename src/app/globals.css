@@ -71,16 +71,14 @@ textarea:focus-visible {
   border-radius: 2px;
 }
 
-/* Page-navigation transitions. Which style applies to a given navigation is
-   decided in src/lib/pageTransition.ts:
-   - "slide" (default/fallback, handled here via document.startViewTransition,
-     wired up in TransitionLink.tsx) -- plain directional handoff between the
-     main content pages.
-   - "curtain" -- to/from the homepage or Contact, the site's two
-     "significant" endpoints; NOT handled here at all, see
-     BronzeCurtain.tsx + TransitionLink.tsx -- a solid color sweep needs a
-     real DOM layer, not a snapshot-diff of page content, so it bypasses
-     the View Transition API entirely. */
+/* Page-navigation transitions -- the same on every page now: a content
+   crossfade (document.startViewTransition, native browser API) plus a
+   slim bronze accent that sweeps across (BronzeSweep.tsx), triggered
+   together from the same click in TransitionLink.tsx. The bar is a real
+   DOM element rather than a ::view-transition pseudo-element, since a
+   solid color streak needs its own paint, not a snapshot-diff of page
+   content. Kept narrow on purpose -- an earlier full-viewport version
+   read as harsh; this is an accent, not an occlusion. */
 ::view-transition-old(root) {
   animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both calyroc-slide-exit;
 }
@@ -103,14 +101,40 @@ textarea:focus-visible {
   }
 }
 
+.bronze-sweep {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: -20vw;
+  width: 40vw;
+  z-index: 60;
+  pointer-events: none;
+  background: var(--color-bronze);
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+  transform: translateX(-100%);
+}
+
+.bronze-sweep.is-active {
+  animation: calyroc-bronze-sweep 650ms cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+@keyframes calyroc-bronze-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;
   }
 
-  #bronze-curtain {
-    transition: none !important;
+  .bronze-sweep.is-active {
+    animation: none;
   }
 }
 

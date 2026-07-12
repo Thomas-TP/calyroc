@@ -4,7 +4,7 @@ import Script from "next/script";
 import { ViewTransitions } from "next-view-transitions";
 import type { ReactNode } from "react";
 import { AskCalyroc } from "@/components/AskCalyroc";
-import { BronzeCurtain } from "@/components/BronzeCurtain";
+import { BronzeSweep } from "@/components/BronzeSweep";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { MotionProvider } from "@/components/MotionProvider";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -82,7 +82,7 @@ export default async function LocaleLayout({
           </Script>
           <MotionProvider>
             <GrainOverlay />
-            <BronzeCurtain />
+            <BronzeSweep />
             <SiteHeader locale={locale as Locale} dictionary={dictionary} />
             {children}
             <SiteFooter locale={locale as Locale} dictionary={dictionary} />
