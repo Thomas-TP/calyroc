@@ -4,43 +4,94 @@ import { readFile, writeFile } from "node:fs/promises";
 const iconBuffer = await readFile("./scripts/logo-out/icon-mark.png");
 const iconDataUri = `data:image/png;base64,${iconBuffer.toString("base64")}`;
 
+// Canvas: 1200x630 (1.91:1) -- the one size that renders correctly across
+// Facebook/Messenger/Instagram, X, LinkedIn, Slack, Discord, WhatsApp and
+// iMessage. Content is horizontally CENTERED rather than left-aligned:
+// several chat apps (WhatsApp, Telegram) crop link previews toward a
+// centered square thumbnail, which would clip a left-aligned layout.
+// Centering survives any reasonable crop from either side.
 const element = {
   type: "div",
   props: {
     style: {
+      position: "relative",
       width: "1200px",
       height: "630px",
       display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      backgroundColor: "#0B0B0C",
-      padding: "80px",
+      backgroundColor: "#0b0b0c",
       fontFamily: "Space Grotesk",
+      overflow: "hidden",
     },
     children: [
+      // Two faint decorative rock marks bleeding off both edges, symmetric
+      // enough to keep the composition balanced around the centered text.
       {
         type: "img",
         props: {
           src: iconDataUri,
-          width: "88",
-          height: "88",
-          style: { width: "88px", height: "88px", objectFit: "contain" },
+          width: "520",
+          height: "520",
+          style: {
+            position: "absolute",
+            top: "60px",
+            left: "-220px",
+            width: "520px",
+            height: "520px",
+            opacity: 0.07,
+          },
         },
       },
       {
+        type: "img",
+        props: {
+          src: iconDataUri,
+          width: "520",
+          height: "520",
+          style: {
+            position: "absolute",
+            bottom: "-200px",
+            right: "-180px",
+            width: "520px",
+            height: "520px",
+            opacity: 0.07,
+          },
+        },
+      },
+      // Foreground content, centered, fully inside the safe zone.
+      {
         type: "div",
         props: {
-          style: { display: "flex", flexDirection: "column" },
+          style: {
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "1200px",
+            height: "630px",
+            textAlign: "center",
+          },
           children: [
+            {
+              type: "img",
+              props: {
+                src: iconDataUri,
+                width: "80",
+                height: "80",
+                style: { width: "80px", height: "80px", marginBottom: "30px" },
+              },
+            },
             {
               type: "div",
               props: {
                 style: {
-                  fontSize: "28px",
-                  color: "#C9A567",
+                  fontSize: "24px",
+                  fontWeight: 600,
+                  color: "#c9a567",
                   textTransform: "uppercase",
                   letterSpacing: "6px",
-                  marginBottom: "24px",
+                  marginBottom: "20px",
+                  display: "flex",
                 },
                 children: "SUISSE — STUDIO WEB",
               },
@@ -51,8 +102,10 @@ const element = {
                 style: {
                   fontSize: "104px",
                   fontWeight: 700,
-                  color: "#F5F3EF",
+                  color: "#f5f3ef",
                   lineHeight: 1,
+                  letterSpacing: "-2px",
+                  display: "flex",
                 },
                 children: "Calyroc",
               },
@@ -61,9 +114,10 @@ const element = {
               type: "div",
               props: {
                 style: {
-                  fontSize: "36px",
-                  color: "#8C887F",
+                  fontSize: "32px",
+                  color: "#a8a39a",
                   marginTop: "24px",
+                  display: "flex",
                 },
                 children: "Sites vitrines & e-commerce sur mesure",
               },
@@ -72,9 +126,11 @@ const element = {
               type: "div",
               props: {
                 style: {
-                  fontSize: "30px",
-                  color: "#C9A567",
-                  marginTop: "36px",
+                  fontSize: "26px",
+                  fontWeight: 600,
+                  color: "#c9a567",
+                  marginTop: "34px",
+                  display: "flex",
                 },
                 children: "calyroc.com",
               },

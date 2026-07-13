@@ -50,7 +50,9 @@ export async function generateMetadata({
       siteName: "Calyroc",
       locale: ogLocales[locale],
       type: "website",
-      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Calyroc" }],
+      images: [
+        { url: "/og-image.png", width: 1200, height: 630, alt: "Calyroc", type: "image/png" },
+      ],
     },
     twitter: {
       card: "summary_large_image",
