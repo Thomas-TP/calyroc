@@ -43,6 +43,10 @@ export async function generateMetadata({
       default: dictionary.meta.title,
     },
     description: dictionary.meta.description,
+    applicationName: "Calyroc",
+    authors: [{ name: "Calyroc", url: SITE_URL }],
+    creator: "Calyroc",
+    publisher: "Calyroc",
     openGraph: {
       title: dictionary.meta.title,
       description: dictionary.meta.description,
