@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { type ContactState, submitContactForm } from "@/app/actions";
 import { CustomSelect } from "@/components/CustomSelect";
 import type { Dictionary } from "@/i18n/dictionary";
@@ -9,6 +9,90 @@ import type { Locale } from "@/i18n/locales";
 import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 
 const initialState: ContactState = { status: "idle" };
+
+// Turnstile only exposes light/dark/auto (no custom color API -- it's a
+// security-isolated Cloudflare widget). A CSS filter on the wrapper still
+// works even on its cross-origin iframe (filters operate on rendered
+// pixels, not DOM access), so it's tuned here to nudge the widget's neutral
+// grey/white toward the site's bronze-tinted onyx/paper surfaces instead of
+// looking like an unstyled default component. Values picked by visual
+// comparison against the site's actual card surfaces in both themes.
+const TURNSTILE_FILTER: Record<"light" | "dark", string> = {
+  dark: "sepia(0.25) saturate(1.6) hue-rotate(-12deg) brightness(0.85) contrast(1.05)",
+  light: "sepia(0.35) saturate(1.3) hue-rotate(-8deg) brightness(1.01)",
+};
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, unknown>) => string;
+      remove: (widgetId: string) => void;
+    };
+    onTurnstileLoad?: () => void;
+  }
+}
+
+// Returns null until mounted: the widget itself only renders once the real
+// theme is known, so the initial render never has to guess.
+function useSiteTheme(): "light" | "dark" | null {
+  const [theme, setTheme] = useState<"light" | "dark" | null>(null);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const sync = () => setTheme(root.classList.contains("light") ? "light" : "dark");
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  return theme;
+}
+
+// Turnstile's implicit rendering (scanning the DOM for `.cf-turnstile`
+// elements) only runs once when its script loads -- it never notices a
+// remounted element later, so a live theme toggle would leave a blank box.
+// Explicit rendering via the JS API lets the widget be torn down and
+// re-rendered on demand whenever the site's theme changes mid-session.
+function TurnstileWidget({ theme }: { theme: "light" | "dark" }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+  const [scriptReady, setScriptReady] = useState(false);
+
+  useEffect(() => {
+    if (window.turnstile) {
+      setScriptReady(true);
+      return;
+    }
+    window.onTurnstileLoad = () => setScriptReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!scriptReady || !containerRef.current || !window.turnstile) return;
+    const turnstile = window.turnstile;
+    const container = containerRef.current;
+
+    const widgetId = turnstile.render(container, {
+      sitekey: TURNSTILE_SITE_KEY,
+      action: "turnstile-spin-v1",
+      theme,
+    });
+    widgetIdRef.current = widgetId;
+
+    return () => {
+      if (widgetIdRef.current) {
+        turnstile.remove(widgetIdRef.current);
+        widgetIdRef.current = null;
+      }
+    };
+  }, [scriptReady, theme]);
+
+  return (
+    <div className="w-fit overflow-hidden rounded-lg" style={{ filter: TURNSTILE_FILTER[theme] }}>
+      <div ref={containerRef} />
+    </div>
+  );
+}
 
 export function ContactForm({
   contactPage,
@@ -20,6 +104,7 @@ export function ContactForm({
   locale: Locale;
 }) {
   const [state, formAction, isPending] = useActionState(submitContactForm, initialState);
+  const turnstileTheme = useSiteTheme();
 
   const packOptions = [
     ...pricingPage.packs.map((pack) => ({ value: pack.id, label: `${pack.name} — ${pack.price}` })),
@@ -29,7 +114,7 @@ export function ContactForm({
   return (
     <form action={formAction} className="mt-10 flex flex-col gap-5">
       <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit"
         strategy="afterInteractive"
         async
         defer
@@ -63,12 +148,7 @@ export function ContactForm({
         />
       </label>
 
-      <div
-        className="cf-turnstile"
-        data-sitekey={TURNSTILE_SITE_KEY}
-        data-action="turnstile-spin-v1"
-        data-theme="dark"
-      />
+      {turnstileTheme && <TurnstileWidget key={turnstileTheme} theme={turnstileTheme} />}
 
       <button
         type="submit"
