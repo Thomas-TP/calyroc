@@ -34,12 +34,8 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
     <>
       <header className="fixed inset-x-0 top-0 z-40 border-b border-paper/8 bg-onyx/70 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-10">
-          <Link
-            href={`/${locale}/`}
-            className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-paper"
-          >
-            <img src="/logo-icon.png" alt="" width={28} height={28} className="h-7 w-7" />
-            Calyroc
+          <Link href={`/${locale}/`} className="flex items-center">
+            <img src="/logo.png" alt="Calyroc" width={130} height={36} className="h-8 w-auto" />
           </Link>
 
           <nav className="hidden items-center gap-8 font-display text-sm md:flex">
@@ -94,13 +90,8 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
             className="fixed inset-0 z-50 flex flex-col bg-onyx md:hidden"
           >
             <div className="flex items-center justify-between border-b border-paper/8 px-6 py-5">
-              <Link
-                href={`/${locale}/`}
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2.5 font-display text-lg font-bold text-paper"
-              >
-                <img src="/logo-icon.png" alt="" width={28} height={28} className="h-7 w-7" />
-                Calyroc
+              <Link href={`/${locale}/`} onClick={() => setMobileOpen(false)} className="flex items-center">
+                <img src="/logo.png" alt="Calyroc" width={130} height={36} className="h-8 w-auto" />
               </Link>
               <button
                 type="button"

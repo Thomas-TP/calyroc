@@ -14,11 +14,11 @@ export default function RootNotFound() {
             className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-bronze/10 blur-3xl"
           />
           <img
-            src="/logo-icon.png"
-            alt=""
-            width={56}
-            height={56}
-            className="relative h-14 w-14 opacity-90"
+            src="/logo.png"
+            alt="Calyroc"
+            width={160}
+            height={44}
+            className="relative h-10 w-auto opacity-90"
           />
           <p className="relative mt-6 font-display text-xs font-medium uppercase tracking-[0.25em] text-bronze">
             404
