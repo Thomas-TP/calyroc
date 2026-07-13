@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHeader } from "@/components/PageHeader";
+import { PaymentStatusBanner } from "@/components/PaymentStatusBanner";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import { buildAlternates } from "@/i18n/seo";
@@ -22,11 +23,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ContactPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ payment?: string }>;
+}) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const { payment } = await searchParams;
   const dictionary = getDictionary(locale as Locale);
-  const { contactPage } = dictionary;
+  const { contactPage, pricingPage } = dictionary;
 
   return (
     <section className="mx-auto max-w-3xl px-6 pb-24 pt-32 md:px-10">
@@ -36,7 +44,11 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         subtitle={contactPage.subtitle}
       />
 
-      <ContactForm contactPage={contactPage} locale={locale as Locale} />
+      {(payment === "success" || payment === "cancelled") && (
+        <PaymentStatusBanner status={payment} contactPage={contactPage} />
+      )}
+
+      <ContactForm contactPage={contactPage} pricingPage={pricingPage} locale={locale as Locale} />
 
       <div className="mt-12 border-t border-paper/8 pt-8 text-center">
         <h2 className="font-display text-sm font-medium uppercase tracking-wide text-paper/60">

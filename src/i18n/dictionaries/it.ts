@@ -25,12 +25,12 @@ export const it: Dictionary = {
     ctaPrimary: "Richiedi un preventivo",
     ctaSecondary: "Guarda i progetti",
     trustLine:
-      "Parli con Thomas, non con un project manager — dalla prima risposta fino alla pubblicazione.",
+      "Parla con Thomas, non con un project manager — dalla prima risposta fino alla pubblicazione.",
     processEyebrow: "Come funziona",
     processTitle: "Quattro passaggi, nessuna zona grigia.",
     processSteps: [
       {
-        title: "Descrivi il tuo progetto",
+        title: "Descriva il Suo progetto",
         description:
           "Tramite il modulo di contatto o direttamente con Ask Calyroc — bastano due minuti per gettare le basi.",
       },
@@ -42,11 +42,11 @@ export const it: Dictionary = {
       {
         title: "Sviluppo con aggiornamenti regolari",
         description:
-          "Vedi il sito prendere forma e dai il tuo parere prima della consegna finale, non dopo.",
+          "Vede il sito prendere forma e dà il Suo parere prima della consegna finale, non dopo.",
       },
       {
         title: "Consegna + 2 revisioni incluse",
-        description: "Il sito è tuo, con due round di modifiche incluse nel prezzo concordato.",
+        description: "Il sito è Suo, con due round di modifiche incluse nel prezzo concordato.",
       },
     ],
     priceCompareEyebrow: "Lo stesso sito, altrove",
@@ -68,8 +68,8 @@ export const it: Dictionary = {
     workEyebrow: "Progetti",
     workTitle: "Progetti reali, non semplici mockup.",
     workCta: "Vedi tutti i progetti",
-    ctaBandTitle: "Hai un progetto in mente?",
-    ctaBandSubtitle: "Descrivilo in poche righe, ti rispondo entro 48h.",
+    ctaBandTitle: "Ha un progetto in mente?",
+    ctaBandSubtitle: "Lo descriva in poche righe, Le rispondo entro 48h.",
     ctaBandLabel: "Inizia la conversazione",
   },
   footer: {
@@ -82,7 +82,7 @@ export const it: Dictionary = {
   },
   servicesPage: {
     eyebrow: "Servizi",
-    title: "Un sito pensato per la tua attività, non un template riciclato.",
+    title: "Un sito pensato per la Sua attività, non un template riciclato.",
     subtitle:
       "Ogni servizio è definito in anticipo: cosa è incluso, lo stack utilizzato, i tempi indicativi. Nessuna sorpresa in fattura.",
     ctaLabel: "Richiedi un preventivo",
@@ -93,7 +93,7 @@ export const it: Dictionary = {
       {
         title: "Sito vetrina",
         description:
-          "Presenta la tua attività, rassicura i visitatori e trasforma le visite in contatti.",
+          "Presenta la Sua attività, rassicura i visitatori e trasforma le visite in contatti.",
         includes: [
           "Design su misura, nessun template generico",
           "Responsive mobile/tablet/desktop",
@@ -105,7 +105,7 @@ export const it: Dictionary = {
       },
       {
         title: "E-commerce",
-        description: "Vendi online con un catalogo chiaro e pagamenti affidabili.",
+        description: "Vende online con un catalogo chiaro e pagamenti affidabili.",
         includes: [
           "Catalogo prodotti e gestione dello stock",
           "Pagamento sicuro con Stripe",
@@ -152,7 +152,7 @@ export const it: Dictionary = {
       },
       {
         title: "SEO tecnica",
-        description: "Struttura, performance e indicizzazione per farti trovare su Google.",
+        description: "Struttura, performance e indicizzazione per farLa trovare su Google.",
         includes: [
           "Audit delle performance (Core Web Vitals)",
           "Dati strutturati (JSON-LD)",
@@ -184,8 +184,8 @@ export const it: Dictionary = {
     featuresLabel: "Funzionalità",
     resultsLabel: "Risultato",
     linkLabel: "Visita il sito",
-    ctaTitle: "Il tuo progetto, il prossimo su questa pagina?",
-    ctaSubtitle: "Parliamo di cosa vuoi costruire.",
+    ctaTitle: "Il Suo progetto, il prossimo su questa pagina?",
+    ctaSubtitle: "Parliamo di cosa desidera costruire.",
     ctaLabel: "Avvia un progetto",
     caseStudies: [
       {
@@ -231,14 +231,14 @@ export const it: Dictionary = {
     title: "Prezzi chiari, senza voci nascoste.",
     subtitle:
       "Tre pacchetti base per partire subito, e un preventivo su misura per tutto il resto.",
-    guaranteeLabel: "Il prezzo concordato è il prezzo che paghi — nessun costo nascosto.",
+    guaranteeLabel: "Il prezzo concordato è il prezzo che paga — nessun costo nascosto.",
     deliveryLabel: "Tempi",
-    finderEyebrow: "Non sai quale pacchetto scegliere?",
-    finderTitle: "Trova il tuo in 3 domande.",
+    finderEyebrow: "Non sa quale pacchetto scegliere?",
+    finderTitle: "Trovi il Suo in 3 domande.",
     finderSubtitle:
-      "Rispondi a qualche domanda e ti diciamo quale pacchetto si adatta al tuo progetto.",
+      "Risponda a qualche domanda e Le indico quale pacchetto si adatta al Suo progetto.",
     finderTypeQuestion: {
-      question: "Cosa vuoi costruire?",
+      question: "Cosa desidera costruire?",
       options: [
         { value: "vitrine", label: "Sito vetrina" },
         { value: "multipage", label: "Sito multipagina" },
@@ -262,12 +262,13 @@ export const it: Dictionary = {
         { value: "4-6", label: "4-6 lingue" },
       ],
     },
-    finderResultTitle: "Questo pacchetto sembra fare al caso tuo:",
+    finderResultTitle: "Questo pacchetto sembra fare al caso Suo:",
     finderResultCta: "Vedi il dettaglio",
     finderRestartLabel: "Ricomincia",
     finderBackLabel: "Indietro",
     packs: [
       {
+        id: "essentiel",
         name: "Essenziale",
         price: "590 CHF",
         priceNote: "circa 600 €",
@@ -283,10 +284,11 @@ export const it: Dictionary = {
         highlighted: false,
       },
       {
+        id: "pro",
         name: "Pro",
         price: "1.490 CHF",
         priceNote: "circa 1.550 €",
-        description: "Un sito multipagina completo, pronto a convertire i tuoi visitatori.",
+        description: "Un sito multipagina completo, pronto a convertire i Suoi visitatori.",
         features: [
           "Sito multipagina (5-6 pagine)",
           "Fino a 3 lingue",
@@ -298,6 +300,7 @@ export const it: Dictionary = {
         highlighted: true,
       },
       {
+        id: "sur-mesure",
         name: "Su misura",
         price: "Da 2.900 CHF",
         priceNote: "preventivo personalizzato",
@@ -328,7 +331,7 @@ export const it: Dictionary = {
       {
         question: "Il prezzo include il nome a dominio?",
         answer:
-          "No, il dominio (circa 15 CHF/anno per un .ch) e l'hosting sono separati, ma posso gestire tutto io se preferisci non occupartene.",
+          "No, il dominio (circa 15 CHF/anno per un .ch) e l'hosting sono separati, ma posso gestire tutto io se preferisce non occuparsene.",
       },
       {
         question: "Quante revisioni sono incluse?",
@@ -352,7 +355,7 @@ export const it: Dictionary = {
     eyebrow: "Chi sono",
     title: "Uno sviluppatore, non un'agenzia.",
     subtitle:
-      "Calyroc sono io — Thomas. Nessun project manager, nessuna subappalto, nessun costo di struttura scaricato sul tuo preventivo.",
+      "Calyroc sono io — Thomas. Nessun project manager, nessuna subappalto, nessun costo di struttura scaricato sul Suo preventivo.",
     founderRole: "Sviluppatore solo · Apprendista CFC Informatica",
     portfolioLabel: "Il mio portfolio",
     linkedinLabel: "LinkedIn",
@@ -360,19 +363,19 @@ export const it: Dictionary = {
     storyParagraphs: [
       "Mi chiamo Thomas Prud'homme. Sto svolgendo un apprendistato CFC come informatico in esercizio e infrastruttura, con base a Ginevra, in Svizzera.",
       "Calyroc è nato da un'osservazione semplice: la maggior parte dei liberi professionisti e delle piccole imprese non ha bisogno di un'agenzia da dieci persone per avere un sito veloce e ben costruito. Ha bisogno di una persona competente che risponda in fretta e rispetti le scadenze.",
-      "Lavoro con un flusso assistito dall'IA — questo accelera la scrittura del codice, non la riflessione su cosa il tuo sito deve fare. Risultato: tempi più brevi e prezzi più bassi rispetto a un'agenzia tradizionale, senza compromessi sulla qualità.",
+      "Lavoro con un flusso assistito dall'IA — questo accelera la scrittura del codice, non la riflessione su cosa il Suo sito deve fare. Risultato: tempi più brevi e prezzi più bassi rispetto a un'agenzia tradizionale, senza compromessi sulla qualità.",
       "La prova migliore: Swiss3Design, una piattaforma e-commerce di stampa 3D con pagamenti Stripe reali in produzione. Non un mockup — un sito vero, con clienti veri.",
     ],
-    whyTitle: "Perché questo conta per te",
+    whyTitle: "Perché questo conta per Lei",
     whyPoints: [
       {
         title: "Contatto diretto",
         description:
-          "Mi scrivi, ti rispondo. Nessun ticket, nessun cambio di team a metà progetto.",
+          "Mi scrive, Le rispondo. Nessun ticket, nessun cambio di team a metà progetto.",
       },
       {
         title: "Prezzi sotto controllo",
-        description: "Nessun costo di struttura di agenzia scaricato sul tuo preventivo.",
+        description: "Nessun costo di struttura di agenzia scaricato sul Suo preventivo.",
       },
       {
         title: "Stack moderno",
@@ -385,43 +388,79 @@ export const it: Dictionary = {
           "Sono ancora in formazione e lo dico chiaramente. È garanzia di agilità e prezzi giusti, non una scusa.",
       },
     ],
-    ctaTitle: "Ne parliamo?",
-    ctaSubtitle: "Descrivimi il tuo progetto, ti rispondo entro 48h.",
+    ctaTitle: "Parliamo del Suo progetto.",
+    ctaSubtitle: "Mi descriva il Suo progetto, Le rispondo entro 48h.",
     ctaLabel: "Inizia la conversazione",
   },
   contactPage: {
     eyebrow: "Contatti",
-    title: "Parliamo del tuo progetto.",
+    title: "Parliamo del Suo progetto.",
     subtitle:
-      "Descrivi cosa vuoi costruire, ti rispondo entro 48h con un primo riscontro concreto.",
+      "Descriva cosa desidera costruire, Le rispondo entro 48h con un primo riscontro concreto.",
     formName: "Nome",
     formEmail: "Email",
-    formBudget: "Budget indicativo",
-    formBudgetOptions: [
-      "Essenziale (da 590 CHF)",
-      "Pro (da 1.490 CHF)",
-      "Su misura (da 2.900 CHF)",
-      "Non lo so ancora",
-    ],
-    formMessage: "Il tuo progetto",
-    formMessagePlaceholder: "Descrivi la tua attività, cosa vuoi costruire, le tue tempistiche...",
+    formPackLabel: "Pacchetto desiderato",
+    formPackUnsureLabel: "Non lo so ancora",
+    formMessage: "Il Suo progetto",
+    formMessagePlaceholder: "Descriva la Sua attività, cosa desidera costruire, le Sue tempistiche...",
     formSubmit: "Invia",
     formSubmitting: "Invio in corso...",
-    formSuccess: "Messaggio inviato — ti rispondo entro 48h.",
-    formError: "Si è verificato un errore. Scrivimi direttamente a hello@calyroc.com.",
-    directTitle: "Oppure scrivimi direttamente",
+    formSuccess: "Messaggio inviato — Le rispondo entro 48h.",
+    formError: "Si è verificato un errore. Mi scriva direttamente a hello@calyroc.com.",
+    directTitle: "Oppure mi scriva direttamente",
     responseTime: "Risposta entro 48h, nei giorni feriali.",
+    paymentSuccessTitle: "Pagamento confermato",
+    paymentSuccessBody:
+      "Grazie, il Suo pagamento è stato registrato correttamente. Riceverà una ricevuta via email a breve.",
+    paymentCancelledTitle: "Pagamento annullato",
+    paymentCancelledBody:
+      "Il pagamento è stato annullato, nessun importo è stato addebitato. Può riprovare in qualsiasi momento o scrivermi direttamente.",
   },
   legalPageNotice:
     "Questa pagina legale esiste solo in francese, versione di riferimento legalmente valida.",
   chatbot: {
-    label: "Chiedi a Calyroc",
+    label: "Chieda a Calyroc",
     title: "Ask Calyroc",
     intro:
-      "Ciao! Posso rispondere a domande sui servizi e i prezzi di Calyroc. Per un preventivo reale, vai al modulo di contatto.",
-    placeholder: "Scrivi la tua domanda...",
+      "Buongiorno, posso rispondere alle Sue domande sui servizi e i prezzi di Calyroc. Per un preventivo preciso, si rivolga al modulo di contatto.",
+    placeholder: "Scriva la Sua domanda...",
     send: "Invia",
-    errorMessage: "Si è verificato un errore, riprova o scrivi a hello@calyroc.com.",
+    errorMessage: "Si è verificato un errore, riprovi o scriva a hello@calyroc.com.",
     disclaimer: "Risposte generate dall'IA, senza valore contrattuale.",
+  },
+  email: {
+    clientConfirmation: {
+      subject: "Il Suo messaggio è stato ricevuto — Calyroc",
+      preview: "Grazie per il Suo messaggio, Le rispondo entro 48h.",
+      heading: "Messaggio ricevuto",
+      intro:
+        "Grazie per il Suo messaggio. Ecco un riepilogo — Le rispondo entro 48h con un primo riscontro concreto.",
+      recapTitle: "Riepilogo",
+      packLabel: "Pacchetto",
+      messageLabel: "Il Suo messaggio",
+      responseTimeText: "Risposta entro 48h, nei giorni feriali.",
+      signature: "A presto,<br>Thomas",
+    },
+    paymentLink: {
+      subject: "Il Suo link di pagamento Calyroc",
+      preview: "Un link di pagamento sicuro La attende.",
+      heading: "Il Suo link di pagamento",
+      intro: "Ecco il link di pagamento sicuro per il Suo progetto Calyroc.",
+      amountLabel: "Importo",
+      descriptionLabel: "Descrizione",
+      ctaLabel: "Paga online",
+      expiryNote: "Questo link resta valido fino al suo utilizzo.",
+      signature: "A presto,<br>Thomas",
+    },
+    paymentReceipt: {
+      subject: "Ricevuta di pagamento — Calyroc",
+      preview: "Il Suo pagamento è stato confermato.",
+      heading: "Pagamento confermato",
+      intro: "Grazie, il Suo pagamento è stato ricevuto correttamente. Ecco il riepilogo.",
+      amountLabel: "Importo pagato",
+      dateLabel: "Data",
+      nextStepsText: "La ricontatterò a breve per proseguire con il progetto.",
+      signature: "Grazie per la fiducia,<br>Thomas",
+    },
   },
 };

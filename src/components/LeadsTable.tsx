@@ -53,7 +53,7 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
             </button>
           </form>
 
-          <PaymentLinkGenerator leadId={lead.id} />
+          <PaymentLinkGenerator leadId={lead.id} defaultPackId={lead.pack_id} />
         </article>
       ))}
     </div>

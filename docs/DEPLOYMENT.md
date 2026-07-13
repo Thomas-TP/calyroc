@@ -36,6 +36,7 @@ Configurés directement sur le Worker Cloudflare (`wrangler secret put <NOM>`), 
 | `ADMIN_PASSWORD` | authentification `/admin` |
 | `ADMIN_SESSION_SECRET` | signature HMAC du cookie de session admin |
 | `STRIPE_SECRET_KEY` | génération des liens de paiement Stripe (admin) |
+| `STRIPE_WEBHOOK_SECRET` | vérification de signature du webhook `/api/stripe/webhook` |
 
 Rotation : `wrangler secret put <NOM>` puis coller la nouvelle valeur (le prompt interactif ne l'affiche pas en clair dans l'historique du terminal). Après rotation de `ADMIN_SESSION_SECRET`, toutes les sessions admin actives sont invalidées (comportement voulu).
 
@@ -49,7 +50,21 @@ Rotation : `wrangler secret put <NOM>` puis coller la nouvelle valeur (le prompt
 | `env.AI` | Workers AI | — |
 | `env.ASSETS` | Assets | — |
 
-Schéma D1 dans `migrations/0001_init.sql` (table `leads`).
+Schéma D1 dans `migrations/0001_init.sql` (table `leads`) et `migrations/0002_payments.sql` (colonnes `leads.pack_id`/`leads.updated_at` + table `payments`).
+
+## Stripe — configuration complète
+
+Le webhook (`src/app/api/stripe/webhook/route.ts`) confirme les paiements de façon fiable (pas seulement l'URL de redirection côté client, qui peut être fermée avant chargement). Étapes à faire une fois dans le dashboard Stripe (je n'ai pas accès au compte de Thomas, donc ces étapes sont manuelles) :
+
+1. **Enregistrer le endpoint webhook** : Stripe a remplacé l'ancien dashboard Developers par **Workbench** — les webhooks y sont maintenant des « Event Destinations ». Aller sur `dashboard.stripe.com/webhooks` → **Create a new destination** → source `Events from your account` → événement `checkout.session.completed` → **Next** → type de destination `Webhook` → Endpoint URL `https://calyroc.com/api/stripe/webhook` → **Create destination**. Ouvrir ensuite le endpoint créé → **Click to reveal** à côté du secret de signature (`whsec_...`) et le mettre dans `STRIPE_WEBHOOK_SECRET` (`.dev.vars` en local, secret Worker en prod — Cloudflare Dashboard → Worker `calyroc` → Settings → Variables and secrets, ou `wrangler secret put STRIPE_WEBHOOK_SECRET`). Le format du secret et la vérification de signature (`stripe.webhooks.constructEventAsync`) restent inchangés malgré le changement d'interface.
+2. **Activer TWINT** : Dashboard → Settings → Payment methods → activer TWINT. Stripe exige que le site affiche raison sociale, forme juridique, adresse complète et coordonnées dans les mentions légales avant d'accepter l'activation — vérifier `/mentions-legales` en cas de refus.
+3. **Image de marque** : Dashboard → Settings → Branding — uploader l'icône Calyroc (carré, ≥128×128px, <512Ko) et régler la couleur d'accent sur le bronze du site (`#B8862E`). S'applique automatiquement à la page Checkout hébergée, aux reçus Stripe et au portail client.
+4. **Reçus automatiques Stripe** : Dashboard → Settings → Customer emails → activer "Email customers about successful payments". Complémentaire à l'email de reçu Calyroc envoyé par le webhook : le reçu Stripe a un format facture standard utile pour la compta du client, l'email Calyroc reste le message de marque.
+5. **Mode test avant production** : développer et tester avec les clés `sk_test_...` et `stripe listen --forward-to <url>/api/stripe/webhook` avant de basculer les clés `sk_live_...` en prod.
+
+Aucun `payment_method_types` n'est fixé en dur dans le code : quand ce paramètre est omis, Stripe Checkout propose automatiquement tout moyen de paiement activé dans le dashboard (carte, TWINT, etc.) — un nouveau moyen de paiement activé plus tard n'a donc besoin d'aucun redéploiement.
+
+**TVA suisse** : non gérée par ce flux (facturation avec/sans TVA selon le statut d'immatriculation réel de Thomas — seuil de CHF 100'000 de chiffre d'affaires pour l'assujettissement obligatoire). Stripe Tax peut être activé plus tard sans changement structurel si besoin.
 
 ## Email du domaine
 

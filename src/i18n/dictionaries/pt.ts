@@ -25,12 +25,12 @@ export const pt: Dictionary = {
     ctaPrimary: "Pedir orçamento",
     ctaSecondary: "Ver projetos",
     trustLine:
-      "Falas com o Thomas, não com um gestor de projeto — desde a primeira resposta até à publicação.",
+      "Fala com o Thomas, não com um gestor de projeto — desde a primeira resposta até à publicação.",
     processEyebrow: "Como funciona",
     processTitle: "Quatro passos, sem zonas cinzentas.",
     processSteps: [
       {
-        title: "Descreves o teu projeto",
+        title: "Descreve o seu projeto",
         description:
           "Através do formulário de contacto ou diretamente com o Ask Calyroc — dois minutos chegam para lançar as bases.",
       },
@@ -40,11 +40,11 @@ export const pt: Dictionary = {
       },
       {
         title: "Desenvolvimento com pontos de situação",
-        description: "Vês o site a avançar e dás a tua opinião antes da entrega final, não depois.",
+        description: "Vê o site a avançar e dá a sua opinião antes da entrega final, não depois.",
       },
       {
         title: "Entrega + 2 revisões incluídas",
-        description: "O site é teu, com duas rondas de ajustes incluídas no preço acordado.",
+        description: "O site é seu, com duas rondas de ajustes incluídas no preço acordado.",
       },
     ],
     priceCompareEyebrow: "O mesmo site, noutro lugar",
@@ -80,7 +80,7 @@ export const pt: Dictionary = {
   },
   servicesPage: {
     eyebrow: "Serviços",
-    title: "Um site pensado para o teu negócio, não um template reciclado.",
+    title: "Um site pensado para o seu negócio, não um template reciclado.",
     subtitle:
       "Cada serviço é definido à partida: o que está incluído, a stack utilizada, o prazo indicativo. Sem surpresas na fatura.",
     ctaLabel: "Pedir orçamento",
@@ -91,7 +91,7 @@ export const pt: Dictionary = {
       {
         title: "Site institucional",
         description:
-          "Apresenta o teu negócio, transmite confiança e transforma visitas em contactos.",
+          "Apresenta o seu negócio, transmite confiança e transforma visitas em contactos.",
         includes: [
           "Design sob medida, sem templates genéricos",
           "Responsivo em telemóvel/tablet/desktop",
@@ -138,7 +138,7 @@ export const pt: Dictionary = {
       },
       {
         title: "Manutenção",
-        description: "Alojamento, atualizações e pequenas alterações, sem te preocupares.",
+        description: "Alojamento, atualizações e pequenas alterações, sem se preocupar.",
         includes: [
           "Alojamento Cloudflare incluído",
           "Atualizações de segurança",
@@ -150,7 +150,7 @@ export const pt: Dictionary = {
       },
       {
         title: "SEO técnico",
-        description: "Estrutura, desempenho e indexação para seres encontrado no Google.",
+        description: "Estrutura, desempenho e indexação para ser encontrado no Google.",
         includes: [
           "Auditoria de desempenho (Core Web Vitals)",
           "Dados estruturados (JSON-LD)",
@@ -182,8 +182,8 @@ export const pt: Dictionary = {
     featuresLabel: "Funcionalidades",
     resultsLabel: "Resultado",
     linkLabel: "Ver o site",
-    ctaTitle: "O teu projeto, o próximo nesta página?",
-    ctaSubtitle: "Vamos falar sobre o que queres construir.",
+    ctaTitle: "O seu projeto, o próximo nesta página?",
+    ctaSubtitle: "Vamos falar sobre o que quer construir.",
     ctaLabel: "Iniciar um projeto",
     caseStudies: [
       {
@@ -229,14 +229,14 @@ export const pt: Dictionary = {
     title: "Preços claros, sem letras miúdas.",
     subtitle:
       "Três planos base para começar depressa, e um orçamento sob medida para tudo o resto.",
-    guaranteeLabel: "O preço acordado é o preço que pagas — sem custos escondidos.",
+    guaranteeLabel: "O preço acordado é o preço que paga — sem custos escondidos.",
     deliveryLabel: "Prazo",
-    finderEyebrow: "Não sabes qual pacote escolher?",
-    finderTitle: "Encontra o teu em 3 perguntas.",
+    finderEyebrow: "Não sabe qual pacote escolher?",
+    finderTitle: "Encontre o seu em 3 perguntas.",
     finderSubtitle:
-      "Responde a algumas perguntas e dizemos-te qual pacote combina com o teu projeto.",
+      "Responda a algumas perguntas e dizemos-lhe qual pacote combina com o seu projeto.",
     finderTypeQuestion: {
-      question: "O que queres construir?",
+      question: "O que quer construir?",
       options: [
         { value: "vitrine", label: "Site institucional" },
         { value: "multipage", label: "Site multipágina" },
@@ -260,12 +260,13 @@ export const pt: Dictionary = {
         { value: "4-6", label: "4 a 6 idiomas" },
       ],
     },
-    finderResultTitle: "Este pacote parece combinar contigo:",
+    finderResultTitle: "Este pacote parece combinar consigo:",
     finderResultCta: "Ver o detalhe",
     finderRestartLabel: "Recomeçar",
     finderBackLabel: "Voltar",
     packs: [
       {
+        id: "essentiel",
         name: "Essencial",
         price: "590 CHF",
         priceNote: "cerca de 600 €",
@@ -281,6 +282,7 @@ export const pt: Dictionary = {
         highlighted: false,
       },
       {
+        id: "pro",
         name: "Pro",
         price: "1.490 CHF",
         priceNote: "cerca de 1.550 €",
@@ -296,6 +298,7 @@ export const pt: Dictionary = {
         highlighted: true,
       },
       {
+        id: "sur-mesure",
         name: "Sob medida",
         price: "Desde 2.900 CHF",
         priceNote: "orçamento personalizado",
@@ -313,7 +316,7 @@ export const pt: Dictionary = {
     ],
     maintenanceTitle: "Manutenção",
     maintenanceText:
-      "35 CHF/mês: alojamento, atualizações de segurança e pequenas alterações de conteúdo, sem te preocupares.",
+      "35 CHF/mês: alojamento, atualizações de segurança e pequenas alterações de conteúdo, sem se preocupar.",
     termsTitle: "Como funciona",
     terms: [
       "Sinal de 30-50% na encomenda, pago online",
@@ -326,7 +329,7 @@ export const pt: Dictionary = {
       {
         question: "O preço inclui o domínio?",
         answer:
-          "Não, o domínio (cerca de 15 CHF/ano para um .ch) e o alojamento são à parte, mas posso tratar de tudo por ti se preferires.",
+          "Não, o domínio (cerca de 15 CHF/ano para um .ch) e o alojamento são à parte, mas posso tratar de tudo por si se preferir.",
       },
       {
         question: "Quantas revisões estão incluídas?",
@@ -350,7 +353,7 @@ export const pt: Dictionary = {
     eyebrow: "Sobre mim",
     title: "Um developer, não uma agência.",
     subtitle:
-      "A Calyroc sou eu — Thomas. Sem gestor de projeto, sem subcontratação, sem custos de estrutura repercutidos no teu orçamento.",
+      "A Calyroc sou eu — Thomas. Sem gestor de projeto, sem subcontratação, sem custos de estrutura repercutidos no seu orçamento.",
     founderRole: "Developer solo · Aprendiz CFC de Informática",
     portfolioLabel: "O meu portfolio",
     linkedinLabel: "LinkedIn",
@@ -358,19 +361,19 @@ export const pt: Dictionary = {
     storyParagraphs: [
       "Chamo-me Thomas Prud'homme. Estou em formação como aprendiz CFC em informática de exploração e infraestrutura, sediado em Genebra, na Suíça.",
       "A Calyroc nasceu de uma constatação simples: a maioria dos autónomos e pequenas empresas não precisa de uma agência de dez pessoas para ter um site rápido e bem construído. Precisa de alguém competente que responda depressa e cumpra prazos.",
-      "Construo com um fluxo de trabalho assistido por IA — isso acelera a escrita de código, não a reflexão sobre o que o teu site precisa de fazer. Resultado: prazos mais curtos e preços mais baixos do que uma agência tradicional, sem abdicar da qualidade.",
+      "Construo com um fluxo de trabalho assistido por IA — isso acelera a escrita de código, não a reflexão sobre o que o seu site precisa de fazer. Resultado: prazos mais curtos e preços mais baixos do que uma agência tradicional, sem abdicar da qualidade.",
       "A melhor prova: Swiss3Design, uma plataforma e-commerce de impressão 3D com pagamentos Stripe reais em produção. Não é uma maquete — é um site real, com clientes reais.",
     ],
-    whyTitle: "Porque é que isto importa para ti",
+    whyTitle: "Porque é que isto importa para si",
     whyPoints: [
       {
         title: "Contacto direto",
         description:
-          "Escreves-me, eu respondo. Sem tickets, sem rotação de equipa a meio do projeto.",
+          "Escreve-me, eu respondo. Sem tickets, sem rotação de equipa a meio do projeto.",
       },
       {
         title: "Preços controlados",
-        description: "Sem custos de estrutura de agência repercutidos no teu orçamento.",
+        description: "Sem custos de estrutura de agência repercutidos no seu orçamento.",
       },
       {
         title: "Stack moderna",
@@ -384,41 +387,77 @@ export const pt: Dictionary = {
       },
     ],
     ctaTitle: "Falamos?",
-    ctaSubtitle: "Descreve-me o teu projeto, respondo em 48h.",
+    ctaSubtitle: "Descreva-me o seu projeto, respondo em 48h.",
     ctaLabel: "Iniciar a conversa",
   },
   contactPage: {
     eyebrow: "Contacto",
-    title: "Vamos falar sobre o teu projeto.",
-    subtitle: "Descreve o que queres construir, respondo em 48h com um retorno concreto.",
+    title: "Vamos falar sobre o seu projeto.",
+    subtitle: "Descreva o que quer construir, respondo em 48h com um retorno concreto.",
     formName: "Nome",
     formEmail: "Email",
-    formBudget: "Orçamento indicativo",
-    formBudgetOptions: [
-      "Essencial (desde 590 CHF)",
-      "Pro (desde 1.490 CHF)",
-      "Sob medida (desde 2.900 CHF)",
-      "Ainda não sei",
-    ],
-    formMessage: "O teu projeto",
-    formMessagePlaceholder: "Descreve o teu negócio, o que queres construir, os teus prazos...",
+    formPackLabel: "Pacote pretendido",
+    formPackUnsureLabel: "Ainda não sei",
+    formMessage: "O seu projeto",
+    formMessagePlaceholder: "Descreva o seu negócio, o que quer construir, os seus prazos...",
     formSubmit: "Enviar",
     formSubmitting: "A enviar...",
     formSuccess: "Mensagem enviada — respondo em 48h.",
-    formError: "Ocorreu um erro. Escreve-me diretamente para hello@calyroc.com.",
-    directTitle: "Ou escreve-me diretamente",
+    formError: "Ocorreu um erro. Escreva-me diretamente para hello@calyroc.com.",
+    directTitle: "Ou escreva-me diretamente",
     responseTime: "Resposta em 48h, em dias úteis.",
+    paymentSuccessTitle: "Pagamento confirmado",
+    paymentSuccessBody:
+      "Obrigado, o seu pagamento foi registado com sucesso. Receberá um recibo por email dentro de instantes.",
+    paymentCancelledTitle: "Pagamento cancelado",
+    paymentCancelledBody:
+      "O pagamento foi cancelado, não foi cobrado qualquer montante. Pode tentar novamente a qualquer momento ou escrever-me diretamente.",
   },
   legalPageNotice:
     "Esta página legal só existe em francês, versão de referência legalmente válida.",
   chatbot: {
-    label: "Pergunta à Calyroc",
+    label: "Pergunte à Calyroc",
     title: "Ask Calyroc",
     intro:
-      "Olá! Posso responder a perguntas sobre os serviços e preços da Calyroc. Para um orçamento real, vai ao formulário de contacto.",
-    placeholder: "Escreve a tua pergunta...",
+      "Olá! Posso responder a perguntas sobre os serviços e preços da Calyroc. Para um orçamento real, aceda ao formulário de contacto.",
+    placeholder: "Escreva a sua pergunta...",
     send: "Enviar",
-    errorMessage: "Ocorreu um erro, tenta novamente ou escreve para hello@calyroc.com.",
+    errorMessage: "Ocorreu um erro, tente novamente ou escreva para hello@calyroc.com.",
     disclaimer: "Respostas geradas por IA, sem valor contratual.",
+  },
+  email: {
+    clientConfirmation: {
+      subject: "A sua mensagem foi recebida — Calyroc",
+      preview: "Obrigado pela sua mensagem, respondo em 48h.",
+      heading: "Mensagem recebida",
+      intro:
+        "Obrigado pela sua mensagem. Aqui está um resumo — respondo em 48h com um retorno concreto.",
+      recapTitle: "Resumo",
+      packLabel: "Pacote",
+      messageLabel: "A sua mensagem",
+      responseTimeText: "Resposta em 48h, em dias úteis.",
+      signature: "Até já,<br>Thomas",
+    },
+    paymentLink: {
+      subject: "O seu link de pagamento Calyroc",
+      preview: "Um link de pagamento seguro está à sua espera.",
+      heading: "O seu link de pagamento",
+      intro: "Aqui está o link de pagamento seguro para o seu projeto Calyroc.",
+      amountLabel: "Montante",
+      descriptionLabel: "Descrição",
+      ctaLabel: "Pagar online",
+      expiryNote: "Este link permanece válido até ser utilizado.",
+      signature: "Até já,<br>Thomas",
+    },
+    paymentReceipt: {
+      subject: "Recibo de pagamento — Calyroc",
+      preview: "O seu pagamento foi confirmado com sucesso.",
+      heading: "Pagamento confirmado",
+      intro: "Obrigado, o seu pagamento foi recebido com sucesso. Aqui está o resumo.",
+      amountLabel: "Montante pago",
+      dateLabel: "Data",
+      nextStepsText: "Entrarei em contacto brevemente para os próximos passos do projeto.",
+      signature: "Obrigado pela confiança,<br>Thomas",
+    },
   },
 };

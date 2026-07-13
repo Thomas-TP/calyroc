@@ -5,6 +5,7 @@ import { fr } from "./dictionaries/fr";
 import { it } from "./dictionaries/it";
 import { pt } from "./dictionaries/pt";
 import type { Locale } from "./locales";
+import type { PackId } from "../lib/packs";
 
 export interface ServiceItem {
   title: string;
@@ -26,6 +27,7 @@ export interface CaseStudy {
 }
 
 export interface PricingPack {
+  id: PackId;
   name: string;
   price: string;
   priceNote: string;
@@ -184,8 +186,8 @@ export interface Dictionary {
     subtitle: string;
     formName: string;
     formEmail: string;
-    formBudget: string;
-    formBudgetOptions: string[];
+    formPackLabel: string;
+    formPackUnsureLabel: string;
     formMessage: string;
     formMessagePlaceholder: string;
     formSubmit: string;
@@ -194,6 +196,10 @@ export interface Dictionary {
     formError: string;
     directTitle: string;
     responseTime: string;
+    paymentSuccessTitle: string;
+    paymentSuccessBody: string;
+    paymentCancelledTitle: string;
+    paymentCancelledBody: string;
   };
   legalPageNotice: string;
   chatbot: {
@@ -204,6 +210,40 @@ export interface Dictionary {
     send: string;
     errorMessage: string;
     disclaimer: string;
+  };
+  email: {
+    clientConfirmation: {
+      subject: string;
+      preview: string;
+      heading: string;
+      intro: string;
+      recapTitle: string;
+      packLabel: string;
+      messageLabel: string;
+      responseTimeText: string;
+      signature: string;
+    };
+    paymentLink: {
+      subject: string;
+      preview: string;
+      heading: string;
+      intro: string;
+      amountLabel: string;
+      descriptionLabel: string;
+      ctaLabel: string;
+      expiryNote: string;
+      signature: string;
+    };
+    paymentReceipt: {
+      subject: string;
+      preview: string;
+      heading: string;
+      intro: string;
+      amountLabel: string;
+      dateLabel: string;
+      nextStepsText: string;
+      signature: string;
+    };
   };
 }
 

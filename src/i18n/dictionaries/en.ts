@@ -259,6 +259,7 @@ export const en: Dictionary = {
     finderBackLabel: "Back",
     packs: [
       {
+        id: "essentiel",
         name: "Essential",
         price: "CHF 590",
         priceNote: "about €600",
@@ -274,6 +275,7 @@ export const en: Dictionary = {
         highlighted: false,
       },
       {
+        id: "pro",
         name: "Pro",
         price: "CHF 1,490",
         priceNote: "about €1,550",
@@ -289,6 +291,7 @@ export const en: Dictionary = {
         highlighted: true,
       },
       {
+        id: "sur-mesure",
         name: "Custom",
         price: "From CHF 2,900",
         priceNote: "custom quote",
@@ -386,13 +389,8 @@ export const en: Dictionary = {
       "Describe what you want to build, I'll get back to you within 48h with real feedback.",
     formName: "Name",
     formEmail: "Email",
-    formBudget: "Indicative budget",
-    formBudgetOptions: [
-      "Essential (from CHF 590)",
-      "Pro (from CHF 1,490)",
-      "Custom (from CHF 2,900)",
-      "Not sure yet",
-    ],
+    formPackLabel: "Package",
+    formPackUnsureLabel: "Not sure yet",
     formMessage: "Your project",
     formMessagePlaceholder: "Describe your business, what you want to build, your timeline...",
     formSubmit: "Send",
@@ -401,6 +399,12 @@ export const en: Dictionary = {
     formError: "Something went wrong. Email me directly at hello@calyroc.com.",
     directTitle: "Or email me directly",
     responseTime: "Reply within 48h, on weekdays.",
+    paymentSuccessTitle: "Payment confirmed",
+    paymentSuccessBody:
+      "Thank you, your payment has been recorded. You'll receive a receipt by email shortly.",
+    paymentCancelledTitle: "Payment cancelled",
+    paymentCancelledBody:
+      "The payment was cancelled and no amount was charged. You can try again anytime, or email me directly.",
   },
   legalPageNotice:
     "This legal page only exists in French, the legally authoritative reference version.",
@@ -408,10 +412,45 @@ export const en: Dictionary = {
     label: "Ask Calyroc",
     title: "Ask Calyroc",
     intro:
-      "Hi! I can answer questions about Calyroc's services and pricing. For a real quote, head to the contact form.",
+      "Hello! I can answer questions about Calyroc's services and pricing. For a real quote, please use the contact form.",
     placeholder: "Ask a question...",
     send: "Send",
     errorMessage: "Something went wrong, try again or email hello@calyroc.com.",
     disclaimer: "AI-generated answers, not contractually binding.",
+  },
+  email: {
+    clientConfirmation: {
+      subject: "Your message has been received — Calyroc",
+      preview: "Thanks for reaching out, I'll reply within 48h.",
+      heading: "Message received",
+      intro:
+        "Thanks for your message. Here's a summary of what you sent — I'll get back to you within 48h with real feedback.",
+      recapTitle: "Summary",
+      packLabel: "Package",
+      messageLabel: "Your message",
+      responseTimeText: "Reply within 48h, on weekdays.",
+      signature: "Talk soon,<br>Thomas",
+    },
+    paymentLink: {
+      subject: "Your Calyroc payment link",
+      preview: "A secure payment link is ready for you.",
+      heading: "Your payment link",
+      intro: "Here's the secure payment link for your Calyroc project.",
+      amountLabel: "Amount",
+      descriptionLabel: "Description",
+      ctaLabel: "Pay online",
+      expiryNote: "This link stays valid until it's used.",
+      signature: "Talk soon,<br>Thomas",
+    },
+    paymentReceipt: {
+      subject: "Payment receipt — Calyroc",
+      preview: "Your payment has been confirmed.",
+      heading: "Payment confirmed",
+      intro: "Thank you, your payment has been received. Here's the summary.",
+      amountLabel: "Amount paid",
+      dateLabel: "Date",
+      nextStepsText: "I'll be in touch shortly about next steps for the project.",
+      signature: "Thank you for your trust,<br>Thomas",
+    },
   },
 };

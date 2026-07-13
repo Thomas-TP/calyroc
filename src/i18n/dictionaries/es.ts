@@ -25,12 +25,12 @@ export const es: Dictionary = {
     ctaPrimary: "Solicitar presupuesto",
     ctaSecondary: "Ver proyectos",
     trustLine:
-      "Hablas con Thomas, no con un jefe de proyecto — desde la primera respuesta hasta la publicación.",
+      "Habla con Thomas, no con un jefe de proyecto — desde la primera respuesta hasta la publicación.",
     processEyebrow: "Cómo funciona",
     processTitle: "Cuatro pasos, sin zonas grises.",
     processSteps: [
       {
-        title: "Describes tu proyecto",
+        title: "Describe su proyecto",
         description:
           "A través del formulario de contacto o directamente con Ask Calyroc — dos minutos bastan para sentar las bases.",
       },
@@ -40,11 +40,11 @@ export const es: Dictionary = {
       },
       {
         title: "Desarrollo con seguimiento",
-        description: "Ves el sitio avanzar y das tu opinión antes de la entrega final, no después.",
+        description: "Ve el sitio avanzar y da su opinión antes de la entrega final, no después.",
       },
       {
         title: "Entrega + 2 revisiones incluidas",
-        description: "El sitio es tuyo, con dos rondas de ajustes incluidas en el precio acordado.",
+        description: "El sitio es suyo, con dos rondas de ajustes incluidas en el precio acordado.",
       },
     ],
     priceCompareEyebrow: "El mismo sitio, en otro lugar",
@@ -66,8 +66,8 @@ export const es: Dictionary = {
     workEyebrow: "Proyectos",
     workTitle: "Proyectos reales, no maquetas.",
     workCta: "Ver todos los proyectos",
-    ctaBandTitle: "¿Tienes un proyecto en mente?",
-    ctaBandSubtitle: "Descríbelo en pocas líneas, te respondo en menos de 48h.",
+    ctaBandTitle: "¿Tiene un proyecto en mente?",
+    ctaBandSubtitle: "Descríbalo en pocas líneas, le respondo en menos de 48h.",
     ctaBandLabel: "Empezar la conversación",
   },
   footer: {
@@ -80,7 +80,7 @@ export const es: Dictionary = {
   },
   servicesPage: {
     eyebrow: "Servicios",
-    title: "Un sitio pensado para tu negocio, no una plantilla reciclada.",
+    title: "Un sitio pensado para su negocio, no una plantilla reciclada.",
     subtitle:
       "Cada servicio se define de antemano: qué incluye, la tecnología utilizada, el plazo indicativo. Sin sorpresas en la factura.",
     ctaLabel: "Solicitar presupuesto",
@@ -90,7 +90,7 @@ export const es: Dictionary = {
     items: [
       {
         title: "Sitio corporativo",
-        description: "Presenta tu negocio, genera confianza y convierte visitas en contactos.",
+        description: "Presenta su negocio, genera confianza y convierte visitas en contactos.",
         includes: [
           "Diseño a medida, sin plantillas genéricas",
           "Responsive móvil/tablet/escritorio",
@@ -137,7 +137,7 @@ export const es: Dictionary = {
       },
       {
         title: "Mantenimiento",
-        description: "Hosting, actualizaciones y pequeños cambios, sin preocuparte.",
+        description: "Hosting, actualizaciones y pequeños cambios, sin preocuparse.",
         includes: [
           "Hosting Cloudflare incluido",
           "Actualizaciones de seguridad",
@@ -181,8 +181,8 @@ export const es: Dictionary = {
     featuresLabel: "Funcionalidades",
     resultsLabel: "Resultado",
     linkLabel: "Ver el sitio",
-    ctaTitle: "¿Tu proyecto, el próximo en esta página?",
-    ctaSubtitle: "Hablemos de lo que quieres construir.",
+    ctaTitle: "¿Su proyecto, el próximo en esta página?",
+    ctaSubtitle: "Hablemos de lo que desea construir.",
     ctaLabel: "Empezar un proyecto",
     caseStudies: [
       {
@@ -224,13 +224,13 @@ export const es: Dictionary = {
     eyebrow: "Precios",
     title: "Precios claros, sin letra pequeña.",
     subtitle: "Tres planes base para empezar rápido, y un presupuesto a medida para todo lo demás.",
-    guaranteeLabel: "El precio acordado es el precio que pagas — sin costes ocultos.",
+    guaranteeLabel: "El precio acordado es el precio que paga — sin costes ocultos.",
     deliveryLabel: "Plazo",
-    finderEyebrow: "¿No sabes qué plan elegir?",
-    finderTitle: "Encuentra el tuyo en 3 preguntas.",
-    finderSubtitle: "Responde algunas preguntas y te decimos qué plan encaja con tu proyecto.",
+    finderEyebrow: "¿No sabe qué plan elegir?",
+    finderTitle: "Encuentre el suyo en 3 preguntas.",
+    finderSubtitle: "Responda algunas preguntas y le indico qué plan encaja con su proyecto.",
     finderTypeQuestion: {
-      question: "¿Qué quieres construir?",
+      question: "¿Qué desea construir?",
       options: [
         { value: "vitrine", label: "Sitio corporativo" },
         { value: "multipage", label: "Sitio multipágina" },
@@ -254,12 +254,13 @@ export const es: Dictionary = {
         { value: "4-6", label: "4 a 6 idiomas" },
       ],
     },
-    finderResultTitle: "Este plan parece encajar contigo:",
+    finderResultTitle: "Este plan parece encajar con usted:",
     finderResultCta: "Ver el detalle",
     finderRestartLabel: "Empezar de nuevo",
     finderBackLabel: "Atrás",
     packs: [
       {
+        id: "essentiel",
         name: "Esencial",
         price: "590 CHF",
         priceNote: "unos 600 €",
@@ -275,6 +276,7 @@ export const es: Dictionary = {
         highlighted: false,
       },
       {
+        id: "pro",
         name: "Pro",
         price: "1.490 CHF",
         priceNote: "unos 1.550 €",
@@ -290,6 +292,7 @@ export const es: Dictionary = {
         highlighted: true,
       },
       {
+        id: "sur-mesure",
         name: "A medida",
         price: "Desde 2.900 CHF",
         priceNote: "presupuesto personalizado",
@@ -307,7 +310,7 @@ export const es: Dictionary = {
     ],
     maintenanceTitle: "Mantenimiento",
     maintenanceText:
-      "35 CHF/mes: hosting, actualizaciones de seguridad y pequeños cambios de contenido, sin preocuparte.",
+      "35 CHF/mes: hosting, actualizaciones de seguridad y pequeños cambios de contenido, sin preocuparse.",
     termsTitle: "Cómo funciona",
     terms: [
       "Depósito del 30-50% al encargar, pagado online",
@@ -320,7 +323,7 @@ export const es: Dictionary = {
       {
         question: "¿El precio incluye el dominio?",
         answer:
-          "No, el dominio (unos 15 CHF/año para un .ch) y el hosting van aparte, pero puedo gestionarlo todo por ti si lo prefieres.",
+          "No, el dominio (unos 15 CHF/año para un .ch) y el hosting van aparte, pero puedo gestionarlo todo por usted si lo prefiere.",
       },
       {
         question: "¿Cuántas revisiones incluye?",
@@ -344,7 +347,7 @@ export const es: Dictionary = {
     eyebrow: "Sobre mí",
     title: "Un desarrollador, no una agencia.",
     subtitle:
-      "Calyroc soy yo — Thomas. Sin jefe de proyecto, sin subcontratación, sin costes de estructura repercutidos en tu presupuesto.",
+      "Calyroc soy yo — Thomas. Sin jefe de proyecto, sin subcontratación, sin costes de estructura repercutidos en su presupuesto.",
     founderRole: "Desarrollador solo · Aprendiz CFC de Informática",
     portfolioLabel: "Mi portfolio",
     linkedinLabel: "LinkedIn",
@@ -352,19 +355,19 @@ export const es: Dictionary = {
     storyParagraphs: [
       "Me llamo Thomas Prud'homme. Estoy formándome como aprendiz CFC en informática de explotación e infraestructura, con base en Ginebra, Suiza.",
       "Calyroc nació de una constatación simple: la mayoría de autónomos y pequeñas empresas no necesitan una agencia de diez personas para tener un sitio rápido y bien construido. Necesitan a alguien competente que responda rápido y cumpla los plazos.",
-      "Trabajo con un flujo asistido por IA — esto acelera la escritura del código, no la reflexión sobre lo que tu sitio necesita. El resultado: plazos más cortos y precios más bajos que una agencia tradicional, sin sacrificar la calidad.",
+      "Trabajo con un flujo asistido por IA — esto acelera la escritura del código, no la reflexión sobre lo que su sitio necesita. El resultado: plazos más cortos y precios más bajos que una agencia tradicional, sin sacrificar la calidad.",
       "La mejor prueba: Swiss3Design, una plataforma e-commerce de impresión 3D con pagos Stripe reales en producción. No una maqueta — un sitio real, con clientes reales.",
     ],
-    whyTitle: "Por qué esto importa para ti",
+    whyTitle: "Por qué esto importa para usted",
     whyPoints: [
       {
         title: "Contacto directo",
         description:
-          "Me escribes, te respondo. Sin tickets, sin rotación de equipo a mitad de proyecto.",
+          "Me escribe, le respondo. Sin tickets, sin rotación de equipo a mitad de proyecto.",
       },
       {
         title: "Precios controlados",
-        description: "Sin costes de estructura de agencia repercutidos en tu presupuesto.",
+        description: "Sin costes de estructura de agencia repercutidos en su presupuesto.",
       },
       {
         title: "Stack moderno",
@@ -377,42 +380,78 @@ export const es: Dictionary = {
           "Estoy en formación y lo digo claramente. Es garantía de agilidad y precios justos, no una excusa.",
       },
     ],
-    ctaTitle: "¿Hablamos?",
-    ctaSubtitle: "Descríbeme tu proyecto, te respondo en 48h.",
+    ctaTitle: "Hablemos de su proyecto.",
+    ctaSubtitle: "Descríbame su proyecto, le respondo en 48h.",
     ctaLabel: "Empezar la conversación",
   },
   contactPage: {
     eyebrow: "Contacto",
-    title: "Hablemos de tu proyecto.",
-    subtitle: "Describe lo que quieres construir, te respondo en 48h con una valoración concreta.",
+    title: "Hablemos de su proyecto.",
+    subtitle: "Describa lo que desea construir, le respondo en 48h con una valoración concreta.",
     formName: "Nombre",
     formEmail: "Email",
-    formBudget: "Presupuesto indicativo",
-    formBudgetOptions: [
-      "Esencial (desde 590 CHF)",
-      "Pro (desde 1.490 CHF)",
-      "A medida (desde 2.900 CHF)",
-      "Aún no lo sé",
-    ],
-    formMessage: "Tu proyecto",
-    formMessagePlaceholder: "Describe tu negocio, lo que quieres construir, tus plazos...",
+    formPackLabel: "Plan deseado",
+    formPackUnsureLabel: "Aún no lo sé",
+    formMessage: "Su proyecto",
+    formMessagePlaceholder: "Describa su negocio, lo que desea construir, sus plazos...",
     formSubmit: "Enviar",
     formSubmitting: "Enviando...",
-    formSuccess: "Mensaje enviado — te respondo en 48h.",
-    formError: "Ha ocurrido un error. Escríbeme directamente a hello@calyroc.com.",
-    directTitle: "O escríbeme directamente",
+    formSuccess: "Mensaje enviado — le respondo en 48h.",
+    formError: "Ha ocurrido un error. Escríbame directamente a hello@calyroc.com.",
+    directTitle: "O escríbame directamente",
     responseTime: "Respuesta en 48h, en días laborables.",
+    paymentSuccessTitle: "Pago confirmado",
+    paymentSuccessBody:
+      "Gracias, su pago se ha registrado correctamente. Recibirá un recibo por email en unos instantes.",
+    paymentCancelledTitle: "Pago cancelado",
+    paymentCancelledBody:
+      "El pago se ha cancelado, no se ha realizado ningún cargo. Puede intentarlo de nuevo en cualquier momento o escribirme directamente.",
   },
   legalPageNotice:
     "Esta página legal solo existe en francés, versión de referencia legalmente válida.",
   chatbot: {
-    label: "Pregunta a Calyroc",
+    label: "Pregunte a Calyroc",
     title: "Ask Calyroc",
     intro:
-      "¡Hola! Puedo responder preguntas sobre los servicios y precios de Calyroc. Para un presupuesto real, ve al formulario de contacto.",
-    placeholder: "Escribe tu pregunta...",
+      "Hola, puedo responder a sus preguntas sobre los servicios y precios de Calyroc. Para un presupuesto exacto, diríjase al formulario de contacto.",
+    placeholder: "Escriba su pregunta...",
     send: "Enviar",
-    errorMessage: "Ha ocurrido un error, inténtalo de nuevo o escribe a hello@calyroc.com.",
+    errorMessage: "Ha ocurrido un error, inténtelo de nuevo o escriba a hello@calyroc.com.",
     disclaimer: "Respuestas generadas por IA, sin valor contractual.",
+  },
+  email: {
+    clientConfirmation: {
+      subject: "Hemos recibido su mensaje — Calyroc",
+      preview: "Gracias por su mensaje, le respondo en 48h.",
+      heading: "Mensaje recibido",
+      intro:
+        "Gracias por su mensaje. Aquí tiene un resumen — le respondo en 48h con una valoración concreta.",
+      recapTitle: "Resumen",
+      packLabel: "Plan",
+      messageLabel: "Su mensaje",
+      responseTimeText: "Respuesta en 48h, en días laborables.",
+      signature: "Hasta pronto,<br>Thomas",
+    },
+    paymentLink: {
+      subject: "Su enlace de pago Calyroc",
+      preview: "Le espera un enlace de pago seguro.",
+      heading: "Su enlace de pago",
+      intro: "Aquí tiene el enlace de pago seguro para su proyecto Calyroc.",
+      amountLabel: "Importe",
+      descriptionLabel: "Descripción",
+      ctaLabel: "Pagar online",
+      expiryNote: "Este enlace permanece válido hasta que se utilice.",
+      signature: "Hasta pronto,<br>Thomas",
+    },
+    paymentReceipt: {
+      subject: "Recibo de pago — Calyroc",
+      preview: "Su pago se ha confirmado correctamente.",
+      heading: "Pago confirmado",
+      intro: "Gracias, hemos recibido su pago correctamente. Aquí tiene el resumen.",
+      amountLabel: "Importe pagado",
+      dateLabel: "Fecha",
+      nextStepsText: "Me pondré en contacto con usted próximamente para continuar con el proyecto.",
+      signature: "Gracias por su confianza,<br>Thomas",
+    },
   },
 };

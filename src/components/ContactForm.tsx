@@ -12,12 +12,19 @@ const initialState: ContactState = { status: "idle" };
 
 export function ContactForm({
   contactPage,
+  pricingPage,
   locale,
 }: {
   contactPage: Dictionary["contactPage"];
+  pricingPage: Dictionary["pricingPage"];
   locale: Locale;
 }) {
   const [state, formAction, isPending] = useActionState(submitContactForm, initialState);
+
+  const packOptions = [
+    ...pricingPage.packs.map((pack) => ({ value: pack.id, label: `${pack.name} — ${pack.price}` })),
+    { value: "unsure", label: contactPage.formPackUnsureLabel },
+  ];
 
   return (
     <form action={formAction} className="mt-10 flex flex-col gap-5">
@@ -35,11 +42,11 @@ export function ContactForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <span className="font-display text-sm text-paper/80">{contactPage.formBudget}</span>
+        <span className="font-display text-sm text-paper/80">{contactPage.formPackLabel}</span>
         <CustomSelect
-          name="budget"
-          ariaLabel={contactPage.formBudget}
-          options={contactPage.formBudgetOptions.map((opt) => ({ value: opt, label: opt }))}
+          name="packId"
+          ariaLabel={contactPage.formPackLabel}
+          options={packOptions}
           triggerClassName="w-full px-4 py-3"
         />
       </div>
