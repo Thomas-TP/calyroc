@@ -37,7 +37,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     "@type": "ProfessionalService",
     name: "Calyroc",
     url: SITE_URL,
+    logo: `${SITE_URL}/logo-icon.png`,
+    image: `${SITE_URL}/og-image.png`,
     description: dictionary.meta.description,
+    email: "hello@calyroc.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Gland",
@@ -46,6 +49,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     },
     areaServed: "Europe",
     priceRange: "590-2900+ CHF",
+    sameAs: ["https://www.linkedin.com/in/thomas-tp"],
   };
 
   return (
