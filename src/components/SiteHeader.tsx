@@ -36,8 +36,9 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-10">
           <Link
             href={`/${locale}/`}
-            className="font-display text-lg font-bold tracking-tight text-paper"
+            className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-paper"
           >
+            <img src="/logo-icon.png" alt="" width={28} height={28} className="h-7 w-7" />
             Calyroc
           </Link>
 
@@ -96,8 +97,9 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
               <Link
                 href={`/${locale}/`}
                 onClick={() => setMobileOpen(false)}
-                className="font-display text-lg font-bold text-paper"
+                className="flex items-center gap-2.5 font-display text-lg font-bold text-paper"
               >
+                <img src="/logo-icon.png" alt="" width={28} height={28} className="h-7 w-7" />
                 Calyroc
               </Link>
               <button

@@ -13,3 +13,11 @@ export interface Lead {
 }
 
 export const LEAD_STATUSES: Lead["status"][] = ["new", "contacted", "quoted", "won", "lost"];
+
+export const LEAD_STATUS_LABELS: Record<Lead["status"], string> = {
+  new: "Nouveau",
+  contacted: "Contacté",
+  quoted: "Devis envoyé",
+  won: "Gagné",
+  lost: "Perdu",
+};

@@ -408,6 +408,14 @@ export const en: Dictionary = {
   },
   legalPageNotice:
     "This legal page only exists in French, the legally authoritative reference version.",
+  notFoundPage: {
+    eyebrow: "404",
+    title: "This page doesn't exist.",
+    subtitle:
+      "The link may be outdated, or the address may contain a typo. Here's how to get back on track.",
+    ctaHome: "Back to homepage",
+    ctaContact: "Contact us",
+  },
   chatbot: {
     label: "Ask Calyroc",
     title: "Ask Calyroc",

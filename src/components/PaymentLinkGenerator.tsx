@@ -82,20 +82,20 @@ export function PaymentLinkGenerator({
   }
 
   return (
-    <div className="mt-3 border-t border-paper/8 pt-3">
+    <div>
       <form action={formAction} className="flex flex-col gap-3">
         <input type="hidden" name="leadId" value={leadId} />
 
-        <div className="flex flex-wrap items-end gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           <label className="flex flex-col gap-1">
-            <span className="text-xs text-stone">Pack</span>
+            <span className="text-xs text-stone">Formule</span>
             <CustomSelect
               name="packId"
-              ariaLabel="Pack"
+              ariaLabel="Formule"
               value={packId}
               onChange={handlePackChange}
               options={PACK_OPTIONS}
-              triggerClassName="px-3 py-1.5 text-sm"
+              triggerClassName="w-full px-3 py-1.5 text-sm"
             />
           </label>
           <label className="flex flex-col gap-1">
@@ -106,10 +106,10 @@ export function PaymentLinkGenerator({
               value={kind}
               onChange={handleKindChange}
               options={KIND_OPTIONS}
-              triggerClassName="px-3 py-1.5 text-sm"
+              triggerClassName="w-full px-3 py-1.5 text-sm"
             />
           </label>
-          {kind === "deposit" && (
+          {kind === "deposit" ? (
             <label className="flex flex-col gap-1">
               <span className="text-xs text-stone">Pourcentage</span>
               <CustomSelect
@@ -118,13 +118,15 @@ export function PaymentLinkGenerator({
                 value={depositPercent}
                 onChange={handlePercentChange}
                 options={PERCENT_OPTIONS}
-                triggerClassName="px-3 py-1.5 text-sm"
+                triggerClassName="w-full px-3 py-1.5 text-sm"
               />
             </label>
+          ) : (
+            <div />
           )}
         </div>
 
-        <div className="flex flex-wrap items-end gap-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-[7rem_1fr]">
           <label className="flex flex-col gap-1">
             <span className="text-xs text-stone">Montant (CHF)</span>
             <input
@@ -135,10 +137,10 @@ export function PaymentLinkGenerator({
               required
               value={amountChf}
               onChange={(event) => setAmountChf(event.target.value)}
-              className="w-28 rounded-lg border border-paper/15 bg-transparent px-2 py-1.5 text-sm text-paper outline-none focus:border-bronze"
+              className="rounded-lg border border-paper/15 bg-transparent px-2 py-1.5 text-sm text-paper outline-none focus:border-bronze"
             />
           </label>
-          <label className="flex min-w-[12rem] flex-1 flex-col gap-1">
+          <label className="flex flex-col gap-1">
             <span className="text-xs text-stone">Description</span>
             <input
               type="text"
@@ -174,38 +176,46 @@ export function PaymentLinkGenerator({
         <button
           type="submit"
           disabled={isPending}
-          className="btn-secondary self-start !px-3 !py-1.5 text-xs disabled:opacity-50"
+          className="btn-secondary self-start !px-4 !py-2 text-xs disabled:opacity-60"
         >
-          {isPending ? "..." : "Générer un lien de paiement"}
+          {isPending ? "Génération..." : "Générer un lien de paiement"}
         </button>
       </form>
 
       {state.status === "success" && state.url && (
-        <div className="mt-2 flex items-center gap-2">
-          <input
-            readOnly
-            value={state.url}
-            onFocus={(event) => event.target.select()}
-            className="flex-1 rounded-lg border border-paper/15 bg-transparent px-2 py-1.5 text-xs text-paper/70"
-          />
-          <button
-            type="button"
-            onClick={() => {
-              navigator.clipboard.writeText(state.url ?? "");
-              setCopied(true);
-            }}
-            className="btn-secondary !px-3 !py-1.5 text-xs"
-          >
-            {copied ? "Copié" : "Copier"}
-          </button>
+        <div className="mt-3 rounded-xl border border-bronze/30 bg-bronze/10 p-3">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-bronze">
+            <span aria-hidden>✓</span>
+            Lien généré{state.emailSent ? " et email envoyé au client" : ""}
+          </p>
+          <div className="mt-2 flex items-center gap-2">
+            <input
+              readOnly
+              value={state.url}
+              onFocus={(event) => event.target.select()}
+              className="flex-1 rounded-lg border border-paper/15 bg-onyx/40 px-2 py-1.5 text-xs text-paper/70"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText(state.url ?? "");
+                setCopied(true);
+              }}
+              className="btn-secondary !px-3 !py-1.5 text-xs"
+            >
+              {copied ? "Copié" : "Copier"}
+            </button>
+          </div>
         </div>
       )}
 
       {state.status === "error" && (
-        <p className="mt-2 text-xs text-red-400">
+        <p className="mt-3 text-xs text-red-400">
           {state.message === "not-configured"
             ? "STRIPE_SECRET_KEY n'est pas configuré."
-            : "Erreur lors de la création du lien."}
+            : state.message === "lead-not-found"
+              ? "Lead introuvable."
+              : "Erreur lors de la création du lien."}
         </p>
       )}
     </div>

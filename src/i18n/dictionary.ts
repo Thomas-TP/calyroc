@@ -202,6 +202,13 @@ export interface Dictionary {
     paymentCancelledBody: string;
   };
   legalPageNotice: string;
+  notFoundPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    ctaHome: string;
+    ctaContact: string;
+  };
   chatbot: {
     label: string;
     title: string;

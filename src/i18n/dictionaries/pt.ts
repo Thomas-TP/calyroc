@@ -415,6 +415,14 @@ export const pt: Dictionary = {
   },
   legalPageNotice:
     "Esta página legal só existe em francês, versão de referência legalmente válida.",
+  notFoundPage: {
+    eyebrow: "404",
+    title: "Esta página não existe.",
+    subtitle:
+      "O link pode estar desatualizado, ou o endereço contém um erro. Eis como retomar o caminho certo.",
+    ctaHome: "Voltar ao início",
+    ctaContact: "Contacte-nos",
+  },
   chatbot: {
     label: "Pergunte à Calyroc",
     title: "Ask Calyroc",

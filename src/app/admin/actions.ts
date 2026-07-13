@@ -76,6 +76,7 @@ export interface PaymentLinkState {
   status: "idle" | "success" | "error";
   url?: string;
   message?: string;
+  emailSent?: boolean;
 }
 
 export async function createPaymentLink(
@@ -166,6 +167,7 @@ export async function createPaymentLink(
       .bind(parsed.data.packId, now, parsed.data.leadId)
       .run();
 
+    let emailSent = false;
     if (parsed.data.sendEmail === "true") {
       const emailContent = renderPaymentLinkEmail({
         locale: leadLocale,
@@ -174,7 +176,7 @@ export async function createPaymentLink(
         url: session.url,
         personalMessage: parsed.data.personalMessage,
       });
-      await sendEmail({
+      emailSent = await sendEmail({
         to: lead.email,
         subject: emailContent.subject,
         html: emailContent.html,
@@ -183,7 +185,7 @@ export async function createPaymentLink(
     }
 
     revalidatePath("/admin");
-    return { status: "success", url: session.url };
+    return { status: "success", url: session.url, emailSent };
   } catch (error) {
     console.error("Failed to create Stripe checkout session", error);
     return { status: "error", message: "stripe-error" };

@@ -1,5 +1,8 @@
 import { ImageResponse } from "next/og";
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
+
+const iconBuffer = await readFile("./scripts/logo-out/icon-mark.png");
+const iconDataUri = `data:image/png;base64,${iconBuffer.toString("base64")}`;
 
 const element = {
   type: "div",
@@ -16,21 +19,12 @@ const element = {
     },
     children: [
       {
-        type: "div",
+        type: "img",
         props: {
-          style: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "88px",
-            height: "88px",
-            borderRadius: "24px",
-            backgroundColor: "#C9A567",
-            color: "#0B0B0C",
-            fontSize: "44px",
-            fontWeight: 700,
-          },
-          children: "C",
+          src: iconDataUri,
+          width: "88",
+          height: "88",
+          style: { width: "88px", height: "88px", objectFit: "contain" },
         },
       },
       {
