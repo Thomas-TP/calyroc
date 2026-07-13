@@ -11,15 +11,18 @@ import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 const initialState: ContactState = { status: "idle" };
 
 // Turnstile only exposes light/dark/auto (no custom color API -- it's a
-// security-isolated Cloudflare widget). A CSS filter on the wrapper still
-// works even on its cross-origin iframe (filters operate on rendered
-// pixels, not DOM access), so it's tuned here to nudge the widget's neutral
-// grey/white toward the site's bronze-tinted onyx/paper surfaces instead of
-// looking like an unstyled default component. Values picked by visual
-// comparison against the site's actual card surfaces in both themes.
-const TURNSTILE_FILTER: Record<"light" | "dark", string> = {
-  dark: "sepia(0.25) saturate(1.6) hue-rotate(-12deg) brightness(0.85) contrast(1.05)",
-  light: "sepia(0.35) saturate(1.3) hue-rotate(-8deg) brightness(1.01)",
+// security-isolated Cloudflare widget). A bronze overlay with
+// mix-blend-mode: color still works even on its cross-origin iframe
+// (blend modes composite rendered pixels, not DOM content) -- "color"
+// specifically replaces hue+saturation while keeping the backdrop's own
+// luminance, so it pulls the widget toward the exact site bronze (#C9A567)
+// instead of just approximating warmth like a plain filter would. Opacity
+// is lower in light mode since blend-mode "color" has little visible effect
+// close to white (no saturation headroom), so a light touch avoids muddying
+// the near-white background.
+const TURNSTILE_TINT_OPACITY: Record<"light" | "dark", number> = {
+  dark: 0.75,
+  light: 0.35,
 };
 
 declare global {
@@ -89,8 +92,17 @@ function TurnstileWidget({ theme }: { theme: "light" | "dark" }) {
 
   return (
     <div className="w-fit overflow-hidden rounded-lg">
-      <div style={{ filter: TURNSTILE_FILTER[theme] }}>
+      <div className="relative">
         <div ref={containerRef} />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundColor: "#C9A567",
+            mixBlendMode: "color",
+            opacity: TURNSTILE_TINT_OPACITY[theme],
+          }}
+        />
       </div>
     </div>
   );
