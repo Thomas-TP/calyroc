@@ -11,17 +11,17 @@ import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 const initialState: ContactState = { status: "idle" };
 
 // Turnstile only exposes light/dark/auto (no custom color API -- it's a
-// security-isolated Cloudflare widget). A bronze overlay with
-// mix-blend-mode: color still works even on its cross-origin iframe
-// (blend modes composite rendered pixels, not DOM content) -- "color"
-// specifically replaces hue+saturation while keeping the backdrop's own
-// luminance, so it pulls the widget toward the exact site bronze (#C9A567)
-// instead of just approximating warmth like a plain filter would. Opacity
-// is lower in light mode since blend-mode "color" has little visible effect
-// close to white (no saturation headroom), so a light touch avoids muddying
-// the near-white background.
+// security-isolated Cloudflare widget). A bronze overlay still works even
+// on its cross-origin iframe (compositing operates on rendered pixels, not
+// DOM content). Normal alpha blending, not mix-blend-mode: color -- "color"
+// preserves the backdrop's own luminance, which on Turnstile's dark theme
+// (near-black) stays dark no matter the opacity and reads as a muddy
+// brown instead of the site's actual bright bronze. Plain alpha blending
+// pulls the visible result toward the true #C9A567 regardless of what's
+// underneath. Opacity is capped below ~0.7 so the checkmark and "Success"
+// text stay legible instead of being washed out.
 const TURNSTILE_TINT_OPACITY: Record<"light" | "dark", number> = {
-  dark: 0.75,
+  dark: 0.68,
   light: 0.35,
 };
 
@@ -99,7 +99,6 @@ function TurnstileWidget({ theme }: { theme: "light" | "dark" }) {
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundColor: "#C9A567",
-            mixBlendMode: "color",
             opacity: TURNSTILE_TINT_OPACITY[theme],
           }}
         />
