@@ -88,8 +88,10 @@ function TurnstileWidget({ theme }: { theme: "light" | "dark" }) {
   }, [scriptReady, theme]);
 
   return (
-    <div className="w-fit overflow-hidden rounded-lg" style={{ filter: TURNSTILE_FILTER[theme] }}>
-      <div ref={containerRef} />
+    <div className="w-fit overflow-hidden rounded-lg">
+      <div style={{ filter: TURNSTILE_FILTER[theme] }}>
+        <div ref={containerRef} />
+      </div>
     </div>
   );
 }
