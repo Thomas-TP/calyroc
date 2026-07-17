@@ -1,10 +1,10 @@
 # Design system
 
-Phase 0 de la [feuille de route de refonte design](../PLAN.md) — fondations avant de toucher aux pages. Complète [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) (qui décrit les composants) avec le *pourquoi* des choix visuels.
+Fondations visuelles du site — voir [`PLAN.md`](../PLAN.md) pour le positionnement produit. Complète [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) (qui décrit les composants) avec le *pourquoi* des choix visuels. Ce document doit être tenu à jour au fil des refontes de page, pas seulement au lancement d'une phase — voir la dernière section.
 
 ## Palette — verrouillée
 
-La palette ne change pas dans le cadre de la refonte design (décision explicite). Définie dans `uno.config.ts` :
+La palette ne change pas dans le cadre de la refonte design (décision explicite). Définie dans `uno.config.ts`, chaque token est une variable CSS custom property (`globals.css`, blocs `.dark`/`.light`) — c'est ce qui permet au thème clair/sombre (`src/components/ThemeToggle.tsx`) de re-thémer tout le site sans qu'aucun composant n'ait besoin d'une variante `dark:`/`light:` de sa propre classe :
 
 | Token | Valeur | Usage |
 |---|---|---|
@@ -30,7 +30,7 @@ Un seul accent, jamais deux couleurs vives sur le même écran — c'est ce qui 
 | `text-display-sm` | Titre de carte/bloc | Titres de `PricingCard`, `HomeServicesTeaser` |
 | `text-impact` | Phrases courtes (2-5 mots), traitement graphique | Pas encore utilisé — réservé Phase 1 |
 
-**`text-impact` — à quoi ça sert et à quoi pas.** Majuscules + tracking très serré (`tracking-tighter`) + gras. Ça fonctionne comme un poster : un mot ou un chiffre isolé (ex. un montant dans un widget de comparaison de prix). **Ne jamais l'utiliser sur une phrase complète** — en majuscules serrées, une phrase devient illisible. Inspiré du contraste que produit Barlow Condensed chez CraftedPages, adapté à Space Grotesk (qui n'est pas une police condensée) via l'échelle et le tracking plutôt qu'un changement de police.
+**`text-impact` — à quoi ça sert et à quoi pas.** Majuscules + tracking très serré (`tracking-tighter`) + gras. Ça fonctionne comme un poster : un mot ou un chiffre isolé — utilisé aujourd'hui dans `PriceCompareWidget.tsx` pour les montants comparés. **Ne jamais l'utiliser sur une phrase complète** — en majuscules serrées, une phrase devient illisible. Inspiré du contraste que produit Barlow Condensed chez CraftedPages, adapté à Space Grotesk (qui n'est pas une police condensée) via l'échelle et le tracking plutôt qu'un changement de police.
 
 Polices : Space Grotesk Variable (`font-display`, poids 300-700 réellement disponibles dans le fichier — ne pas demander 800/900, le navigateur simule un faux gras si le poids n'existe pas dans le fichier variable) + Inter Variable (`font-body`).
 
@@ -47,9 +47,13 @@ Rester sur ces trois paliers plutôt que d'introduire une nouvelle valeur ponctu
 
 - `btn-primary` / `btn-secondary` (`uno.config.ts`) — les deux seuls styles de bouton du site. Ne pas créer de troisième variante sans mettre à jour ce document.
 - `Reveal` (`src/components/Reveal.tsx`) — wrapper `whileInView` générique pour l'apparition au scroll. Respecte `prefers-reduced-motion` via `MotionProvider`.
-- `CustomSelect` (`src/components/CustomSelect.tsx`) — remplace tout `<select>` natif, voir `docs/ARCHITECTURE.md`.
+- `CustomSelect` (`src/components/CustomSelect.tsx`) — remplace tout `<select>` natif du site (langue, pack du formulaire, statut admin, dropdown Studio du header), voir `docs/ARCHITECTURE.md`. Props `panelPosition`/`variant`/`closeSignal` pour s'adapter à chaque contexte de réutilisation sans dupliquer le composant.
+- `NavDropdown` (`src/components/NavDropdown.tsx`) — habillage du header autour de `CustomSelect` pour le menu "Studio".
 - `PageHeader` — eyebrow + titre + sous-titre centré, utilisé en haut de chaque page de contenu.
+- `PriceCompareWidget` — comparaison de prix animée (spotlight `:has()`, container queries, connecteur dessiné au scroll), utilise `text-impact` pour les montants.
+- `ThemeToggle` — bascule thème clair/sombre.
+- Animation : tout le site utilise `motion` (Framer Motion) via `MotionProvider` — pas GSAP/Lenis, malgré ce qu'un historique de tâches périmé pourrait laisser penser.
 
-## Ce qui n'est pas encore dans ce document
+## Tenir ce document à jour
 
-Les phases 1 à 5 de la refonte design (widget de comparaison de prix, timeline de livraison visuelle, carte fondateur, micro-interactions) ajouteront leurs propres patterns au fur et à mesure — ce fichier doit être mis à jour à chaque nouveau composant réutilisable, pas seulement au lancement de chaque phase.
+Chaque nouveau composant réutilisable (pas juste une variation ponctuelle d'un composant existant) doit être ajouté à la liste ci-dessus au moment où il est construit, pas après coup lors d'une passe de rattrapage de la documentation.

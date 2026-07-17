@@ -6,15 +6,17 @@
 
 ## 1. Positionnement
 
-**Calyroc** — studio web solo, basé en Suisse (Gland, VD), opéré par Thomas Prud'homme, apprenti CFC Informaticien Exploitation & Infrastructure. Positionnement généraliste milieu de gamme : sites vitrines et e-commerce modernes, livrés vite grâce à un workflow de développement augmenté par l'IA, sur une stack technique de pointe (Cloudflare Workers, React, TypeScript).
+**Calyroc** — studio web solo, opéré par Thomas Prud'homme, apprenti CFC Informaticien Exploitation & Infrastructure. Positionnement généraliste milieu de gamme : sites vitrines et e-commerce modernes, livrés vite grâce à un workflow de développement augmenté par l'IA, sur une stack technique de pointe (Cloudflare Workers, React, TypeScript).
 
 **Différenciateurs** :
 - Contact direct avec le développeur, pas d'interlocuteur commercial ni de sous-traitance
-- Stack ultra-performante (Rspack/Bun, edge Cloudflare) → sites rapides par construction
+- Stack ultra-performante (edge Cloudflare, Next.js/OpenNext) → sites rapides par construction
 - Transparence sur le statut (étudiant en formation, workflow assisté par IA) — assumé comme gage d'agilité et de prix maîtrisés, pas caché
 - Portfolio réel : un e-commerce en production avec paiements live (Swiss3Design), pas juste des maquettes
 
-**Marché cible** : généraliste (indépendants, TPE/PME, startups), zone Europe élargie (langues FR/EN/ES/IT/DE/PT), avec ancrage Suisse fort pour la crédibilité locale (CHF, TWINT le cas échéant, droit suisse). Domaine `.com` cohérent avec l'ambition européenne du marché cible.
+**Marché cible** : généraliste (indépendants, TPE/PME, startups), zone Europe élargie, avec ancrage Suisse fort pour la crédibilité locale (CHF, TWINT le cas échéant, droit suisse). Domaine `.com` cohérent avec l'ambition européenne du marché cible.
+
+**Langues couvertes (9)** : français (défaut), anglais, espagnol, italien, allemand, portugais, néerlandais, polonais, russe — voir §3 pour l'architecture d'URL et §4 pour la qualité de traduction par langue.
 
 ---
 
@@ -22,69 +24,85 @@
 
 - **Nom** : Calyroc
 - **Domaine** : calyroc.com (déjà réservé sur Cloudflare)
-- **Ton** : tutoiement, direct, sans jargon d'agence, honnête sur les délais et le scope
-- **Style visuel** : sobre et premium — fond onyx quasi-noir, accent bronze unique, beaucoup d'espace négatif (remplace la direction "colorée et créative" initiale, jugée trop générique/pas assez premium après un premier essai)
-- **Palette** :
+- **Ton** : vouvoiement, direct, sans jargon d'agence, honnête sur les délais et le scope
+- **Style visuel** : sobre et premium — fond onyx quasi-noir, accent bronze unique, beaucoup d'espace négatif
+- **Palette** (verrouillée, voir `docs/DESIGN_SYSTEM.md` pour le détail des tokens) :
   - Fond (dark, par défaut) : onyx `#0B0B0C`, panneaux `#131316`
   - Texte : blanc cassé `#F5F3EF`
   - Texte secondaire / bordures : stone `#8C887F`
   - Accent unique : bronze `#C9A567` (clin d'œil à "roc" — minéral, se démarque du violet/indigo générique des sites d'agences tech)
-- **Typographie** : display géométrique pour les titres (Space Grotesk / General Sans), sans-serif lisible pour le corps (Inter). Polices auto-hébergées.
-- **Logo** : géré par l'utilisateur en dehors de ce projet — le design réserve l'espace (header, footer, favicon, OG image)
+  - Le site supporte aussi un thème clair (toggle, voir `ThemeToggle.tsx`) — mêmes rôles de tokens, valeurs inversées.
+- **Typographie** : Space Grotesk Variable (titres) + Inter Variable (corps), auto-hébergées et sous-titrées (voir §4, section polices).
+- **Logo** : mark bronze + texte, décliné en plusieurs formats (`public/logo.webp`, `public/logo-icon.png`, `public/logo-email.png` pour les emails HTML, `public/logo-icon-sm.webp`).
 
 ---
 
 ## 3. Architecture du site (sitemap)
 
-Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `en`, `es`, `it`, `de`, `pt`).
+Multipage, routing localisé `/{locale}/...` pour 9 langues (`fr` par défaut, `en`, `es`, `it`, `de`, `pt`, `nl`, `pl`, `ru`).
 
 **Pages publiques**
 1. **Accueil** (`/`)
-2. **Services** (`/services`)
-3. **Réalisations** (`/realisations`)
-4. **Tarifs** (`/tarifs`)
-5. **Contact** (`/contact`)
-6. **Mentions légales** (`/mentions-legales`)
-7. **Politique de confidentialité** (`/confidentialite`)
-8. **CGV** (`/cgv`)
+2. **Services** (`/services`, même slug dans toutes les langues)
+3. **Réalisations** (slug traduit par locale, ex. `/en/work`, `/de/referenzen` — voir `src/i18n/routes.ts`)
+4. **Tarifs** (slug traduit par locale, ex. `/en/pricing`)
+5. **Contact** (`/contact`, même slug dans toutes les langues)
+6. **FAQ** (`/faq`, même slug — contenu dictionnaire, liée depuis la page Tarifs)
+7. **Blog** (`/blog` + `/blog/[slug]`, même slug — contenu éditorial dans `src/content/blog/`, un article rédigé une fois et servi sous chaque préfixe de locale)
+8. **Mentions légales / Confidentialité / CGV** (slug traduit par locale) — traduites dans les 9 langues, voir §4
+9. **Suivi de projet** (`/suivi/[token]`) — page publique en lecture seule pour qu'un client suive l'avancement de son projet sans compte, via un lien à token unique généré depuis l'admin
+
+**Pourquoi des slugs traduits plutôt qu'un slug français partout** : confirmé par la recherche SEO multilingue actuelle — un slug traduit par langue (`/en/pricing` plutôt que `/en/tarifs`) surclasse un slug partagé en une seule langue pour le référencement international. Le français reste le dossier physique "canonique" en interne (`src/app/[locale]/tarifs/`) ; `next.config.ts` réécrit la version localisée vers ce dossier, et redirige (301) l'ancienne URL à slug français (sous un préfixe non-fr) vers la nouvelle URL localisée.
 
 **Zone privée**
-9. **`/admin`** — ✅ dashboard protégé (mot de passe), gestion des leads/devis (D1), export CSV
+10. **`/admin`** — dashboard protégé (mot de passe), gestion des leads/devis (D1), statut + suivi client (génère le lien `/suivi/[token]`), liens de paiement Stripe, export CSV
 
 **Composant transverse**
-- **Chatbot "Ask Calyroc"** — ✅ widget flottant, Workers AI, testé en production avec de vraies réponses
+- **Chatbot "Ask Calyroc"** — widget flottant, Workers AI, badge de disclosure IA visible, testé en production
 
-**SEO technique** — ✅ sitemap.xml + hreflang, robots.txt (`/admin` exclu), JSON-LD (ProfessionalService + FAQPage), metadata par page (title/description/canonical), Open Graph + Twitter Card sur toutes les pages/langues avec image statique (`public/og-image.png`, générée hors du build OpenNext via `scripts/gen-og-image.mjs` pour éviter le bug WASM — voir §4), favicon statique (`src/app/icon.svg`).
+**SEO technique** — sitemap.xml + hreflang (balises HTML uniquement, volontairement pas dupliqué en header HTTP ni sitemap pour éviter que les deux sources divergent), robots.txt (`/admin` exclu — le fichier servi en prod est enrichi par Cloudflare, voir §4), JSON-LD (ProfessionalService + Service + BreadcrumbList + FAQPage), metadata par page (title/description/canonical), Open Graph + Twitter Card sur toutes les pages/langues avec image statique (`public/og-image.png`, régénérée hors du build OpenNext via `scripts/gen-og-image.mjs`), favicon statique.
+
+**GEO / lisibilité par les IA** — voir §4 pour le détail (Content Signals, security.txt, formulaire de contact adapté aux agents).
 
 ---
 
 ## 4. Fonctionnalités & architecture technique
 
-**Stack** : Bun · **Next.js 16 (App Router) + OpenNext** · UnoCSS · React 19 · TypeScript strict · Cloudflare Workers · Biome · Resend · Zod · Stripe · motion
-
-*(Pivot depuis Rsbuild + SSR maison : décision explicite de repasser sur Next.js/OpenNext, le pattern déjà éprouvé sur l'ancien tom-web.ch. UnoCSS/Biome/Bun conservés.)*
+**Stack** : Bun · **Next.js 16 (App Router) + OpenNext** · UnoCSS · React 19 · TypeScript strict · Cloudflare Workers (D1, Workers AI) · Biome · Resend · Zod · Stripe · `motion` (Framer Motion)
 
 **Repo** : public, [`Thomas-TP/calyroc`](https://github.com/Thomas-TP/calyroc)
 
-**i18n** : routing `/{locale}/...` via App Router (`src/app/[locale]/`), dictionnaire par langue dans `src/i18n/dictionaries/`, détection de langue à la racine via `src/middleware.ts`. Reste volontairement sur l'ancienne convention `middleware.ts` (pas `proxy.ts`, la nouvelle convention Next 16) : testé le 11.07, la migration casse le build OpenNext Cloudflare (`ERROR Node.js middleware is not currently supported` — `proxy.ts` force un runtime Node.js que l'adaptateur ne supporte pas encore). Voir `AGENTS.md` §"Règles non négociables".
+**i18n** : routing `/{locale}/...` via App Router (`src/app/[locale]/`), dictionnaire par langue dans `src/i18n/dictionaries/` (9 fichiers), slugs traduits pour les routes qui en ont un (`src/i18n/routes.ts`), détection de langue à la racine via `src/middleware.ts`. Reste volontairement sur l'ancienne convention `middleware.ts` (pas `proxy.ts`) — voir `AGENTS.md` §"Règles non négociables".
 
-**Contenu légal** : rédigé uniquement en français (version faisant foi), affiché tel quel sur toutes les locales avec une notice traduite expliquant que c'est la version de référence — évite de publier des traductions IA non relues sur des pages à risque de conformité.
+**Qualité de traduction** : `fr` rédigé directement (référence), `en` relu avec attention. `es`, `it`, `de`, `pt`, `nl`, `pl`, `ru` sont des traductions assistées par IA, jamais relues par un locuteur natif — chaque fichier le signale en commentaire de tête. Voir `docs/CONTENT_GUIDE.md`.
+
+**Contenu légal** : traduit dans les 9 langues (`src/i18n/legal/`), avec une notice sur chaque version non-française expliquant que la version française fait foi en cas de litige. Chaque page (mentions légales, confidentialité, CGV) a été auditée pour la conformité nLPD (Suisse) + RGPD (UE) + UK GDPR, avec sommaire sticky et sections numérotées. *Historique : rédigé initialement en français uniquement par prudence (pas de traduction IA de contenu légal sans révision) ; cette réserve a été levée sur demande explicite, la version française restant la référence juridique.*
+
+**Adresse Gland (légal) vs Genève (marketing)** — distinction volontaire : Gland, VD est la véritable adresse d'enregistrement de l'entreprise et n'apparaît que dans les pages légales (mentions légales). Partout ailleurs où une localisation sert un usage marketing (JSON-LD `ProfessionalService`, llms.txt, profils tiers comme Trustpilot), c'est "Genève" (localisée par langue, `src/i18n/seo.ts::geneva`) qui est utilisée — ville plus reconnaissable pour un visiteur international, sans jamais entrer en contradiction avec l'adresse légale réelle qui reste affichée ailleurs.
+
+**GEO (lisibilité par les IA)** :
+- **Content Signals + robots.txt AI-aware** : géré côté Cloudflare (AI Crawl Control → Signals), pas dans ce repo — voir `AGENTS.md` règle #8. Déclare `search=yes, ai-train=no` et bloque en dur 9 bots dédiés à l'entraînement (GPTBot, Google-Extended, etc.) tout en laissant passer les bots de recherche/citation IA.
+- **security.txt** (RFC 9116) : configuré côté Cloudflare (Security → Settings), pas de fichier dans ce repo.
+- **Formulaire de contact adapté aux agents** : attributs WebMCP déclaratifs (`toolname`/`tooldescription`/`toolparamdescription`, essai d'origine Chrome 149+, voir `src/types/webmcp.d.ts`) + accessibilité DOM soignée (labels explicites, `autocomplete`) pour qu'un agent qui pilote un vrai navigateur (Claude computer-use, ChatGPT agent mode...) puisse remplir et soumettre le formulaire de façon fiable. Turnstile reste la seule protection anti-spam — aucune API de soumission programmatique séparée n'a été construite (aurait affaibli cette protection sans bénéfice net).
+- **Décisions volontairement écartées** : DNS-AID, MCP Server Card, OAuth discovery, API Catalog — tous conçus pour des sites qui exposent une vraie API ou un agent/serveur MCP appelable, ce que Calyroc n'a pas. Les publier sans l'infrastructure réelle derrière serait trompeur (un agent qui les découvre tomberait sur rien). Markdown for Agents (négociation de contenu `Accept: text/markdown`) écarté aussi : nécessite le plan Cloudflare Pro payant, et les IA lisent déjà bien le HTML normal du site (mesuré : ~100 requêtes IA/24h, 0 blocage).
+- **IndexNow** : `scripts/submit-indexnow.mjs`, soumission gratuite à Bing/Yandex/Seznam/Naver sans compte à créer.
 
 **Autres briques** :
-- Devise : CHF uniquement pour l'instant — EUR/GBP/USD pas encore implémenté (les tarifs affichent une équivalence € indicative en texte statique)
-- Paiement : **fait, groundwork, `STRIPE_SECRET_KEY` configuré en prod** — pas de self-checkout sur la page Tarifs (volontaire : un acompte se négocie après discussion, pas en un clic depuis une page publique). À la place : générateur de lien de paiement Stripe **dans l'admin**, par lead, montant libre (`src/lib/stripe.ts`, `src/app/admin/actions.ts::createPaymentLink`, UI dans `src/components/PaymentLinkGenerator.tsx`)
-- Chatbot : **fait et testé en prod** — Workers AI (`@cf/meta/llama-3.1-8b-instruct-fast`), `src/app/api/chat/route.ts` + `src/components/AskCalyroc.tsx`, contexte injecté depuis le dictionnaire réel (services/tarifs/FAQ), garde-fous anti-promesse ferme. Répond correctement en conditions réelles (testé sur https://calyroc.thomastp.workers.dev)
-- Formulaire de contact : **fait et testé en prod** — protégé par Turnstile, stocke chaque lead dans D1 (table `leads`) puis tente l'envoi Resend en best-effort (le lead reste capturé même si l'email échoue), `src/app/actions.ts`
-- Admin : **fait et testé en prod** — `/admin` protégé par mot de passe (cookie signé HMAC, `src/lib/adminAuth.ts`), liste des leads D1 avec statut/notes éditables, export CSV (`/admin/export`), génération de liens de paiement Stripe. Secrets déjà configurés en prod : `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`
-- Anti-spam (Turnstile) : **fait et testé en prod** — widget `calyroc (Spin)` + Worker de vérification managé déployé séparément, câblé dans le formulaire de contact, rejet confirmé en conditions réelles
+- Devise : CHF uniquement — EUR/GBP/USD pas implémenté (les tarifs affichent une équivalence € indicative en texte statique)
+- Paiement : générateur de lien de paiement Stripe **dans l'admin**, par lead, montant libre (pas de self-checkout public sur `/tarifs`, volontaire — un acompte se négocie après discussion). Webhook `/api/stripe/webhook` confirme les paiements côté serveur.
+- Chatbot : Workers AI, modèle `@cf/zai-org/glm-4.7-flash` (changé depuis Llama 3.1 8B pour un meilleur suivi d'instructions multilingue et un contexte bien plus large — 131k tokens vs 4k), contexte injecté depuis le dictionnaire réel (services/tarifs/FAQ), garde-fous anti-promesse ferme, badge de disclosure IA visible.
+- Formulaire de contact : protégé par Turnstile, stocke chaque lead dans D1 (table `leads`) puis tente l'envoi Resend en best-effort.
+- Admin : `/admin` protégé par mot de passe (cookie signé HMAC), liste des leads D1 avec statut/notes éditables, sélecteur d'étape de suivi client (génère un lien `/suivi/[token]` partageable), export CSV, génération de liens de paiement Stripe.
+- Anti-spam (Turnstile) : widget `calyroc (Spin)` + Worker de vérification managé déployé séparément.
+- Blog : infrastructure `src/content/blog/` (un fichier par article + `index.ts` barrel + `types.ts`), premier article publié (comparatif gestionnaires de paquets / stacks frontend 2026).
+- FAQ : page dédiée pilotée par le dictionnaire, liée depuis la page Tarifs.
+- Suivi de projet : 4 étapes client-facing (même texte que les étapes du process affiché sur l'accueil, pour ne pas inventer un second vocabulaire), page publique sans authentification (le token fait office de secret).
+- Analytics : **Umami Cloud** — script chargé conditionnellement (`NEXT_PUBLIC_UMAMI_WEBSITE_ID`, omis si non défini) + **Cloudflare Web Analytics** natif (RUM, activé côté dashboard, aucune ligne de code).
+- Avis clients : **Trustpilot** — invitations configurées côté dashboard Trustpilot (pas d'intégration de code sur le site à ce stade).
 
 **Email du domaine (calyroc.com)** :
-- **Réception** : Cloudflare Email Routing activé (gratuit). Adresses actives, toutes redirigées vers `t+calyroc@prudhomme.li` :
-  - `hello@calyroc.com` — contact client (utilisée partout sur le site)
-  - `contact@calyroc.com` / `info@calyroc.com` — alias de secours
-  - `admin@calyroc.com` — comptes de service (Resend, GitHub, etc.), à utiliser pour créer le compte Resend
-- **Envoi** (formulaire de contact) : reste sur Resend (le service natif "Email Sending" de Cloudflare est payant, écarté sur demande explicite) — ✅ compte resend.com créé avec `admin@calyroc.com`, domaine calyroc.com vérifié, DNS SPF/DKIM en place et vérifiés (voir note DNS plus bas), envoi testé en prod
-- Analytics : Cloudflare Web Analytics (cookieless) — pas encore implémenté
+- **Réception** : Cloudflare Email Routing activé (gratuit), toutes les adresses (`hello@`, `contact@`, `info@`, `admin@`) redirigées vers l'adresse perso de Thomas.
+- **Envoi** (formulaire de contact + admin) : Resend, domaine calyroc.com vérifié, DNS SPF/DKIM en place.
 
 ---
 
@@ -92,9 +110,9 @@ Multipage, routing localisé `/{locale}/...` pour 6 langues (`fr` par défaut, `
 
 | Pack | Prix indicatif | Contenu |
 |---|---|---|
-| **Essentiel** | dès **590 CHF** (~600 €) | Site vitrine 1 page, design sur-mesure, responsive, formulaire de contact, 2 langues (FR/EN) |
+| **Essentiel** | dès **590 CHF** (~600 €) | Site vitrine 1 page, design sur-mesure, responsive, formulaire de contact, 2 langues |
 | **Pro** | dès **1'490 CHF** (~1'550 €) | Site multipage (5-6 pages), jusqu'à 3 langues, animations, SEO technique, blog en option |
-| **Sur-mesure** | **devis dès 2'900 CHF** | E-commerce, web app, dashboard admin, paiement en ligne, intégrations complexes, 6 langues |
+| **Sur-mesure** | **devis dès 2'900 CHF** | E-commerce, web app, dashboard admin, paiement en ligne, intégrations complexes, toutes langues |
 | **Maintenance** | **35 CHF/mois** | Hébergement, mises à jour, petites modifications |
 
 Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 révisions incluses par pack, délai indicatif 2 semaines (Essentiel) à 6 semaines (Sur-mesure).
@@ -103,17 +121,23 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 
 ## 6. Contenu page par page
 
-**Accueil** : ✅ Hero (animé) → aperçu services (3 premières prestations, `HomeServicesTeaser`) → réalisations en vedette (`HomeWorkTeaser`) → bandeau CTA final (`CtaBand`). Version livrée plus resserrée que le plan initial (pas de "bande de confiance"/"différenciateurs"/"à propos condensé" séparés — jugé redondant avec le reste du site pour une page d'accueil qui doit rester rapide à scanner).
+**Accueil** : Hero (animé) → aperçu services → réalisations en vedette → bandeau CTA final.
 
-**Services** : une fiche par prestation (vitrine / e-commerce / refonte / landing page / maintenance / SEO / identité visuelle) — pour qui, inclus, techno, délai, CTA devis
+**Services** : une fiche par prestation (vitrine / e-commerce / refonte / landing page / maintenance / SEO / identité visuelle) — pour qui, inclus, techno, délai, CTA devis.
 
-**Réalisations** : liste des 2 case studies (pas de filtre — inutile à ce nombre). Swiss3Design en vedette (problème → stack → fonctionnalités → résultats mesurés), thomastp.ch (perf, animations, i18n). Métriques uniquement si mesurées réellement.
+**Réalisations** : liste des case studies réels. Swiss3Design en vedette (problème → stack → fonctionnalités → résultats mesurés), thomastp.ch (perf, animations, i18n). Métriques uniquement si mesurées réellement.
 
-**Tarifs** : grille des 3 packs + maintenance, conditions, FAQ en accordéon (`FaqAccordion`). Pas de tableau comparatif ni de configurateur de devis interactif — jamais implémentés, la grille de 3 cartes a suffi.
+**Tarifs** : grille des 3 packs + maintenance, conditions, FAQ en accordéon, lien vers la page FAQ dédiée.
 
-**Contact** : formulaire (nom, email, budget, description) → Resend, email direct, lien chatbot, engagement réponse 48h
+**FAQ** : questions/réponses complémentaires à celles déjà présentes sur la page Tarifs, contenu 100% dictionnaire.
 
-**Mentions légales / Confidentialité / CGV** : conformité RGPD + nLPD, adresse affichée "Gland, Vaud, Suisse" + email (pas d'adresse résidentielle complète)
+**Blog** : articles éditoriaux techniques (ex. comparatif d'écosystèmes frontend), rédigés une fois et affichés sous chaque préfixe de locale (comme les pages légales).
+
+**Contact** : formulaire (nom, email, pack, description) → D1 + Resend, lien chatbot, engagement réponse 48h. Adapté pour être rempli de façon fiable par un agent IA pilotant un navigateur (voir §4).
+
+**Mentions légales / Confidentialité / CGV** : conformité nLPD + RGPD + UK GDPR, adresse légale Gland (VD, Suisse) réservée à ces pages uniquement (voir §4 pour la distinction avec "Genève" utilisé en marketing).
+
+**Suivi de projet** : 4 étapes visibles publiquement via un lien à token, sans compte à créer.
 
 ---
 
@@ -123,40 +147,42 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 2. ~~Pages publiques (Accueil, Services, Tarifs, Contact, légal)~~ ✅
 3. ~~Réalisations (case studies)~~ ✅
 4. ~~SEO technique (sitemap, hreflang, JSON-LD)~~ ✅
-5. ~~Chatbot Ask Calyroc (Workers AI)~~ ✅ testé en prod, réponses correctes
-6. ~~Espace admin~~ ✅ (D1 + auth par mot de passe + export CSV + liens de paiement Stripe), testé en prod
-7. ~~Turnstile anti-spam~~ ✅ widget créé + Worker de vérification déployé + câblé au formulaire, validé en prod
-8. ~~Premier déploiement~~ ✅ **https://calyroc.thomastp.workers.dev** (Worker, pas Pages)
-9. ~~Paiement Stripe — groundwork~~ ✅ générateur de lien de paiement admin (voir §4), `STRIPE_SECRET_KEY` configuré
-10. ~~Design polish~~ ✅ polices auto-hébergées (Inter + Space Grotesk variables), favicon, animations au scroll, **menu mobile** (bug trouvé : Services/Réalisations/Tarifs étaient inatteignables sur mobile, refait en overlay plein écran animé), hover/focus states sur cards et boutons, nav active mise en évidence, accessibilité clavier (focus-visible) + `prefers-reduced-motion` respecté partout
-11. ~~Bascule du domaine~~ ✅ calyroc.com et www.calyroc.com pointent sur ce Worker
-12. ~~Sections homepage~~ ✅ aperçu services + réalisations + CTA final (page d'accueil n'était qu'un hero seul avant)
-13. ~~SEO social~~ ✅ Open Graph + Twitter Card (image statique générée, voir §4)
-14. ~~404~~ ✅ bug de routing corrigé (l'ancienne page catch-all affichait un placeholder "en construction" au lieu d'un vrai 404 ; lien "retour à l'accueil" désormais dans la bonne langue)
-15. QA multilingue approfondie, perf — reste à faire
+5. ~~Chatbot Ask Calyroc (Workers AI)~~ ✅ testé en prod, modèle mis à niveau (GLM-4.7-Flash)
+6. ~~Espace admin~~ ✅ (D1 + auth par mot de passe + export CSV + liens de paiement Stripe + suivi client)
+7. ~~Turnstile anti-spam~~ ✅
+8. ~~Premier déploiement~~ ✅ **https://calyroc.thomastp.workers.dev**, domaine custom calyroc.com/www.calyroc.com
+9. ~~Paiement Stripe~~ ✅ générateur de lien de paiement admin + webhook de confirmation
+10. ~~Design polish~~ ✅ polices auto-hébergées et sous-titrées, favicon, animations, menu mobile, thème clair/sombre, accessibilité clavier
+11. ~~Blog, FAQ, suivi de projet~~ ✅
+12. ~~Extension i18n 6→9 langues (nl, pl, ru) + slugs d'URL traduits par locale~~ ✅
+13. ~~Refonte du contenu légal : traduction 9 langues + audit conformité nLPD/RGPD/UK GDPR + redesign visuel~~ ✅
+14. ~~Audit SEO/GEO complet~~ ✅ Ahrefs Health Score 90→100, Content Signals, security.txt, IndexNow, en-têtes de sécurité durcis, formulaire de contact adapté aux agents IA
+15. ~~Relecture native des traductions~~ — toujours en attente côté utilisateur pour es/it/de/pt/nl/pl/ru (voir plus bas)
+16. QA multilingue approfondie, perf — reste à faire
 
 ### Ce qu'il reste à faire côté utilisateur
 
-- Relire les traductions ES/IT/DE/PT (assistées par IA, jamais relues par un locuteur natif)
+- Relire les traductions non-fr/en (assistées par IA, jamais relues par un locuteur natif)
+- Décider si un vrai flux RSS pour le blog vaut le coup (permettrait un header `Link rel="alternate"` légitime)
+- Décider si le plan Cloudflare Pro (Markdown for Agents) vaut le coût à ce niveau de trafic
 
 ### Bug critique trouvé et corrigé lors du premier déploiement
 
-Le premier déploiement affichait une **Internal Server Error** sur absolument toutes les pages. Cause : Next.js 16 utilise **Turbopack** par défaut, et le bundler Turbopack casse le chargement des chunks serveur une fois passé par OpenNext sur cet environnement Windows (`ChunkLoadError` sur chaque page). L'ancien site (tom-web.ch) avait déjà buté sur ce problème et le contournait avec `next build --webpack` dans son `package.json` — j'ai appliqué le même correctif. Ça a fait apparaître un second problème (le chargeur PostCSS custom de Next.js n'arrivait pas à charger `@unocss/postcss` sous webpack), réglé avec un petit wrapper (`scripts/unocss-postcss-wrapper.cjs`). Le déploiement suivant a fonctionné.
+Le premier déploiement affichait une **Internal Server Error** sur absolument toutes les pages. Cause : Next.js 16 utilise **Turbopack** par défaut, et le bundler Turbopack casse le chargement des chunks serveur une fois passé par OpenNext sur cet environnement Windows (`ChunkLoadError` sur chaque page). Corrigé avec `next build --webpack`. Ça a fait apparaître un second problème (le chargeur PostCSS custom de Next.js n'arrivait pas à charger `@unocss/postcss` sous webpack), réglé avec un wrapper (`scripts/unocss-postcss-wrapper.cjs`).
 
-**Retenir pour la suite** : `bun run build` utilise maintenant `next build --webpack` — ne pas repasser sur Turbopack sans re-tester un vrai déploiement (le build local passe très bien avec Turbopack, seul le comportement en prod casse).
+**Retenir pour la suite** : `bun run build` utilise `next build --webpack` — ne pas repasser sur Turbopack sans re-tester un vrai déploiement.
 
 ### Déploiement — comment ça marche
 
-- **Manuel** : `bun run deploy:cloudflare` (build + déploie sur le Worker `calyroc`)
-- **Secrets de production déjà configurés** sur le Worker (valeurs non stockées ici — repo public — demande-les directement si besoin) : `RESEND_API_KEY`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `STRIPE_SECRET_KEY`
-- **Domaine** : ✅ **calyroc.com et www.calyroc.com pointent maintenant sur ce Worker** (custom domains attachés via `wrangler.jsonc` → `routes`). L'URL `calyroc.thomastp.workers.dev` reste active en fallback (`workers_dev: true`).
-- **Auto-déploiement sur push GitHub** (Cloudflare Workers Builds) : ✅ connecté par l'utilisateur, configuré avec `bunx` (build command `bunx opennextjs-cloudflare build`, deploy command `bunx wrangler deploy`) pour rester cohérent avec `bun.lock` plutôt que `npx`.
+Voir `docs/DEPLOYMENT.md` pour le détail complet (deux mécanismes actifs : manuel via `bun run deploy:cloudflare`, automatique sur push GitHub via Cloudflare Workers Builds — **toujours committer et pousser après un déploiement manuel, voir `AGENTS.md` Règle n°0**).
 
-**Turnstile** : widget `calyroc (Spin)` créé (sitekey `0x4AAAAAADz0gll1MFJs2mni`), Worker de vérification déployé séparément (`turnstile-siteverify-calyroc`, secret configuré, CORS verrouillé sur calyroc.com), câblé dans `src/lib/turnstile.ts` + `src/components/ContactForm.tsx` + `src/app/actions.ts`.
+**Secrets de production** configurés sur le Worker (`RESEND_API_KEY`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`) — repo public, demander les valeurs directement si besoin.
 
-**Email (DNS)** : vérifié le 11.07 — les 8 enregistrements DNS sur calyroc.com sont corrects et complets : 3× MX + SPF + DKIM pour Cloudflare Email Routing (réception sur l'apex), MX + SPF + DKIM pour Resend sur le sous-domaine `send.calyroc.com` (envoi, via le Custom Return-Path). Aucun conflit entre les deux — rien à ajouter/changer.
+**Domaine** : calyroc.com et www.calyroc.com pointent sur ce Worker (custom domains). `calyroc.thomastp.workers.dev` reste actif en fallback.
 
-> ⚠️ **Sécurité — incident résolu** : une version précédente de ce fichier a commité `ADMIN_PASSWORD` en clair dans ce repo **public** (commit `1141f41`, toujours présent dans l'historique git). Le mot de passe compromis a été **roté le 11.07** (`ADMIN_SESSION_SECRET` aussi, par précaution, ce qui invalide les anciennes sessions). Nouvelle valeur communiquée directement à l'utilisateur, jamais écrite dans ce fichier ni dans le repo. Ne plus jamais committer de secrets ici, même dans un repo qu'on pense privé au départ.
+**Turnstile** : widget `calyroc (Spin)` (sitekey `0x4AAAAAADz0gll1MFJs2mni`), Worker de vérification déployé séparément (`turnstile-siteverify-calyroc`).
+
+> ⚠️ **Sécurité — incident historique résolu** : une version précédente de ce fichier a commité `ADMIN_PASSWORD` en clair dans ce repo **public** (commit `1141f41`, toujours présent dans l'historique git). Le mot de passe compromis a été **roté**. Ne plus jamais committer de secrets ici, même dans un repo qu'on pense privé au départ.
 
 ---
 
@@ -164,6 +190,8 @@ Le premier déploiement affichait une **Internal Server Error** sur absolument t
 
 - Nom : Calyroc
 - Domaine : calyroc.com
-- Logo : géré par l'utilisateur
-- Mentions légales — adresse : "Gland, Vaud, Suisse" + email
+- Logo : mark bronze + texte, plusieurs formats déclinés
+- Mentions légales — adresse légale : Gland, VD, Suisse (voir §4 pour la distinction avec "Genève" utilisé en marketing)
 - Grille tarifaire : validée
+- Langues : 9 (fr par défaut), slugs d'URL traduits par locale pour les routes principales
+- Contenu légal : traduit dans les 9 langues, français juridiquement de référence

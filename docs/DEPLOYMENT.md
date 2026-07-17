@@ -19,7 +19,7 @@ bun run preview:cloudflare  # idem mais preview local (peut rester bloqué sur l
    - Deploy command : `bunx wrangler deploy`
    - (`bunx`, pas `npx` — cohérence avec `bun.lock`)
 
-**Toujours pousser sur GitHub après un déploiement manuel.** Les deux mécanismes ne se substituent pas l'un à l'autre : le déploiement manuel valide immédiatement, le push garde le repo et l'auto-deploy synchronisés avec ce qui est réellement en ligne. Ne jamais laisser un changement déployé manuellement sans commit+push correspondant.
+**Toujours pousser sur GitHub après un déploiement manuel — et ne pas attendre "la fin de la session" pour le faire.** Les deux mécanismes ne se substituent pas l'un à l'autre : le déploiement manuel valide immédiatement en prod, le push garde le **repo** (l'historique, ce que quiconque voit en clonant le projet) synchronisé avec ce qui tourne réellement. Ne jamais laisser un changement déployé manuellement sans commit+push correspondant — voir l'incident documenté dans `AGENTS.md` Règle n°0 (une session entière a accumulé 53 fichiers modifiés sans un seul commit). Dans l'autre sens, si Cloudflare est déjà à jour suite à un déploiement manuel, un push juste après ne fait que resynchroniser Cloudflare au même état — pas la peine de relancer `wrangler deploy` juste après un push.
 
 ## Domaine
 
@@ -50,7 +50,7 @@ Rotation : `wrangler secret put <NOM>` puis coller la nouvelle valeur (le prompt
 | `env.AI` | Workers AI | — |
 | `env.ASSETS` | Assets | — |
 
-Schéma D1 dans `migrations/0001_init.sql` (table `leads`) et `migrations/0002_payments.sql` (colonnes `leads.pack_id`/`leads.updated_at` + table `payments`).
+Schéma D1 dans `migrations/0001_init.sql` (table `leads`), `migrations/0002_payments.sql` (colonnes `leads.pack_id`/`leads.updated_at` + table `payments`), et `migrations/0003_project_tracking.sql` (colonnes `leads.status_token`/`leads.project_stage` pour le suivi client public sur `/suivi/[token]`).
 
 ## Stripe — configuration complète
 
@@ -75,6 +75,21 @@ Aucun `payment_method_types` n'est fixé en dur dans le code : quand ce paramèt
 ## Anti-spam (Turnstile)
 
 Widget managé `calyroc (Spin)` + Worker de vérification séparé `turnstile-siteverify-calyroc` (déployé indépendamment de ce repo, CORS verrouillé sur calyroc.com). Sitekey et endpoint dans `src/lib/turnstile.ts`.
+
+## Configuration gérée entièrement côté dashboard Cloudflare (rien dans ce repo)
+
+Ces éléments n'ont **aucune trace dans le code** — ne pas les chercher dans `src/` ou `public/`, et ne pas essayer de les recréer en code si tu ne les trouves pas :
+
+| Fonctionnalité | Où | Détail |
+|---|---|---|
+| Content Signals + robots.txt anti-bots IA | Zone calyroc.com → AI Crawl Control → Signals → "Managed robots.txt" | Voir `AGENTS.md` règle #8 |
+| security.txt (RFC 9116) | Zone calyroc.com → Security → Settings → filtre "Web application exploits" → carte "Security.txt" | Contact, Expires, Canonical, Preferred-Languages configurés |
+| Cloudflare Web Analytics (RUM) | Zone calyroc.com → Analytics → Web analytics | Gratuit, déjà actif, aucune ligne de code |
+| Smart Shield (tiered cache) | Zone calyroc.com → Speed → Smart Shield | Activé, gratuit |
+
+Écarté volontairement (pas une case à cocher oubliée) : Argo Smart Routing (payant, sans bénéfice pour une app 100% Workers sans origine classique), Advanced Certificate Manager (le certificat Universal SSL gratuit couvre déjà `calyroc.com` + `*.calyroc.com`), Markdown for Agents (nécessite le plan Pro payant).
+
+**Analytics applicatif** : Umami Cloud, activé via `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (`.env.example`) — celui-là est bien dans le code (script chargé conditionnellement dans `[locale]/layout.tsx`), contrairement aux éléments du tableau ci-dessus.
 
 ## Checklist avant de considérer un déploiement "fini"
 
