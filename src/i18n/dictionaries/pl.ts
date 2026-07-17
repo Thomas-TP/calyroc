@@ -486,6 +486,10 @@ export const pl: Dictionary = {
     doneBadge: "Zakończone",
     ctaTitle: "Pytanie dotyczące postępu?",
     ctaLabel: "Napisz do Thomasa",
+    summaryHeading: "Twój projekt",
+    todayHeading: "Na jakim etapie jesteśmy dzisiaj",
+    updatesHeading: "Aktualizacje projektu",
+    updatesEmpty: "Aktualizacje projektu będą się tutaj pojawiać w miarę postępu prac.",
   },
   notFoundPage: {
     eyebrow: "404",

@@ -478,6 +478,11 @@ export const es: Dictionary = {
     doneBadge: "Terminado",
     ctaTitle: "¿Alguna pregunta sobre el avance?",
     ctaLabel: "Escribir a Thomas",
+    summaryHeading: "Su proyecto",
+    todayHeading: "En qué punto estamos hoy",
+    updatesHeading: "Actualizaciones del proyecto",
+    updatesEmpty:
+      "Las actualizaciones del proyecto aparecerán aquí a medida que avance el trabajo.",
   },
   notFoundPage: {
     eyebrow: "404",

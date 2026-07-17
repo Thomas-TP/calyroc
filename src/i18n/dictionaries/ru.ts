@@ -485,6 +485,10 @@ export const ru: Dictionary = {
     doneBadge: "Готово",
     ctaTitle: "Вопрос по ходу проекта?",
     ctaLabel: "Написать Тома",
+    summaryHeading: "Ваш проект",
+    todayHeading: "На каком этапе мы сегодня",
+    updatesHeading: "Обновления проекта",
+    updatesEmpty: "Обновления проекта будут появляться здесь по мере продвижения работ.",
   },
   notFoundPage: {
     eyebrow: "404",

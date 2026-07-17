@@ -480,6 +480,10 @@ export const nl: Dictionary = {
     doneBadge: "Afgerond",
     ctaTitle: "Een vraag over de voortgang?",
     ctaLabel: "Schrijf naar Thomas",
+    summaryHeading: "Uw project",
+    todayHeading: "Waar we vandaag staan",
+    updatesHeading: "Projectupdates",
+    updatesEmpty: "Projectupdates verschijnen hier naarmate het werk vordert.",
   },
   notFoundPage: {
     eyebrow: "404",

@@ -241,3 +241,55 @@ export async function updateProjectStage(
   revalidatePath("/admin");
   return { status: "success", trackingUrl: `${SITE_URL}/${leadLocale}/suivi/${token}` };
 }
+
+const AddProjectUpdateSchema = z.object({
+  leadId: z.coerce.number(),
+  message: z.string().min(1).max(500),
+});
+
+export interface ProjectUpdateState {
+  status: "idle" | "success" | "error";
+}
+
+/** Posts a short, timestamped note visible on the client's public /suivi
+ * page -- the one-way "keep clients out of your inbox" channel from the
+ * project-tracking research: Thomas writes here, the client reads there,
+ * no email round-trip either way. */
+export async function addProjectUpdate(
+  _prevState: ProjectUpdateState,
+  formData: FormData,
+): Promise<ProjectUpdateState> {
+  if (!(await isAuthenticated())) redirect("/admin/login");
+
+  const parsed = AddProjectUpdateSchema.safeParse({
+    leadId: formData.get("leadId"),
+    message: formData.get("message"),
+  });
+  if (!parsed.success) {
+    return { status: "error" };
+  }
+
+  const { env } = await getCloudflareContext({ async: true });
+  await env.DB.prepare("INSERT INTO project_updates (lead_id, message) VALUES (?, ?)")
+    .bind(parsed.data.leadId, parsed.data.message)
+    .run();
+
+  revalidatePath("/admin");
+  return { status: "success" };
+}
+
+const DeleteProjectUpdateSchema = z.object({
+  id: z.coerce.number(),
+});
+
+export async function deleteProjectUpdate(formData: FormData): Promise<void> {
+  if (!(await isAuthenticated())) redirect("/admin/login");
+
+  const parsed = DeleteProjectUpdateSchema.safeParse({ id: formData.get("id") });
+  if (!parsed.success) return;
+
+  const { env } = await getCloudflareContext({ async: true });
+  await env.DB.prepare("DELETE FROM project_updates WHERE id = ?").bind(parsed.data.id).run();
+
+  revalidatePath("/admin");
+}

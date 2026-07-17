@@ -233,6 +233,10 @@ export interface Dictionary {
     doneBadge: string;
     ctaTitle: string;
     ctaLabel: string;
+    summaryHeading: string;
+    todayHeading: string;
+    updatesHeading: string;
+    updatesEmpty: string;
   };
   notFoundPage: {
     eyebrow: string;

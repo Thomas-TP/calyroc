@@ -6,10 +6,28 @@ import { TransitionLink as Link } from "@/components/TransitionLink";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
 import type { Lead } from "@/lib/leads";
+import type { ProjectUpdate } from "@/lib/projectUpdates";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
+
+// SQLite's datetime('now') stores UTC without a timezone marker
+// ("2026-07-17 10:23:00") -- Date() parses that as local time unless told
+// otherwise, silently shifting every timestamp by the reader's offset.
+function parseSqliteUtc(value: string): Date {
+  return new Date(`${value.replace(" ", "T")}Z`);
+}
+
+function formatRelative(value: string, locale: string): string {
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
+  const days = Math.round((parseSqliteUtc(value).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+
+  if (Math.abs(days) < 1) return rtf.format(0, "day");
+  if (Math.abs(days) < 7) return rtf.format(days, "day");
+  if (Math.abs(days) < 30) return rtf.format(Math.round(days / 7), "week");
+  return rtf.format(Math.round(days / 30), "month");
+}
 
 export default async function ProjectTrackingPage({
   params,
@@ -26,13 +44,22 @@ export default async function ProjectTrackingPage({
     .bind(token)
     .first<Lead>();
 
-  if (!lead || !lead.project_stage) notFound();
+  if (!lead?.project_stage) notFound();
+
+  const { results: updateResults } = await env.DB.prepare(
+    "SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC",
+  )
+    .bind(lead.id)
+    .all();
+  const updates = updateResults as unknown as ProjectUpdate[];
 
   const currentStage = lead.project_stage;
+  const steps = dictionary.home.processSteps;
+  const currentStep = steps[currentStage - 1];
   const pack = dictionary.pricingPage.packs.find((p) => p.id === lead.pack_id);
   // 0 at stage 1, fully drawn once the last stage is reached -- computed
   // server-side, no client JS needed for the rail fill.
-  const fillFraction = (currentStage - 1) / (dictionary.home.processSteps.length - 1);
+  const fillFraction = (currentStage - 1) / (steps.length - 1);
 
   return (
     <section className="mx-auto max-w-4xl px-6 pb-24 pt-32 md:px-10">
@@ -41,6 +68,16 @@ export default async function ProjectTrackingPage({
         title={trackingPage.title}
         subtitle={pack ? `${trackingPage.subtitle} — ${pack.name}` : trackingPage.subtitle}
       />
+
+      <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-paper/10 bg-onyx-soft px-6 py-5">
+        <div>
+          <p className="text-xs uppercase tracking-[0.2em] text-stone">
+            {trackingPage.summaryHeading}
+          </p>
+          {pack && <p className="mt-1.5 font-display text-lg font-bold text-paper">{pack.name}</p>}
+        </div>
+        <p className="text-sm text-stone">{formatRelative(lead.created_at, locale)}</p>
+      </div>
 
       <div className="relative mt-16">
         {/* Vertical rail — mobile only */}
@@ -60,7 +97,7 @@ export default async function ProjectTrackingPage({
         </div>
 
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-6">
-          {dictionary.home.processSteps.map((step, index) => {
+          {steps.map((step, index) => {
             const stepNumber = index + 1;
             const isDone = stepNumber < currentStage;
             const isCurrent = stepNumber === currentStage;
@@ -99,6 +136,39 @@ export default async function ProjectTrackingPage({
             );
           })}
         </div>
+      </div>
+
+      {currentStep && (
+        <div className="mt-16 rounded-2xl border border-bronze/30 bg-bronze/8 px-6 py-7 md:px-8">
+          <p className="text-eyebrow">{trackingPage.todayHeading}</p>
+          <h2 className="mt-2 font-display text-xl font-bold text-paper md:text-2xl">
+            {currentStep.title}
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-paper/80 md:text-base">
+            {currentStep.description}
+          </p>
+        </div>
+      )}
+
+      <div className="mt-16">
+        <p className="text-eyebrow">{trackingPage.updatesHeading}</p>
+        {updates.length === 0 ? (
+          <p className="mt-4 rounded-2xl border border-dashed border-paper/15 px-6 py-8 text-center text-sm text-stone">
+            {trackingPage.updatesEmpty}
+          </p>
+        ) : (
+          <ol className="mt-5 flex flex-col gap-4 border-l border-paper/10 pl-6">
+            {updates.map((update) => (
+              <li key={update.id} className="relative">
+                <span className="absolute -left-[1.6rem] top-1.5 h-2 w-2 rounded-full bg-bronze" />
+                <p className="text-sm leading-relaxed text-paper/85">{update.message}</p>
+                <p className="mt-1 text-xs text-stone">
+                  {formatRelative(update.created_at, locale)}
+                </p>
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
 
       <div className="mt-20 text-center">
