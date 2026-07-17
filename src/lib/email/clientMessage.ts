@@ -12,10 +12,12 @@ export function renderClientMessageEmail({
   locale,
   subject,
   message,
+  suiviUrl,
 }: {
   locale: string;
   subject: string;
   message: string;
+  suiviUrl: string;
 }): { subject: string; html: string; text: string } {
   const safeLocale: Locale = isLocale(locale) ? locale : "fr";
   const copy = getDictionary(safeLocale).email.clientMessage;
@@ -24,11 +26,18 @@ export function renderClientMessageEmail({
     <h1 style="margin:0 0 16px; font-family: Georgia, 'Times New Roman', serif; font-size:20px; color:#16140f;">${escapeHtml(copy.heading)}</h1>
     <p style="margin:16px 0; white-space:pre-wrap;">${escapeHtml(message)}</p>
     <p style="margin:24px 0 0;">${copy.signature}</p>
+    <p style="margin:24px 0 0; padding-top:16px; border-top:1px solid #e0dacb; font-size:13px;"><a href="${suiviUrl}" style="color:#b8862e;">${escapeHtml(copy.suiviLinkLabel)}</a></p>
   `;
 
-  const text = [copy.heading, "", message, "", copy.signature.replace(/<br\s*\/?>/gi, "\n")].join(
-    "\n",
-  );
+  const text = [
+    copy.heading,
+    "",
+    message,
+    "",
+    copy.signature.replace(/<br\s*\/?>/gi, "\n"),
+    "",
+    `${copy.suiviLinkLabel}: ${suiviUrl}`,
+  ].join("\n");
 
   return {
     subject,

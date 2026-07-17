@@ -569,6 +569,7 @@ export const pt: Dictionary = {
       descriptionLabel: "Descrição",
       ctaLabel: "Pagar online",
       expiryNote: "Este link permanece válido até ser utilizado.",
+      suiviLinkLabel: "Ver o acompanhamento do meu projeto",
       signature: "Até já,<br>Thomas",
     },
     paymentReceipt: {
@@ -584,6 +585,7 @@ export const pt: Dictionary = {
     clientMessage: {
       preview: "Tem uma nova mensagem da Calyroc.",
       heading: "Mensagem da Calyroc",
+      suiviLinkLabel: "Ver o acompanhamento do meu projeto",
       signature: "Até já,<br>Thomas",
     },
   },

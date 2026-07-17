@@ -40,7 +40,7 @@ export default async function TrackingPaymentsPage({
 
   const { env } = await getCloudflareContext({ async: true });
   const lead = await getLeadByToken(env.DB, token);
-  if (!lead?.project_stage) notFound();
+  if (!lead) notFound();
 
   // Cancelled rows are superseded invoices (e.g. a re-sent deposit request)
   // -- showing them alongside the live one would just read as clutter or a

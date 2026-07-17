@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { deleteProjectUpdate, updateLead } from "@/app/admin/actions";
 import { CustomSelect } from "@/components/CustomSelect";
+import { STATUS_BADGE_CLASS } from "@/components/LeadCard";
 import { MessageComposer } from "@/components/MessageComposer";
 import { PaymentLinkGenerator } from "@/components/PaymentLinkGenerator";
 import { ProjectFileManager } from "@/components/ProjectFileManager";
@@ -100,7 +101,14 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
 
       <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-display-sm text-paper">{lead.name}</h1>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-display-sm text-paper">{lead.name}</h1>
+            <span
+              className={`shrink-0 rounded-full border px-3 py-1 text-xs font-medium ${STATUS_BADGE_CLASS[lead.status]}`}
+            >
+              {LEAD_STATUS_LABELS[lead.status]}
+            </span>
+          </div>
           <p className="mt-1 text-sm text-stone">{lead.email}</p>
           <p className="mt-1 text-xs text-stone">
             {formatDate(lead.created_at)} · {lead.locale.toUpperCase()}
@@ -113,7 +121,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
         {lead.message}
       </p>
 
-      <Section title="Statut et notes">
+      <Card title="Statut & notes">
         <form action={updateLead} className="flex flex-col gap-4">
           <input type="hidden" name="id" value={lead.id} />
           <div className="flex flex-wrap items-end gap-4">
@@ -151,14 +159,14 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             Enregistrer
           </button>
         </form>
-      </Section>
+      </Card>
 
-      <Section title="Écrire au client">
+      <Card title="Écrire au client">
         <MessageComposer leadId={lead.id} />
         {messages.length > 0 && (
           <ul className="mt-5 flex flex-col gap-2.5">
             {messages.map((item) => (
-              <li key={item.id} className="rounded-lg bg-onyx-soft px-3 py-2.5">
+              <li key={item.id} className="rounded-lg bg-onyx px-3 py-2.5">
                 <div className="flex items-baseline justify-between gap-3">
                   <p className="text-sm font-medium text-paper">{item.subject}</p>
                   <p className="shrink-0 text-[0.6875rem] text-stone">
@@ -172,9 +180,9 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             ))}
           </ul>
         )}
-      </Section>
+      </Card>
 
-      <Section title="Paiement">
+      <Card title="Paiement">
         <PaymentLinkGenerator
           leadId={lead.id}
           defaultPackId={lead.pack_id}
@@ -185,7 +193,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             {payments.map((payment) => (
               <li
                 key={payment.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-onyx-soft px-3 py-2.5"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-onyx px-3 py-2.5"
               >
                 <div className="min-w-0">
                   <p className="text-sm text-paper/85">{payment.description}</p>
@@ -213,9 +221,9 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             ))}
           </ul>
         )}
-      </Section>
+      </Card>
 
-      <Section title="Suivi client">
+      <Card title="Suivi du projet">
         <ProjectStageGenerator
           leadId={lead.id}
           defaultStage={lead.project_stage}
@@ -233,20 +241,23 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             Dernière consultation par le client : {formatDate(lead.suivi_last_viewed_at)}
           </p>
         )}
-      </Section>
 
-      <Section title="Images et logo partagés avec le client">
-        <ProjectFileManager leadId={lead.id} files={files} />
-      </Section>
+        <div className="mt-6 border-t border-paper/8 pt-6">
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone">
+            Images et logo partagés avec le client
+          </p>
+          <ProjectFileManager leadId={lead.id} files={files} />
+        </div>
+      </Card>
 
-      <Section title="Mises à jour visibles par le client">
+      <Card title="Actualités du projet — visibles par le client">
         <ProjectUpdateComposer leadId={lead.id} />
         {updates.length > 0 && (
           <ul className="mt-4 flex flex-col gap-2.5">
             {updates.map((update) => (
               <li
                 key={update.id}
-                className="flex items-start justify-between gap-3 rounded-lg bg-onyx-soft px-3 py-2.5"
+                className="flex items-start justify-between gap-3 rounded-lg bg-onyx px-3 py-2.5"
               >
                 <div className="min-w-0">
                   <p className="text-sm leading-relaxed text-paper/85">{update.message}</p>
@@ -269,15 +280,15 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             ))}
           </ul>
         )}
-      </Section>
+      </Card>
     </section>
   );
 }
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
+function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="mt-8 border-t border-paper/8 pt-8">
-      <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-stone">{title}</p>
+    <div className="mt-6 rounded-2xl border border-paper/10 bg-onyx-soft p-6">
+      <p className="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-stone">{title}</p>
       {children}
     </div>
   );

@@ -43,8 +43,14 @@ export default async function ProjectTrackingPage({
 
   const { env } = await getCloudflareContext({ async: true });
   const lead = await getLeadByToken(env.DB, token);
+  if (!lead) notFound();
 
-  if (!lead?.project_stage) notFound();
+  // Payment-link emails now always point here, which can happen before
+  // Thomas has set a stage (the two are independent admin actions) --
+  // defaulting to stage 1 rather than 404ing keeps the link usable and is
+  // an accurate state anyway: the request has been received, tracking
+  // just hasn't started yet.
+  const currentStage = lead.project_stage ?? 1;
 
   const [{ results: updateResults }, fileList] = await Promise.all([
     env.DB.prepare("SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC")
@@ -64,7 +70,6 @@ export default async function ProjectTrackingPage({
     return { key, url: `/api/files/${token}/${key}` };
   });
 
-  const currentStage = lead.project_stage;
   const steps = trackingPage.steps;
   const currentStep = steps[currentStage - 1];
   const pack = dictionary.pricingPage.packs.find((p) => p.id === lead.pack_id);

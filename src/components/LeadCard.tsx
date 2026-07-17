@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { LEAD_STATUS_LABELS, type Lead } from "@/lib/leads";
 
-const STATUS_BADGE_CLASS: Record<Lead["status"], string> = {
+export const STATUS_BADGE_CLASS: Record<Lead["status"], string> = {
   new: "border-paper/15 bg-paper/5 text-paper/70",
   contacted: "border-paper/15 bg-paper/5 text-paper/85",
   quoted: "border-bronze/30 bg-bronze/10 text-bronze",

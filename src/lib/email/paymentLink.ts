@@ -7,12 +7,14 @@ export function renderPaymentLinkEmail({
   amountLabel,
   description,
   url,
+  suiviUrl,
   personalMessage,
 }: {
   locale: string;
   amountLabel: string;
   description: string;
   url: string;
+  suiviUrl: string;
   personalMessage?: string;
 }): { subject: string; html: string; text: string } {
   const safeLocale: Locale = isLocale(locale) ? locale : "fr";
@@ -29,6 +31,7 @@ export function renderPaymentLinkEmail({
     ${emailButton(url, copy.ctaLabel)}
     <p style="margin:16px 0 0; font-size:13px; color:#6b6459;">${escapeHtml(copy.expiryNote)}</p>
     <p style="margin:24px 0 0;">${copy.signature}</p>
+    <p style="margin:24px 0 0; padding-top:16px; border-top:1px solid #e0dacb; font-size:13px;"><a href="${suiviUrl}" style="color:#b8862e;">${escapeHtml(copy.suiviLinkLabel)}</a></p>
   `;
 
   const text = [
@@ -45,6 +48,8 @@ export function renderPaymentLinkEmail({
     copy.expiryNote,
     "",
     copy.signature.replace(/<br\s*\/?>/gi, "\n"),
+    "",
+    `${copy.suiviLinkLabel}: ${suiviUrl}`,
   ].join("\n");
 
   return {

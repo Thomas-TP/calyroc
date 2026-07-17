@@ -301,6 +301,7 @@ export interface Dictionary {
       descriptionLabel: string;
       ctaLabel: string;
       expiryNote: string;
+      suiviLinkLabel: string;
       signature: string;
     };
     paymentReceipt: {
@@ -316,6 +317,7 @@ export interface Dictionary {
     clientMessage: {
       preview: string;
       heading: string;
+      suiviLinkLabel: string;
       signature: string;
     };
   };

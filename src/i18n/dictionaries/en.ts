@@ -561,6 +561,7 @@ export const en: Dictionary = {
       descriptionLabel: "Description",
       ctaLabel: "Pay online",
       expiryNote: "This link stays valid until it's used.",
+      suiviLinkLabel: "View my project tracking page",
       signature: "Talk soon,<br>Thomas",
     },
     paymentReceipt: {
@@ -576,6 +577,7 @@ export const en: Dictionary = {
     clientMessage: {
       preview: "You have a new message from Calyroc.",
       heading: "Message from Calyroc",
+      suiviLinkLabel: "View my project tracking page",
       signature: "Talk soon,<br>Thomas",
     },
   },

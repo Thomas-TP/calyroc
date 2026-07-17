@@ -216,6 +216,7 @@ export async function createPaymentLink(
         amountLabel: `${amountChf.toFixed(2)} CHF`,
         description: parsed.data.description,
         url: trackingPaymentUrl,
+        suiviUrl: `${SITE_URL}/${leadLocale}/suivi/${token}`,
         personalMessage: parsed.data.personalMessage,
       });
       emailSent = await sendEmail({
@@ -460,10 +461,12 @@ export async function sendMessageToClient(
   }
 
   const leadLocale = isLocale(lead.locale) ? lead.locale : "fr";
+  const token = await ensureStatusToken(env.DB, parsed.data.leadId);
   const emailContent = renderClientMessageEmail({
     locale: leadLocale,
     subject: parsed.data.subject,
     message: parsed.data.message,
+    suiviUrl: `${SITE_URL}/${leadLocale}/suivi/${token}`,
   });
   const sent = await sendEmail({
     to: lead.email,
