@@ -448,6 +448,10 @@ export const it: Dictionary = {
     subtitle:
       "Oltre ai prezzi: il processo, le tecnologie, cosa succede dopo la consegna. Non trova la Sua domanda? Mi scriva direttamente.",
     servicesLinkLabel: "Scopri i nostri servizi",
+    searchPlaceholder: "Cerca una domanda…",
+    searchNoResults: "Nessuna domanda corrisponde alla tua ricerca.",
+    allCategoryLabel: "Tutte",
+    generalCategoryLabel: "Generale",
     items: [
       {
         question: "Come si svolge un progetto, dal primo contatto alla messa online?",

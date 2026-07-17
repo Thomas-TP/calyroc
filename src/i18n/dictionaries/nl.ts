@@ -442,6 +442,10 @@ export const nl: Dictionary = {
     subtitle:
       "Meer dan alleen prijzen: het proces, de technologie, wat er na levering gebeurt. Staat uw vraag er niet bij? Schrijf mij rechtstreeks.",
     servicesLinkLabel: "Onze diensten ontdekken",
+    searchPlaceholder: "Zoek een vraag…",
+    searchNoResults: "Geen vraag komt overeen met uw zoekopdracht.",
+    allCategoryLabel: "Alle",
+    generalCategoryLabel: "Algemeen",
     items: [
       {
         question: "Hoe verloopt een project van eerste contact tot lancering?",

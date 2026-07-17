@@ -231,6 +231,10 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     servicesLinkLabel: string;
+    searchPlaceholder: string;
+    searchNoResults: string;
+    allCategoryLabel: string;
+    generalCategoryLabel: string;
     items: FaqItem[];
   };
   trackingPage: {

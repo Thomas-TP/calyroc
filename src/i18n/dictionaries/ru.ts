@@ -447,6 +447,10 @@ export const ru: Dictionary = {
     subtitle:
       "Помимо цен: процесс работы, технологии, что происходит после сдачи проекта. Не нашли свой вопрос? Напишите мне напрямую.",
     servicesLinkLabel: "Изучить наши услуги",
+    searchPlaceholder: "Поиск вопроса…",
+    searchNoResults: "По вашему запросу ничего не найдено.",
+    allCategoryLabel: "Все",
+    generalCategoryLabel: "Общее",
     items: [
       {
         question: "Как проходит проект от первого контакта до запуска?",

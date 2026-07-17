@@ -452,6 +452,10 @@ export const de: Dictionary = {
     subtitle:
       "Über die Preise hinaus: der Ablauf, die Technologien, was nach der Lieferung passiert. Ihre Frage ist nicht dabei? Schreiben Sie mir direkt.",
     servicesLinkLabel: "Unsere Leistungen entdecken",
+    searchPlaceholder: "Frage suchen…",
+    searchNoResults: "Keine Frage entspricht Ihrer Suche.",
+    allCategoryLabel: "Alle",
+    generalCategoryLabel: "Allgemein",
     items: [
       {
         question: "Wie läuft ein Projekt ab, vom Erstkontakt bis zur Veröffentlichung?",

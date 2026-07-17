@@ -448,6 +448,10 @@ export const pl: Dictionary = {
     subtitle:
       "Poza cennikiem: proces, technologia, co dzieje się po dostawie. Nie widzisz swojego pytania? Napisz do mnie bezpośrednio.",
     servicesLinkLabel: "Poznaj nasze usługi",
+    searchPlaceholder: "Szukaj pytania…",
+    searchNoResults: "Żadne pytanie nie pasuje do wyszukiwania.",
+    allCategoryLabel: "Wszystkie",
+    generalCategoryLabel: "Ogólne",
     items: [
       {
         question: "Jak wygląda projekt od pierwszego kontaktu do uruchomienia?",

@@ -438,6 +438,10 @@ export const en: Dictionary = {
     subtitle:
       "Beyond pricing: the process, the technology, what happens after delivery. Don't see your question? Write to me directly.",
     servicesLinkLabel: "Explore our services",
+    searchPlaceholder: "Search a question…",
+    searchNoResults: "No question matches your search.",
+    allCategoryLabel: "All",
+    generalCategoryLabel: "General",
     items: [
       {
         question: "How does a project go from first contact to launch?",

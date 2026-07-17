@@ -447,6 +447,10 @@ export const fr: Dictionary = {
     subtitle:
       "Au-delà des tarifs : le processus, les technologies, la suite après la livraison. Une question n'y figure pas ? Écrivez-moi directement.",
     servicesLinkLabel: "Découvrir nos services",
+    searchPlaceholder: "Rechercher une question…",
+    searchNoResults: "Aucune question ne correspond à votre recherche.",
+    allCategoryLabel: "Toutes",
+    generalCategoryLabel: "Général",
     items: [
       {
         question: "Comment se déroule un projet, du premier contact à la mise en ligne ?",
