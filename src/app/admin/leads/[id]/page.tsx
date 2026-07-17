@@ -14,12 +14,19 @@ import { SITE_URL } from "@/i18n/seo";
 import { isAuthenticated } from "@/lib/adminAuth";
 import type { ClientMessage } from "@/lib/clientMessages";
 import { LEAD_STATUS_LABELS, LEAD_STATUSES, type Lead } from "@/lib/leads";
+import type { Payment } from "@/lib/payments";
 import type { ProjectUpdate } from "@/lib/projectUpdates";
 
 const STATUS_OPTIONS = LEAD_STATUSES.map((status) => ({
   value: status,
   label: LEAD_STATUS_LABELS[status],
 }));
+
+const PAYMENT_STATUS_LABELS: Record<Payment["status"], string> = {
+  pending: "En attente",
+  paid: "Payé",
+  cancelled: "Annulé",
+};
 
 function formatDate(value: string): string {
   return new Date(`${value.replace(" ", "T")}Z`).toLocaleString("fr-CH", {
@@ -29,6 +36,10 @@ function formatDate(value: string): string {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function formatChf(cents: number): string {
+  return `${(cents / 100).toFixed(2)} CHF`;
 }
 
 export default async function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -41,26 +52,35 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
   const lead = await env.DB.prepare("SELECT * FROM leads WHERE id = ?").bind(leadId).first<Lead>();
   if (!lead) redirect("/admin");
 
-  const [{ results: updateResults }, fileList, paidRow, { results: messageResults }] =
-    await Promise.all([
-      env.DB.prepare("SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC")
-        .bind(leadId)
-        .all(),
-      lead.status_token
-        ? env.PROJECT_FILES.list({ prefix: `leads/${lead.status_token}/` })
-        : Promise.resolve(null),
-      env.DB.prepare(
-        "SELECT COALESCE(SUM(amount_paid_cents), 0) AS total FROM payments WHERE lead_id = ? AND status = 'paid'",
-      )
-        .bind(leadId)
-        .first<{ total: number }>(),
-      env.DB.prepare("SELECT * FROM client_messages WHERE lead_id = ? ORDER BY created_at DESC")
-        .bind(leadId)
-        .all(),
-    ]);
+  const [
+    { results: updateResults },
+    fileList,
+    paidRow,
+    { results: messageResults },
+    { results: paymentResults },
+  ] = await Promise.all([
+    env.DB.prepare("SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC")
+      .bind(leadId)
+      .all(),
+    lead.status_token
+      ? env.PROJECT_FILES.list({ prefix: `leads/${lead.status_token}/` })
+      : Promise.resolve(null),
+    env.DB.prepare(
+      "SELECT COALESCE(SUM(amount_paid_cents), 0) AS total FROM payments WHERE lead_id = ? AND status = 'paid'",
+    )
+      .bind(leadId)
+      .first<{ total: number }>(),
+    env.DB.prepare("SELECT * FROM client_messages WHERE lead_id = ? ORDER BY created_at DESC")
+      .bind(leadId)
+      .all(),
+    env.DB.prepare("SELECT * FROM payments WHERE lead_id = ? ORDER BY created_at DESC")
+      .bind(leadId)
+      .all(),
+  ]);
   const updates = updateResults as unknown as ProjectUpdate[];
   const alreadyPaidCents = paidRow?.total ?? 0;
   const messages = messageResults as unknown as ClientMessage[];
+  const payments = paymentResults as unknown as Payment[];
 
   const files = (fileList?.objects ?? []).map((object) => {
     const key = object.key.slice(`leads/${lead.status_token}/`.length);
@@ -160,6 +180,39 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
           defaultPackId={lead.pack_id}
           alreadyPaidCents={alreadyPaidCents}
         />
+        {payments.length > 0 && (
+          <ul className="mt-5 flex flex-col gap-2">
+            {payments.map((payment) => (
+              <li
+                key={payment.id}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-onyx-soft px-3 py-2.5"
+              >
+                <div className="min-w-0">
+                  <p className="text-sm text-paper/85">{payment.description}</p>
+                  <p className="mt-0.5 text-[0.6875rem] text-stone">
+                    {formatDate(payment.created_at)}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <p className="text-sm font-medium text-paper">
+                    {formatChf(payment.amount_due_cents)}
+                  </p>
+                  <span
+                    className={`rounded-full px-2.5 py-1 text-xs font-medium ${
+                      payment.status === "paid"
+                        ? "border border-bronze/40 bg-bronze/20 text-bronze"
+                        : payment.status === "pending"
+                          ? "border border-paper/15 bg-paper/5 text-stone"
+                          : "border border-paper/10 bg-transparent text-stone/60 line-through"
+                    }`}
+                  >
+                    {PAYMENT_STATUS_LABELS[payment.status]}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </Section>
 
       <Section title="Suivi client">

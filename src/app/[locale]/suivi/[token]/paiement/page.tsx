@@ -42,8 +42,11 @@ export default async function TrackingPaymentsPage({
   const lead = await getLeadByToken(env.DB, token);
   if (!lead?.project_stage) notFound();
 
+  // Cancelled rows are superseded invoices (e.g. a re-sent deposit request)
+  // -- showing them alongside the live one would just read as clutter or a
+  // second payable amount, not useful history, from the client's side.
   const { results } = await env.DB.prepare(
-    "SELECT * FROM payments WHERE lead_id = ? ORDER BY created_at DESC",
+    "SELECT * FROM payments WHERE lead_id = ? AND status != 'cancelled' ORDER BY created_at DESC",
   )
     .bind(lead.id)
     .all();
