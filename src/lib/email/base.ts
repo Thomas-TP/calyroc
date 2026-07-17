@@ -38,7 +38,7 @@ export function renderEmailLayout({
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px; background-color:${CARD_BG}; border-radius:16px; overflow:hidden;">
             <tr>
               <td style="padding: 28px 40px 24px; border-bottom: 1px solid ${LINE};">
-                <img src="https://calyroc.com/logo.png" alt="Calyroc" height="28" style="display:block; height:28px; width:auto; border:0;" />
+                <img src="https://calyroc.com/logo-email.png" alt="Calyroc" height="28" style="display:block; height:28px; width:auto; border:0;" />
               </td>
             </tr>
             <tr>

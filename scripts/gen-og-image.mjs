@@ -93,7 +93,7 @@ const element = {
                   marginBottom: "20px",
                   display: "flex",
                 },
-                children: "SUISSE — STUDIO WEB",
+                children: "SWITZERLAND — WEB STUDIO",
               },
             },
             {
@@ -119,7 +119,7 @@ const element = {
                   marginTop: "24px",
                   display: "flex",
                 },
-                children: "Sites vitrines & e-commerce sur mesure",
+                children: "Custom showcase & e-commerce websites",
               },
             },
             {

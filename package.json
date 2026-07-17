@@ -24,6 +24,7 @@
     "@types/react-dom": "^19.2.3",
     "@unocss/postcss": "^66.7.5",
     "postcss": "^8.5.16",
+    "subset-font": "^2.5.0",
     "typescript": "^6",
     "unocss": "^66.7.5",
     "wrangler": "^4.110.0"
