@@ -176,17 +176,17 @@ export default async function ProjectTrackingPage({
       {files.length > 0 && (
         <div className="mt-16">
           <p className="text-eyebrow">{trackingPage.filesHeading}</p>
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-5 flex flex-wrap gap-3">
             {files.map((file) => (
               <a
                 key={file.key}
                 href={file.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block aspect-square overflow-hidden rounded-xl border border-paper/10 bg-onyx-soft"
+                className="block overflow-hidden rounded-xl border border-paper/10 bg-onyx-soft"
               >
                 {/** biome-ignore lint/performance/noImgElement: user-uploaded R2 assets, not build-time optimizable */}
-                <img src={file.url} alt="" className="h-full w-full object-cover" />
+                <img src={file.url} alt="" className="block h-40 w-auto max-w-full" />
               </a>
             ))}
           </div>

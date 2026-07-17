@@ -51,14 +51,14 @@ export function ProjectFileManager({
       )}
 
       {files.length > 0 && (
-        <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+        <div className="mt-4 flex flex-wrap gap-3">
           {files.map((file) => (
             <div
               key={file.key}
-              className="group relative aspect-square overflow-hidden rounded-xl border border-paper/10 bg-onyx/40"
+              className="group relative overflow-hidden rounded-xl border border-paper/10 bg-onyx/40"
             >
               {/** biome-ignore lint/performance/noImgElement: user-uploaded R2 assets, not build-time optimizable */}
-              <img src={file.url} alt="" className="h-full w-full object-cover" />
+              <img src={file.url} alt="" className="block h-32 w-auto max-w-full" />
               <form
                 action={deleteProjectFile}
                 className="absolute right-1.5 top-1.5 opacity-0 transition-opacity group-hover:opacity-100"

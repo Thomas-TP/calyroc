@@ -363,7 +363,16 @@ export async function deleteProjectFile(formData: FormData): Promise<void> {
   if (!parsed.success) return;
 
   const { env } = await getCloudflareContext({ async: true });
-  await env.PROJECT_FILES.delete(parsed.data.key);
+  // `key` from the client is only the filename portion (see
+  // ProjectFileManager) -- the actual R2 object lives under the lead's
+  // token prefix, so deleting by the bare key alone silently no-ops
+  // against an object that doesn't exist, leaving the real file in place.
+  const lead = await env.DB.prepare("SELECT status_token FROM leads WHERE id = ?")
+    .bind(parsed.data.leadId)
+    .first<{ status_token: string | null }>();
+  if (lead?.status_token) {
+    await env.PROJECT_FILES.delete(`leads/${lead.status_token}/${parsed.data.key}`);
+  }
 
   revalidatePath("/admin");
   revalidatePath(`/admin/leads/${parsed.data.leadId}`);
