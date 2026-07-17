@@ -86,12 +86,15 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           { key: "Content-Security-Policy", value: cspHeader },
-          // Conservative first rollout (1 day): HSTS is close to
-          // irreversible for affected visitors once a long max-age is
-          // cached by their browser, so start low and raise it over time
-          // once confirmed nothing breaks, per Chrome's own staged-rollout
-          // guidance -- see the "Utiliser une règle HSTS efficace" audit.
-          { key: "Strict-Transport-Security", value: "max-age=86400" },
+          // Staged rollout per Chrome's own guidance: started at 1 day,
+          // raised to 6 months (2026-07-17) after confirming HTTPS/Cloudflare
+          // stayed solid with no cert or redirect issues through the site's
+          // build-out. Deliberately not going further yet: includeSubDomains
+          // and preload are much harder to reverse than a plain max-age bump
+          // -- a visitor who has cached this policy can't reach the site over
+          // HTTP at all until it expires, so a longer window means a longer
+          // outage if HTTPS itself ever breaks (cert issue, host migration).
+          { key: "Strict-Transport-Security", value: "max-age=15552000" },
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-Content-Type-Options", value: "nosniff" },
