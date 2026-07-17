@@ -31,7 +31,6 @@ declare global {
       render: (container: HTMLElement, options: Record<string, unknown>) => string;
       remove: (widgetId: string) => void;
     };
-    onTurnstileLoad?: () => void;
   }
 }
 
@@ -57,18 +56,15 @@ function useSiteTheme(): "light" | "dark" | null {
 // remounted element later, so a live theme toggle would leave a blank box.
 // Explicit rendering via the JS API lets the widget be torn down and
 // re-rendered on demand whenever the site's theme changes mid-session.
-function TurnstileWidget({ theme }: { theme: "light" | "dark" }) {
+function TurnstileWidget({
+  theme,
+  scriptReady,
+}: {
+  theme: "light" | "dark";
+  scriptReady: boolean;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
-  const [scriptReady, setScriptReady] = useState(false);
-
-  useEffect(() => {
-    if (window.turnstile) {
-      setScriptReady(true);
-      return;
-    }
-    window.onTurnstileLoad = () => setScriptReady(true);
-  }, []);
 
   useEffect(() => {
     if (!scriptReady || !containerRef.current || !window.turnstile) return;
@@ -118,6 +114,15 @@ export function ContactForm({
 }) {
   const [state, formAction, isPending] = useActionState(submitContactForm, initialState);
   const turnstileTheme = useSiteTheme();
+  // Lazy-init covers a script already loaded from a prior client-side visit
+  // to this page (Script's onLoad won't fire twice); the onLoad prop covers
+  // a fresh load. Using next/script's own onLoad instead of the library's
+  // `?onload=name` + a global callback avoids a real race we hit in
+  // production: the external script sometimes finished loading and checked
+  // for the callback before this component's effect had set it.
+  const [turnstileScriptReady, setTurnstileScriptReady] = useState(
+    () => typeof window !== "undefined" && !!window.turnstile,
+  );
 
   const packOptions = [
     ...pricingPage.packs.map((pack) => ({ value: pack.id, label: `${pack.name} — ${pack.price}` })),
@@ -125,18 +130,37 @@ export function ContactForm({
   ];
 
   return (
-    <form action={formAction} className="mt-10 flex flex-col gap-5">
+    <form
+      action={formAction}
+      toolname="submitProjectInquiry"
+      tooldescription="Submit a project inquiry to request a fixed-price quote for a website (name, email, project pack, and a short description). Calyroc replies within 48 hours."
+      className="mt-10 flex flex-col gap-5"
+    >
       <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit"
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
         strategy="afterInteractive"
+        onLoad={() => setTurnstileScriptReady(true)}
         async
         defer
       />
       <input type="hidden" name="locale" value={locale} />
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <Field label={contactPage.formName} name="name" required />
-        <Field label={contactPage.formEmail} name="email" type="email" required />
+        <Field
+          label={contactPage.formName}
+          name="name"
+          required
+          autoComplete="name"
+          toolParamDescription="Full name of the person requesting the quote."
+        />
+        <Field
+          label={contactPage.formEmail}
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          toolParamDescription="Email address to send the quote and confirmation to."
+        />
       </div>
 
       <div className="flex flex-col gap-2">
@@ -145,23 +169,32 @@ export function ContactForm({
           name="packId"
           ariaLabel={contactPage.formPackLabel}
           options={packOptions}
+          toolParamDescription="Which pricing pack best matches the project, or 'unsure' if not decided yet."
           triggerClassName="w-full px-4 py-3"
         />
       </div>
 
-      <label className="flex flex-col gap-2">
+      <label htmlFor="message" className="flex flex-col gap-2">
         <span className="font-display text-sm text-paper/80">{contactPage.formMessage}</span>
         <textarea
+          id="message"
           name="message"
           required
           minLength={10}
           rows={6}
           placeholder={contactPage.formMessagePlaceholder}
+          toolparamdescription="Short description of the project: type of website, key features, and timeline if known."
           className="resize-none rounded-lg border border-paper/15 bg-transparent px-4 py-3 text-paper outline-none transition-colors focus:border-bronze"
         />
       </label>
 
-      {turnstileTheme && <TurnstileWidget key={turnstileTheme} theme={turnstileTheme} />}
+      {turnstileTheme && (
+        <TurnstileWidget
+          key={turnstileTheme}
+          theme={turnstileTheme}
+          scriptReady={turnstileScriptReady}
+        />
+      )}
 
       <button
         type="submit"
@@ -184,19 +217,26 @@ function Field({
   name,
   type = "text",
   required,
+  autoComplete,
+  toolParamDescription,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  autoComplete?: string;
+  toolParamDescription: string;
 }) {
   return (
-    <label className="flex flex-col gap-2">
+    <label htmlFor={name} className="flex flex-col gap-2">
       <span className="font-display text-sm text-paper/80">{label}</span>
       <input
+        id={name}
         type={type}
         name={name}
         required={required}
+        autoComplete={autoComplete}
+        toolparamdescription={toolParamDescription}
         className="rounded-lg border border-paper/15 bg-transparent px-4 py-3 text-paper outline-none transition-colors focus:border-bronze"
       />
     </label>
