@@ -46,15 +46,26 @@ export default async function ProjectTrackingPage({
 
   if (!lead?.project_stage) notFound();
 
-  const { results: updateResults } = await env.DB.prepare(
-    "SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC",
-  )
-    .bind(lead.id)
-    .all();
+  const [{ results: updateResults }, fileList] = await Promise.all([
+    env.DB.prepare("SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC")
+      .bind(lead.id)
+      .all(),
+    env.PROJECT_FILES.list({ prefix: `leads/${token}/` }),
+    // Fire-and-forget-ish view tracking: awaited so it's guaranteed to run
+    // (Workers can terminate background work once the response is sent),
+    // but it doesn't block anything else above from running concurrently.
+    env.DB.prepare("UPDATE leads SET suivi_last_viewed_at = datetime('now') WHERE id = ?")
+      .bind(lead.id)
+      .run(),
+  ]);
   const updates = updateResults as unknown as ProjectUpdate[];
+  const files = fileList.objects.map((object) => {
+    const key = object.key.slice(`leads/${token}/`.length);
+    return { key, url: `/api/files/${token}/${key}` };
+  });
 
   const currentStage = lead.project_stage;
-  const steps = dictionary.home.processSteps;
+  const steps = trackingPage.steps;
   const currentStep = steps[currentStage - 1];
   const pack = dictionary.pricingPage.packs.find((p) => p.id === lead.pack_id);
   // 0 at stage 1, fully drawn once the last stage is reached -- computed
@@ -76,7 +87,19 @@ export default async function ProjectTrackingPage({
           </p>
           {pack && <p className="mt-1.5 font-display text-lg font-bold text-paper">{pack.name}</p>}
         </div>
-        <p className="text-sm text-stone">{formatRelative(lead.created_at, locale)}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          {lead.preview_url && (
+            <a
+              href={lead.preview_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary !px-4 !py-2 text-xs"
+            >
+              {trackingPage.previewCta}
+            </a>
+          )}
+          <p className="text-sm text-stone">{formatRelative(lead.created_at, locale)}</p>
+        </div>
       </div>
 
       <div className="relative mt-16">
@@ -147,6 +170,26 @@ export default async function ProjectTrackingPage({
           <p className="mt-3 text-sm leading-relaxed text-paper/80 md:text-base">
             {currentStep.description}
           </p>
+        </div>
+      )}
+
+      {files.length > 0 && (
+        <div className="mt-16">
+          <p className="text-eyebrow">{trackingPage.filesHeading}</p>
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {files.map((file) => (
+              <a
+                key={file.key}
+                href={file.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block aspect-square overflow-hidden rounded-xl border border-paper/10 bg-onyx-soft"
+              >
+                {/** biome-ignore lint/performance/noImgElement: user-uploaded R2 assets, not build-time optimizable */}
+                <img src={file.url} alt="" className="h-full w-full object-cover" />
+              </a>
+            ))}
+          </div>
         </div>
       )}
 

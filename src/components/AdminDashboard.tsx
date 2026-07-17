@@ -130,7 +130,11 @@ export function AdminDashboard({
                   </div>
                   <div className="flex flex-col gap-4">
                     {columnLeads.map((lead) => (
-                      <LeadCard key={lead.id} lead={lead} updates={updatesByLead[lead.id] ?? []} />
+                      <LeadCard
+                        key={lead.id}
+                        lead={lead}
+                        updateCount={(updatesByLead[lead.id] ?? []).length}
+                      />
                     ))}
                   </div>
                 </div>

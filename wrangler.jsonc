@@ -18,6 +18,12 @@
       "database_id": "5473c00d-1bba-410d-b6ca-e686e699f437"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "PROJECT_FILES",
+      "bucket_name": "calyroc-project-files"
+    }
+  ],
   "observability": {
     "enabled": true
   },

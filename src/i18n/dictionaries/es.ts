@@ -474,15 +474,35 @@ export const es: Dictionary = {
     eyebrow: "Seguimiento de proyecto",
     title: "¿Cómo va su proyecto?",
     subtitle: "El avance en tiempo real, sin tener que preguntar.",
+    steps: [
+      {
+        title: "Contacto",
+        description: "Su solicitud ha sido recibida.",
+      },
+      {
+        title: "Presupuesto",
+        description: "El precio y el plazo han sido confirmados.",
+      },
+      {
+        title: "Desarrollo",
+        description: "El sitio está en construcción, con puntos de seguimiento regulares.",
+      },
+      {
+        title: "Entrega",
+        description: "El sitio está en línea. Quedan disponibles dos rondas de ajustes.",
+      },
+    ],
     currentBadge: "En curso",
     doneBadge: "Terminado",
     ctaTitle: "¿Alguna pregunta sobre el avance?",
     ctaLabel: "Escribir a Thomas",
     summaryHeading: "Su proyecto",
-    todayHeading: "En qué punto estamos hoy",
+    todayHeading: "En qué punto está su proyecto hoy",
     updatesHeading: "Actualizaciones del proyecto",
     updatesEmpty:
       "Las actualizaciones del proyecto aparecerán aquí a medida que avance el trabajo.",
+    previewCta: "Ver la vista previa del sitio",
+    filesHeading: "Imágenes y maquetas",
   },
   notFoundPage: {
     eyebrow: "404",

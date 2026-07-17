@@ -229,6 +229,10 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     subtitle: string;
+    /** Own copy for the 4 stages, distinct from home.processSteps -- the
+     * homepage version is written to persuade a prospect and reads as
+     * abrupt once addressed to a client who already signed. */
+    steps: ProcessStep[];
     currentBadge: string;
     doneBadge: string;
     ctaTitle: string;
@@ -237,6 +241,8 @@ export interface Dictionary {
     todayHeading: string;
     updatesHeading: string;
     updatesEmpty: string;
+    previewCta: string;
+    filesHeading: string;
   };
   notFoundPage: {
     eyebrow: string;

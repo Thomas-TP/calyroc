@@ -481,14 +481,34 @@ export const fr: Dictionary = {
     eyebrow: "Suivi de projet",
     title: "Où en est votre projet ?",
     subtitle: "Voici l'avancement en temps réel, sans avoir à demander.",
+    steps: [
+      {
+        title: "Prise de contact",
+        description: "Votre demande a été prise en compte.",
+      },
+      {
+        title: "Devis",
+        description: "Le prix et le délai ont été confirmés.",
+      },
+      {
+        title: "Développement",
+        description: "Le site est en cours de réalisation, avec des points d'étape réguliers.",
+      },
+      {
+        title: "Livraison",
+        description: "Le site est en ligne. Deux tours de retouches restent disponibles.",
+      },
+    ],
     currentBadge: "En cours",
     doneBadge: "Terminé",
     ctaTitle: "Une question sur l'avancement ?",
     ctaLabel: "Écrire à Thomas",
     summaryHeading: "Votre projet",
-    todayHeading: "Où en est-on aujourd'hui",
+    todayHeading: "Où en est votre projet aujourd'hui",
     updatesHeading: "Actualités du projet",
     updatesEmpty: "Les actualités du projet apparaîtront ici au fil de l'avancement.",
+    previewCta: "Voir l'aperçu du site",
+    filesHeading: "Images & maquettes",
   },
   notFoundPage: {
     eyebrow: "404",

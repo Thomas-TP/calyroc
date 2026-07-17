@@ -10,7 +10,7 @@ import { SITE_URL } from "@/i18n/seo";
 import { clearSessionCookie, isAuthenticated, setSessionCookie } from "@/lib/adminAuth";
 import { renderPaymentLinkEmail } from "@/lib/email/paymentLink";
 import { sendEmail } from "@/lib/email/resend";
-import { type Lead, PROJECT_STAGE_COUNT } from "@/lib/leads";
+import { ensureStatusToken, type Lead, PROJECT_STAGE_COUNT } from "@/lib/leads";
 import { PACK_BASE_PRICE_CHF, PACK_IDS } from "@/lib/packs";
 import { getStripeClient } from "@/lib/stripe";
 
@@ -41,6 +41,7 @@ const UpdateLeadSchema = z.object({
   id: z.coerce.number(),
   status: z.enum(["new", "contacted", "quoted", "won", "lost"]),
   notes: z.string().max(2000),
+  previewUrl: z.union([z.url(), z.literal("")]),
 });
 
 export async function updateLead(formData: FormData): Promise<void> {
@@ -50,15 +51,17 @@ export async function updateLead(formData: FormData): Promise<void> {
     id: formData.get("id"),
     status: formData.get("status"),
     notes: formData.get("notes"),
+    previewUrl: formData.get("previewUrl") ?? "",
   });
   if (!parsed.success) return;
 
   const { env } = await getCloudflareContext({ async: true });
-  await env.DB.prepare("UPDATE leads SET status = ?, notes = ? WHERE id = ?")
-    .bind(parsed.data.status, parsed.data.notes, parsed.data.id)
+  await env.DB.prepare("UPDATE leads SET status = ?, notes = ?, preview_url = ? WHERE id = ?")
+    .bind(parsed.data.status, parsed.data.notes, parsed.data.previewUrl || null, parsed.data.id)
     .run();
 
   revalidatePath("/admin");
+  revalidatePath(`/admin/leads/${parsed.data.id}`);
 }
 
 const CreatePaymentLinkSchema = z.object({
@@ -239,6 +242,7 @@ export async function updateProjectStage(
 
   const leadLocale = isLocale(lead.locale) ? lead.locale : "fr";
   revalidatePath("/admin");
+  revalidatePath(`/admin/leads/${parsed.data.id}`);
   return { status: "success", trackingUrl: `${SITE_URL}/${leadLocale}/suivi/${token}` };
 }
 
@@ -275,21 +279,92 @@ export async function addProjectUpdate(
     .run();
 
   revalidatePath("/admin");
+  revalidatePath(`/admin/leads/${parsed.data.leadId}`);
   return { status: "success" };
 }
 
 const DeleteProjectUpdateSchema = z.object({
   id: z.coerce.number(),
+  leadId: z.coerce.number(),
 });
 
 export async function deleteProjectUpdate(formData: FormData): Promise<void> {
   if (!(await isAuthenticated())) redirect("/admin/login");
 
-  const parsed = DeleteProjectUpdateSchema.safeParse({ id: formData.get("id") });
+  const parsed = DeleteProjectUpdateSchema.safeParse({
+    id: formData.get("id"),
+    leadId: formData.get("leadId"),
+  });
   if (!parsed.success) return;
 
   const { env } = await getCloudflareContext({ async: true });
   await env.DB.prepare("DELETE FROM project_updates WHERE id = ?").bind(parsed.data.id).run();
 
   revalidatePath("/admin");
+  revalidatePath(`/admin/leads/${parsed.data.leadId}`);
+}
+
+const MAX_FILE_BYTES = 8 * 1024 * 1024;
+const ALLOWED_FILE_TYPES = new Set(["image/png", "image/jpeg", "image/webp", "image/svg+xml"]);
+
+export interface ProjectFileState {
+  status: "idle" | "success" | "error";
+  message?: string;
+}
+
+/** Stores an image/logo in R2 under the lead's own tracking token (not its
+ * numeric id) so the public serving route (/api/files/[token]/[key]) can
+ * stay unauthenticated and still be safely scoped -- same trust boundary
+ * as the /suivi/[token] page itself, no separate access-control system. */
+export async function uploadProjectFile(
+  _prevState: ProjectFileState,
+  formData: FormData,
+): Promise<ProjectFileState> {
+  if (!(await isAuthenticated())) redirect("/admin/login");
+
+  const leadId = Number(formData.get("leadId"));
+  const file = formData.get("file");
+  if (!leadId || !(file instanceof File)) {
+    return { status: "error", message: "invalid" };
+  }
+  if (!ALLOWED_FILE_TYPES.has(file.type)) {
+    return { status: "error", message: "type" };
+  }
+  if (file.size > MAX_FILE_BYTES) {
+    return { status: "error", message: "size" };
+  }
+
+  const { env } = await getCloudflareContext({ async: true });
+  const token = await ensureStatusToken(env.DB, leadId);
+
+  const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_").slice(-100);
+  const key = `leads/${token}/${Date.now()}-${safeName}`;
+  await env.PROJECT_FILES.put(key, await file.arrayBuffer(), {
+    httpMetadata: { contentType: file.type },
+  });
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/leads/${leadId}`);
+  return { status: "success" };
+}
+
+const DeleteProjectFileSchema = z.object({
+  leadId: z.coerce.number(),
+  key: z.string().min(1),
+});
+
+export async function deleteProjectFile(formData: FormData): Promise<void> {
+  if (!(await isAuthenticated())) redirect("/admin/login");
+
+  const parsed = DeleteProjectFileSchema.safeParse({
+    leadId: formData.get("leadId"),
+    key: formData.get("key"),
+  });
+  if (!parsed.success) return;
+
+  const { env } = await getCloudflareContext({ async: true });
+  await env.PROJECT_FILES.delete(parsed.data.key);
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/leads/${parsed.data.leadId}`);
 }

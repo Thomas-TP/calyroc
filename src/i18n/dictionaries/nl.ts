@@ -476,14 +476,34 @@ export const nl: Dictionary = {
     eyebrow: "Projectopvolging",
     title: "Waar staat uw project?",
     subtitle: "Voortgang in realtime, zonder dat u ernaar hoeft te vragen.",
+    steps: [
+      {
+        title: "Contact",
+        description: "Uw aanvraag is ontvangen.",
+      },
+      {
+        title: "Offerte",
+        description: "Prijs en planning zijn bevestigd.",
+      },
+      {
+        title: "Ontwikkeling",
+        description: "De site wordt gebouwd, met regelmatige voortgangsmomenten.",
+      },
+      {
+        title: "Oplevering",
+        description: "De site is live. Twee rondes aanpassingen zijn nog beschikbaar.",
+      },
+    ],
     currentBadge: "Bezig",
     doneBadge: "Afgerond",
     ctaTitle: "Een vraag over de voortgang?",
     ctaLabel: "Schrijf naar Thomas",
     summaryHeading: "Uw project",
-    todayHeading: "Waar we vandaag staan",
+    todayHeading: "Waar uw project vandaag staat",
     updatesHeading: "Projectupdates",
     updatesEmpty: "Projectupdates verschijnen hier naarmate het werk vordert.",
+    previewCta: "Bekijk de sitepreview",
+    filesHeading: "Afbeeldingen & ontwerpen",
   },
   notFoundPage: {
     eyebrow: "404",
