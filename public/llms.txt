@@ -1,0 +1,22 @@
+# Calyroc
+
+> Web studio for modern, high-performance websites. Custom showcase and e-commerce websites, designed and built by a single developer (Thomas Prud'homme) — no agency, no project manager, no subcontractors. Modern stack (Cloudflare Workers, React, TypeScript), fixed-price quotes within 48h.
+
+Based near Geneva, Switzerland. Serves clients across Europe. The site is available in French, English, Spanish, Italian, German, and Portuguese; the links below point to the English version.
+
+## Pages
+
+- [Home](https://calyroc.com/en/): Overview of the studio and its approach.
+- [Services](https://calyroc.com/en/services): Showcase websites, e-commerce, and redesigns of existing sites.
+- [Pricing](https://calyroc.com/en/tarifs): Fixed-price packs with transparent scope, no hidden agency overhead.
+- [Work](https://calyroc.com/en/realisations): Case studies, including a live e-commerce platform (Swiss3Design) and a portfolio site (thomastp.ch).
+- [About](https://calyroc.com/en/a-propos): Background on Thomas Prud'homme, a solo developer training as a CFC apprentice in IT.
+- [Blog](https://calyroc.com/en/blog): Editorial articles on web tooling and stack choices.
+- [FAQ](https://calyroc.com/en/faq): Common questions about process, technology, payment and timelines.
+- [Contact](https://calyroc.com/en/contact): Project inquiry form, response within 48h.
+
+## Legal
+
+- [Legal notice](https://calyroc.com/en/mentions-legales)
+- [Privacy policy](https://calyroc.com/en/confidentialite)
+- [Terms of service](https://calyroc.com/en/cgv)
