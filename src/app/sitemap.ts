@@ -41,13 +41,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Same locale-prefixed-but-single-language pattern as the legal pages:
-  // each article is authored once (see src/content/blog) but still gets a
-  // URL under every locale prefix.
+  // Articles are only ever authored in fr and en (see src/content/blog) --
+  // every other locale redirects straight to the en URL, so only these two
+  // belong in the sitemap. Listing a URL that immediately redirects gets
+  // flagged by Search Console ("submitted URL redirected") instead of
+  // indexed.
   for (const post of blogPosts) {
     const suffix = `/blog/${post.slug}`;
 
-    for (const locale of locales) {
+    for (const locale of ["fr", "en"] as const) {
       entries.push({
         url: `${SITE_URL}/${locale}${suffix}`,
         lastModified: new Date(post.publishedAt),
