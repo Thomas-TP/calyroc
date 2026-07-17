@@ -10,7 +10,7 @@ import { SITE_URL } from "@/i18n/seo";
 import { clearSessionCookie, isAuthenticated, setSessionCookie } from "@/lib/adminAuth";
 import { renderPaymentLinkEmail } from "@/lib/email/paymentLink";
 import { sendEmail } from "@/lib/email/resend";
-import type { Lead } from "@/lib/leads";
+import { type Lead, PROJECT_STAGE_COUNT } from "@/lib/leads";
 import { PACK_BASE_PRICE_CHF, PACK_IDS } from "@/lib/packs";
 import { getStripeClient } from "@/lib/stripe";
 
@@ -190,4 +190,54 @@ export async function createPaymentLink(
     console.error("Failed to create Stripe checkout session", error);
     return { status: "error", message: "stripe-error" };
   }
+}
+
+const UpdateProjectStageSchema = z.object({
+  id: z.coerce.number(),
+  projectStage: z.coerce.number().min(1).max(PROJECT_STAGE_COUNT),
+});
+
+export interface ProjectStageState {
+  status: "idle" | "success" | "error";
+  trackingUrl?: string;
+}
+
+/** Sets which of the 4 client-facing stages a project is at, generating a
+ * shareable tracking token the first time (kept stable afterwards so a
+ * previously-sent link keeps working). No separate "generate link" action
+ * -- setting a stage always yields a usable URL in one step. */
+export async function updateProjectStage(
+  _prevState: ProjectStageState,
+  formData: FormData,
+): Promise<ProjectStageState> {
+  if (!(await isAuthenticated())) redirect("/admin/login");
+
+  const parsed = UpdateProjectStageSchema.safeParse({
+    id: formData.get("id"),
+    projectStage: formData.get("projectStage"),
+  });
+  if (!parsed.success) {
+    return { status: "error" };
+  }
+
+  const { env } = await getCloudflareContext({ async: true });
+  const lead = await env.DB.prepare("SELECT * FROM leads WHERE id = ?")
+    .bind(parsed.data.id)
+    .first<Lead>();
+  if (!lead) {
+    return { status: "error" };
+  }
+
+  const token = lead.status_token ?? crypto.randomUUID().replace(/-/g, "");
+  const now = new Date().toISOString();
+
+  await env.DB.prepare(
+    "UPDATE leads SET project_stage = ?, status_token = ?, updated_at = ? WHERE id = ?",
+  )
+    .bind(parsed.data.projectStage, token, now, parsed.data.id)
+    .run();
+
+  const leadLocale = isLocale(lead.locale) ? lead.locale : "fr";
+  revalidatePath("/admin");
+  return { status: "success", trackingUrl: `${SITE_URL}/${leadLocale}/suivi/${token}` };
 }

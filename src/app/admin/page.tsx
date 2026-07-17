@@ -18,7 +18,7 @@ export default async function AdminPage() {
     <section className="mx-auto max-w-4xl px-6 pb-24 pt-16 md:px-10">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <img src="/logo.png" alt="Calyroc" width={130} height={36} className="mb-3 h-7 w-auto" />
+          <img src="/logo.webp" alt="Calyroc" width={130} height={36} className="mb-3 h-7 w-auto" />
           <p className="text-eyebrow mb-2">Admin</p>
           <h1 className="text-display-sm text-paper">Leads Calyroc</h1>
           <p className="mt-1 text-sm text-stone">

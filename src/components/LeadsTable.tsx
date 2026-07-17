@@ -1,6 +1,7 @@
 import { updateLead } from "@/app/admin/actions";
 import { CustomSelect } from "@/components/CustomSelect";
 import { PaymentLinkGenerator } from "@/components/PaymentLinkGenerator";
+import { ProjectStageGenerator } from "@/components/ProjectStageGenerator";
 import { LEAD_STATUS_LABELS, LEAD_STATUSES, type Lead } from "@/lib/leads";
 
 const STATUS_BADGE_CLASS: Record<Lead["status"], string> = {
@@ -86,6 +87,13 @@ export function LeadsTable({ leads }: { leads: Lead[] }) {
               Paiement
             </p>
             <PaymentLinkGenerator leadId={lead.id} defaultPackId={lead.pack_id} />
+          </div>
+
+          <div className="mt-5 border-t border-paper/8 pt-5">
+            <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-stone">
+              Suivi client
+            </p>
+            <ProjectStageGenerator leadId={lead.id} defaultStage={lead.project_stage} />
           </div>
         </article>
       ))}
