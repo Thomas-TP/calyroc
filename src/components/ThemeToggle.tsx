@@ -8,10 +8,15 @@ export function ThemeToggle({
   labelToLight,
   labelToDark,
   className = "",
+  bare = false,
 }: {
   labelToLight: string;
   labelToDark: string;
   className?: string;
+  /** Drops the button's own border/circle background -- for use inside a
+   * shared grouped container (see SiteHeader's controls capsule) that
+   * already provides that boundary, instead of nesting two borders. */
+  bare?: boolean;
 }) {
   // Starts null (unknown) so the server-rendered markup never claims a
   // theme the client hasn't confirmed yet -- the beforeInteractive script
@@ -37,7 +42,9 @@ export function ThemeToggle({
       type="button"
       onClick={toggle}
       aria-label={isLight ? labelToDark : labelToLight}
-      className={`relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-paper/15 text-paper transition-colors hover:border-bronze/50 ${className}`}
+      className={`relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-paper transition-colors ${
+        bare ? "hover:bg-paper/8" : "border border-paper/15 hover:border-bronze/50"
+      } ${className}`}
     >
       <svg
         aria-hidden="true"

@@ -61,6 +61,52 @@ body {
   color: #0b0b0c;
 }
 
+/* Any solid-bronze surface (primary buttons, the chat widget's own
+   user-message bubble, ...) would make the default ::selection above
+   (also bronze) invisible against it -- this scoped override swaps to the
+   opposite pairing wherever that happens. Two selectors are needed: plain
+   bg-bronze usages carry that literal utility class, but .btn-primary is a
+   UnoCSS shortcut that compiles its background into the .btn-primary rule
+   itself rather than emitting a separate bg-bronze class on the element. */
+.bg-bronze::selection,
+.btn-primary::selection {
+  background-color: var(--color-onyx);
+  color: var(--color-paper);
+}
+
+/* Thin, theme-matched scrollbar instead of the browser default -- Firefox
+   via scrollbar-width/-color, Chromium/Safari/Edge via the pseudo-elements.
+   Applies everywhere (html scroll, any overflow-auto panel) since both
+   properties simply have no effect on elements that never overflow. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-bronze) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--color-bronze) 55%, transparent);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-bronze);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 a:focus-visible,
 button:focus-visible,
 select:focus-visible,

@@ -2,6 +2,7 @@ import { Reveal } from "@/components/Reveal";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import type { Dictionary } from "@/i18n/dictionary";
 import type { Locale } from "@/i18n/locales";
+import { localizedSlugs } from "@/i18n/routes";
 
 export function HomeWorkTeaser({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   const studies = dictionary.workPage.caseStudies;
@@ -45,7 +46,10 @@ export function HomeWorkTeaser({ dictionary, locale }: { dictionary: Dictionary;
         </div>
 
         <Reveal delay={0.2}>
-          <Link href={`/${locale}/realisations`} className="btn-secondary mt-12">
+          <Link
+            href={`/${locale}/${localizedSlugs.realisations[locale]}`}
+            className="btn-secondary mt-12"
+          >
             {dictionary.home.workCta}
           </Link>
         </Reveal>
