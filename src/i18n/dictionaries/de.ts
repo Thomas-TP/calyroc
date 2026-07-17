@@ -514,6 +514,21 @@ export const de: Dictionary = {
     updatesEmpty: "Projekt-Updates erscheinen hier, sobald es Neuigkeiten gibt.",
     previewCta: "Website-Vorschau ansehen",
     filesHeading: "Bilder & Entwürfe",
+    approveHeading: "Die Website ist bereit zur Prüfung",
+    approveDescription:
+      "Sehen Sie sich die Vorschau oben an und geben Sie dann die Freigabe für den Start.",
+    approveButton: "Ich gebe frei, bereit für den Start",
+    approvedNotice: "Sie haben die Website freigegeben — der Start wird vorbereitet.",
+    overviewNavLabel: "Übersicht",
+    paymentsNavLabel: "Zahlung",
+    paymentsHeading: "Zahlungen",
+    paymentsSubtitle: "Ihre Anzahlung und Restzahlung an einem Ort.",
+    paymentsEmpty: "Noch keine Zahlungen.",
+    payNowLabel: "Jetzt bezahlen",
+    payErrorLabel:
+      "Ein Fehler ist aufgetreten, versuchen Sie es erneut oder kontaktieren Sie Thomas.",
+    paidLabel: "Bezahlt",
+    paymentSuccessNotice: "Zahlung erhalten, vielen Dank!",
   },
   notFoundPage: {
     eyebrow: "404",

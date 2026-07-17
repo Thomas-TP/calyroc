@@ -1,11 +1,13 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { approveProject } from "@/app/[locale]/suivi/[token]/actions";
 import { PageHeader } from "@/components/PageHeader";
+import { TrackingNav } from "@/components/TrackingNav";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
-import type { Lead } from "@/lib/leads";
+import { getLeadByToken } from "@/lib/leads";
 import type { ProjectUpdate } from "@/lib/projectUpdates";
 
 export const metadata: Metadata = {
@@ -40,9 +42,7 @@ export default async function ProjectTrackingPage({
   const { trackingPage } = dictionary;
 
   const { env } = await getCloudflareContext({ async: true });
-  const lead = await env.DB.prepare("SELECT * FROM leads WHERE status_token = ?")
-    .bind(token)
-    .first<Lead>();
+  const lead = await getLeadByToken(env.DB, token);
 
   if (!lead?.project_stage) notFound();
 
@@ -80,7 +80,15 @@ export default async function ProjectTrackingPage({
         subtitle={pack ? `${trackingPage.subtitle} — ${pack.name}` : trackingPage.subtitle}
       />
 
-      <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-paper/10 bg-onyx-soft px-6 py-5">
+      <TrackingNav
+        locale={locale}
+        token={token}
+        active="overview"
+        overviewLabel={trackingPage.overviewNavLabel}
+        paymentsLabel={trackingPage.paymentsNavLabel}
+      />
+
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-paper/10 bg-onyx-soft px-6 py-5">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-stone">
             {trackingPage.summaryHeading}
@@ -171,6 +179,31 @@ export default async function ProjectTrackingPage({
             {currentStep.description}
           </p>
         </div>
+      )}
+
+      {lead.preview_url && !lead.client_approved_at && (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-paper/10 bg-onyx-soft px-6 py-5">
+          <div>
+            <p className="font-display text-sm font-bold text-paper">
+              {trackingPage.approveHeading}
+            </p>
+            <p className="mt-1 text-sm text-stone">{trackingPage.approveDescription}</p>
+          </div>
+          <form action={approveProject}>
+            <input type="hidden" name="token" value={token} />
+            <input type="hidden" name="locale" value={locale} />
+            <button type="submit" className="btn-primary !px-5 !py-2.5 text-sm">
+              {trackingPage.approveButton}
+            </button>
+          </form>
+        </div>
+      )}
+
+      {lead.client_approved_at && (
+        <p className="mt-6 flex items-center gap-1.5 text-xs font-medium text-bronze">
+          <span aria-hidden>✓</span>
+          {trackingPage.approvedNotice}
+        </p>
       )}
 
       {files.length > 0 && (

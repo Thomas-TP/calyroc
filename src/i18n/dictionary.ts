@@ -243,6 +243,19 @@ export interface Dictionary {
     updatesEmpty: string;
     previewCta: string;
     filesHeading: string;
+    approveHeading: string;
+    approveDescription: string;
+    approveButton: string;
+    approvedNotice: string;
+    overviewNavLabel: string;
+    paymentsNavLabel: string;
+    paymentsHeading: string;
+    paymentsSubtitle: string;
+    paymentsEmpty: string;
+    payNowLabel: string;
+    payErrorLabel: string;
+    paidLabel: string;
+    paymentSuccessNotice: string;
   };
   notFoundPage: {
     eyebrow: string;

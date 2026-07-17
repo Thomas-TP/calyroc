@@ -14,6 +14,7 @@ export interface Lead {
   project_stage: number | null;
   preview_url: string | null;
   suivi_last_viewed_at: string | null;
+  client_approved_at: string | null;
 }
 
 /** The 4 client-facing project stages. Has its own copy in
@@ -49,4 +50,18 @@ export async function ensureStatusToken(db: D1Database, leadId: number): Promise
   const token = crypto.randomUUID().replace(/-/g, "");
   await db.prepare("UPDATE leads SET status_token = ? WHERE id = ?").bind(token, leadId).run();
   return token;
+}
+
+/** Resolves a lead from its public tracking token -- shared by every page
+ * under suivi/[token]/ (overview, paiement, and the layout that wraps
+ * both). Does not update suivi_last_viewed_at itself: that's a
+ * "the client checked their status" signal, meaningful once per visit to
+ * the overview page, not something that should fire again on every
+ * sub-page a layout happens to also resolve the lead for. */
+export async function getLeadByToken(db: D1Database, token: string): Promise<Lead | null> {
+  const lead = await db
+    .prepare("SELECT * FROM leads WHERE status_token = ?")
+    .bind(token)
+    .first<Lead>();
+  return lead ?? null;
 }

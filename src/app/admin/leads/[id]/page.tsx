@@ -39,15 +39,21 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
   const lead = await env.DB.prepare("SELECT * FROM leads WHERE id = ?").bind(leadId).first<Lead>();
   if (!lead) redirect("/admin");
 
-  const [{ results: updateResults }, fileList] = await Promise.all([
+  const [{ results: updateResults }, fileList, paidRow] = await Promise.all([
     env.DB.prepare("SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC")
       .bind(leadId)
       .all(),
     lead.status_token
       ? env.PROJECT_FILES.list({ prefix: `leads/${lead.status_token}/` })
       : Promise.resolve(null),
+    env.DB.prepare(
+      "SELECT COALESCE(SUM(amount_paid_cents), 0) AS total FROM payments WHERE lead_id = ? AND status = 'paid'",
+    )
+      .bind(leadId)
+      .first<{ total: number }>(),
   ]);
   const updates = updateResults as unknown as ProjectUpdate[];
+  const alreadyPaidCents = paidRow?.total ?? 0;
 
   const files = (fileList?.objects ?? []).map((object) => {
     const key = object.key.slice(`leads/${lead.status_token}/`.length);
@@ -121,7 +127,11 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
       </Section>
 
       <Section title="Paiement">
-        <PaymentLinkGenerator leadId={lead.id} defaultPackId={lead.pack_id} />
+        <PaymentLinkGenerator
+          leadId={lead.id}
+          defaultPackId={lead.pack_id}
+          alreadyPaidCents={alreadyPaidCents}
+        />
       </Section>
 
       <Section title="Suivi client">
@@ -130,6 +140,13 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
           defaultStage={lead.project_stage}
           defaultTrackingUrl={trackingUrl}
         />
+        {lead.client_approved_at && (
+          <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-bronze">
+            <span aria-hidden>✓</span>
+            Approuvé par le client le {formatDate(lead.client_approved_at)} — envoyer la facture du
+            solde ci-dessus.
+          </p>
+        )}
         {lead.suivi_last_viewed_at && (
           <p className="mt-3 text-xs text-stone">
             Dernière consultation par le client : {formatDate(lead.suivi_last_viewed_at)}

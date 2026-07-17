@@ -26,15 +26,21 @@ type Kind = "deposit" | "balance" | "custom";
 export function PaymentLinkGenerator({
   leadId,
   defaultPackId,
+  alreadyPaidCents,
 }: {
   leadId: number;
   defaultPackId: string | null;
+  /** Sum of this lead's already-paid amounts (e.g. the deposit) -- lets the
+   * "balance" kind default to the actual remaining amount instead of an
+   * empty field Thomas has to compute and type by hand every time. */
+  alreadyPaidCents: number;
 }) {
   const [state, formAction, isPending] = useActionState(createPaymentLink, initialState);
   const [copied, setCopied] = useState(false);
   const [sendEmail, setSendEmail] = useState(false);
 
-  const startPackId: PackId = defaultPackId && isPackId(defaultPackId) ? defaultPackId : "essentiel";
+  const startPackId: PackId =
+    defaultPackId && isPackId(defaultPackId) ? defaultPackId : "essentiel";
   const [packId, setPackId] = useState<PackId>(startPackId);
   const [kind, setKind] = useState<Kind>("deposit");
   const [depositPercent, setDepositPercent] = useState("30");
@@ -55,10 +61,16 @@ export function PaymentLinkGenerator({
   }
 
   function computeAmount(nextPackId: PackId, nextKind: Kind, nextPercent: string): string {
-    if (nextKind !== "deposit") return "";
     const basePrice = PACK_BASE_PRICE_CHF[nextPackId];
     if (!basePrice) return "";
-    return String(Math.round((basePrice * Number(nextPercent)) / 100));
+    if (nextKind === "deposit") {
+      return String(Math.round((basePrice * Number(nextPercent)) / 100));
+    }
+    if (nextKind === "balance") {
+      const remaining = Math.max(0, Math.round(basePrice - alreadyPaidCents / 100));
+      return String(remaining);
+    }
+    return "";
   }
 
   function handlePackChange(value: string) {
@@ -87,7 +99,7 @@ export function PaymentLinkGenerator({
         <input type="hidden" name="leadId" value={leadId} />
 
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-          <label className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1">
             <span className="text-xs text-stone">Formule</span>
             <CustomSelect
               name="packId"
@@ -97,8 +109,8 @@ export function PaymentLinkGenerator({
               options={PACK_OPTIONS}
               triggerClassName="w-full px-3 py-1.5 text-sm"
             />
-          </label>
-          <label className="flex flex-col gap-1">
+          </div>
+          <div className="flex flex-col gap-1">
             <span className="text-xs text-stone">Type</span>
             <CustomSelect
               name="kind"
@@ -108,9 +120,9 @@ export function PaymentLinkGenerator({
               options={KIND_OPTIONS}
               triggerClassName="w-full px-3 py-1.5 text-sm"
             />
-          </label>
+          </div>
           {kind === "deposit" ? (
-            <label className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
               <span className="text-xs text-stone">Pourcentage</span>
               <CustomSelect
                 name="depositPercent"
@@ -120,7 +132,7 @@ export function PaymentLinkGenerator({
                 options={PERCENT_OPTIONS}
                 triggerClassName="w-full px-3 py-1.5 text-sm"
               />
-            </label>
+            </div>
           ) : (
             <div />
           )}
