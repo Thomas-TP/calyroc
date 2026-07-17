@@ -95,6 +95,11 @@ export const ru: Dictionary = {
     includesLabel: "Включено",
     techLabel: "Стек технологий",
     timelineLabel: "Ориентировочные сроки",
+    backLabel: "← Назад к услугам",
+    processTitle: "Как это работает",
+    faqTitle: "Часто задаваемые вопросы",
+    pricingLinkLabel: "Смотреть тарифы",
+    otherServicesTitle: "Другие услуги",
     items: [
       {
         title: "Сайт-визитка",

@@ -94,6 +94,11 @@ export const pl: Dictionary = {
     includesLabel: "W cenie",
     techLabel: "Stack technologiczny",
     timelineLabel: "Orientacyjny harmonogram",
+    backLabel: "← Powrót do usług",
+    processTitle: "Jak to działa",
+    faqTitle: "Najczęściej zadawane pytania",
+    pricingLinkLabel: "Zobacz cennik",
+    otherServicesTitle: "Poznaj pozostałe usługi",
     items: [
       {
         title: "Strona wizytówkowa",

@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/content/blog";
+import { services } from "@/content/services";
 import { type Locale, locales } from "@/i18n/locales";
-import { localizedSlugs } from "@/i18n/routes";
+import { localizedSlugs, serviceSlugs } from "@/i18n/routes";
 import { SITE_URL } from "@/i18n/seo";
 
 // Slugs identical across every locale (translating them would just repeat
@@ -36,6 +37,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const locale of locales) {
       entries.push({
         url: `${SITE_URL}/${locale}/${bySlug[locale as Locale]}`,
+        lastModified: new Date(),
+      });
+    }
+  }
+
+  // Each service has its own dedicated, fully localized page (unlike blog
+  // posts, which are only ever authored in fr/en) -- all 9 locales x 7
+  // services belong in the sitemap.
+  for (const service of services) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${SITE_URL}/${locale}/services/${serviceSlugs[service.id][locale]}`,
         lastModified: new Date(),
       });
     }

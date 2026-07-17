@@ -92,6 +92,11 @@ export const es: Dictionary = {
     includesLabel: "Incluye",
     techLabel: "Stack",
     timelineLabel: "Plazo indicativo",
+    backLabel: "← Volver a servicios",
+    processTitle: "Cómo funciona",
+    faqTitle: "Preguntas frecuentes",
+    pricingLinkLabel: "Ver precios",
+    otherServicesTitle: "Descubrir otros servicios",
     items: [
       {
         title: "Sitio corporativo",

@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 import { locales } from "./src/i18n/locales";
-import { localizedSlugs } from "./src/i18n/routes";
+import { localizedSlugs, serviceSlugs } from "./src/i18n/routes";
 
 // Static generation (SSG) is core to this site's performance, so CSP nonces
 // are off the table -- Next.js only injects a nonce during per-request
@@ -58,6 +58,21 @@ const nextConfig: NextConfig = {
         const slug = bySlug[locale];
         if (slug !== canonical) {
           rules.push({ source: `/${locale}/${slug}`, destination: `/${locale}/${canonical}` });
+        }
+      }
+    }
+    // Same rewrite pattern, one level deeper: /services/[slug] is a brand
+    // new route (no prior indexed French-slug URLs to also redirect from,
+    // unlike the top-level routes above).
+    for (const bySlug of Object.values(serviceSlugs)) {
+      const canonical = bySlug.fr;
+      for (const locale of locales) {
+        const slug = bySlug[locale];
+        if (slug !== canonical) {
+          rules.push({
+            source: `/${locale}/services/${slug}`,
+            destination: `/${locale}/services/${canonical}`,
+          });
         }
       }
     }

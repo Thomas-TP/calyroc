@@ -47,7 +47,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         title={servicesPage.title}
         subtitle={servicesPage.subtitle}
       />
-      <ServicesGrid servicesPage={servicesPage} />
+      <ServicesGrid servicesPage={servicesPage} locale={locale as Locale} />
       <div className="mt-16 text-center">
         <Link href={`/${locale}/contact`} className="btn-primary">
           {servicesPage.ctaLabel}

@@ -93,6 +93,11 @@ export const fr: Dictionary = {
     includesLabel: "Inclus",
     techLabel: "Stack",
     timelineLabel: "Délai indicatif",
+    backLabel: "← Retour aux services",
+    processTitle: "Comment ça se passe",
+    faqTitle: "Questions fréquentes",
+    pricingLinkLabel: "Voir les tarifs",
+    otherServicesTitle: "Découvrir les autres services",
     items: [
       {
         title: "Site vitrine",

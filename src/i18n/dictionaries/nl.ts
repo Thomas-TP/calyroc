@@ -93,6 +93,11 @@ export const nl: Dictionary = {
     includesLabel: "Inbegrepen",
     techLabel: "Technologie",
     timelineLabel: "Indicatieve planning",
+    backLabel: "← Terug naar diensten",
+    processTitle: "Hoe het werkt",
+    faqTitle: "Veelgestelde vragen",
+    pricingLinkLabel: "Bekijk tarieven",
+    otherServicesTitle: "Andere diensten ontdekken",
     items: [
       {
         title: "Vitrinewebsite",

@@ -95,6 +95,11 @@ export const de: Dictionary = {
     includesLabel: "Enthalten",
     techLabel: "Stack",
     timelineLabel: "Ungefähre Frist",
+    backLabel: "← Zurück zu den Leistungen",
+    processTitle: "So läuft es ab",
+    faqTitle: "Häufige Fragen",
+    pricingLinkLabel: "Preise ansehen",
+    otherServicesTitle: "Weitere Leistungen entdecken",
     items: [
       {
         title: "Website",

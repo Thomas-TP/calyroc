@@ -133,6 +133,11 @@ export interface Dictionary {
     techLabel: string;
     timelineLabel: string;
     items: ServiceItem[];
+    backLabel: string;
+    processTitle: string;
+    faqTitle: string;
+    pricingLinkLabel: string;
+    otherServicesTitle: string;
   };
   workPage: {
     eyebrow: string;

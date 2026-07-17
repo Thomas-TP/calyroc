@@ -92,6 +92,11 @@ export const pt: Dictionary = {
     includesLabel: "Incluído",
     techLabel: "Stack",
     timelineLabel: "Prazo indicativo",
+    backLabel: "← Voltar aos serviços",
+    processTitle: "Como funciona",
+    faqTitle: "Perguntas frequentes",
+    pricingLinkLabel: "Ver preços",
+    otherServicesTitle: "Descobrir outros serviços",
     items: [
       {
         title: "Site institucional",

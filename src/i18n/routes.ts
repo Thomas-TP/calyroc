@@ -1,3 +1,4 @@
+import type { ServiceId } from "@/content/services/types";
 import { isLocale, type Locale } from "./locales";
 
 export type LocalizableRoute =
@@ -89,31 +90,132 @@ export const localizedSlugs: Record<LocalizableRoute, Record<Locale, string>> = 
   },
 };
 
+/** Per-locale URL slug for each dedicated service page under
+ * /services/[slug] -- same ASCII-only, ID-keyed pattern as localizedSlugs
+ * above, kept as a separate map because it's a second path segment
+ * (/services/{this}) rather than the first. `fr` is the physical folder
+ * name under src/app/[locale]/services/, same convention as the rest of
+ * the site. */
+export const serviceSlugs: Record<ServiceId, Record<Locale, string>> = {
+  "showcase-website": {
+    fr: "site-vitrine",
+    en: "business-website",
+    es: "sitio-web-corporativo",
+    it: "sito-vetrina",
+    de: "unternehmenswebsite",
+    pt: "site-institucional",
+    nl: "bedrijfswebsite",
+    pl: "strona-wizytowka",
+    ru: "sayt-vizitka",
+  },
+  ecommerce: {
+    fr: "e-commerce",
+    en: "ecommerce-website",
+    es: "tienda-online",
+    it: "e-commerce",
+    de: "onlineshop",
+    pt: "loja-online",
+    nl: "webshop",
+    pl: "sklep-internetowy",
+    ru: "internet-magazin",
+  },
+  redesign: {
+    fr: "refonte",
+    en: "website-redesign",
+    es: "rediseno-web",
+    it: "restyling-sito",
+    de: "website-relaunch",
+    pt: "redesign-de-site",
+    nl: "website-redesign",
+    pl: "redesign-strony",
+    ru: "redizayn-sayta",
+  },
+  "landing-page": {
+    fr: "landing-page",
+    en: "landing-page",
+    es: "landing-page",
+    it: "landing-page",
+    de: "landingpage",
+    pt: "landing-page",
+    nl: "landingpagina",
+    pl: "landing-page",
+    ru: "lending",
+  },
+  maintenance: {
+    fr: "maintenance",
+    en: "website-maintenance",
+    es: "mantenimiento-web",
+    it: "manutenzione-sito",
+    de: "website-wartung",
+    pt: "manutencao-de-site",
+    nl: "website-onderhoud",
+    pl: "utrzymanie-strony",
+    ru: "podderzhka-sayta",
+  },
+  "technical-seo": {
+    fr: "seo-technique",
+    en: "technical-seo",
+    es: "seo-tecnico",
+    it: "seo-tecnica",
+    de: "technisches-seo",
+    pt: "seo-tecnico",
+    nl: "technische-seo",
+    pl: "seo-techniczne",
+    ru: "tekhnicheskoe-seo",
+  },
+  "visual-identity": {
+    fr: "identite-visuelle",
+    en: "brand-identity",
+    es: "identidad-visual",
+    it: "identita-visiva",
+    de: "corporate-design",
+    pt: "identidade-visual",
+    nl: "huisstijl",
+    pl: "identyfikacja-wizualna",
+    ru: "firmennyy-stil",
+  },
+};
+
+export function getServiceIdFromSlug(slug: string, locale: Locale): ServiceId | null {
+  for (const [id, slugs] of Object.entries(serviceSlugs) as [ServiceId, Record<Locale, string>][]) {
+    if (slugs[locale] === slug) return id;
+  }
+  return null;
+}
+
 /** Rewrites a pathname (as returned by usePathname(), e.g. "/fr/tarifs" or
  * "/en/blog/mon-article") to its equivalent under a different locale --
  * used by the language switcher so picking a new language keeps the
- * visitor on the same page instead of bouncing to the homepage. Only the
- * first segment after the locale is ever translated: it's the sole
- * localized static route in this app (see localizedSlugs above), and
- * everything after it -- a blog post slug, a /suivi/[token] tracking
- * token, a /paiement sub-path -- is an opaque identifier shared across
- * locales that must pass through untouched. Routes with no entry in
- * localizedSlugs (services, contact, faq, blog, suivi...) already use the
- * same slug in every locale, so passing the first segment through
- * unchanged is correct for them too. */
+ * visitor on the same page instead of bouncing to the homepage. The first
+ * segment after the locale is translated via localizedSlugs above; when
+ * that segment is "services" (identical in every locale), the second
+ * segment is additionally translated via serviceSlugs, since that's now
+ * also a real localized route rather than an opaque identifier. Every
+ * other second-plus segment -- a blog post slug, a /suivi/[token] tracking
+ * token, a /paiement sub-path -- stays untouched. Routes with no entry in
+ * localizedSlugs (contact, faq, blog, suivi...) already use the same slug
+ * in every locale, so passing the first segment through unchanged is
+ * correct for them too. */
 export function localizePath(pathname: string, toLocale: Locale): string {
   const segments = pathname.split("/").filter(Boolean);
-  const [currentLocaleSegment, firstRouteSegment, ...rest] = segments;
+  const [currentLocaleSegment, firstRouteSegment, secondRouteSegment, ...rest] = segments;
   if (!firstRouteSegment) return `/${toLocale}`;
 
   const fromLocale: Locale =
     currentLocaleSegment && isLocale(currentLocaleSegment) ? currentLocaleSegment : "fr";
 
-  for (const routeSlugs of Object.values(localizedSlugs)) {
-    if (routeSlugs[fromLocale] === firstRouteSegment) {
-      return `/${[toLocale, routeSlugs[toLocale], ...rest].join("/")}`;
+  if (firstRouteSegment === "services" && secondRouteSegment) {
+    const serviceId = getServiceIdFromSlug(secondRouteSegment, fromLocale);
+    if (serviceId) {
+      return `/${[toLocale, "services", serviceSlugs[serviceId][toLocale], ...rest].join("/")}`;
     }
   }
 
-  return `/${[toLocale, firstRouteSegment, ...rest].join("/")}`;
+  for (const routeSlugs of Object.values(localizedSlugs)) {
+    if (routeSlugs[fromLocale] === firstRouteSegment) {
+      return `/${[toLocale, routeSlugs[toLocale], secondRouteSegment, ...rest].filter(Boolean).join("/")}`;
+    }
+  }
+
+  return `/${[toLocale, firstRouteSegment, secondRouteSegment, ...rest].filter(Boolean).join("/")}`;
 }

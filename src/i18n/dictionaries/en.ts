@@ -90,6 +90,11 @@ export const en: Dictionary = {
     includesLabel: "Included",
     techLabel: "Stack",
     timelineLabel: "Indicative timeline",
+    backLabel: "← Back to services",
+    processTitle: "How it works",
+    faqTitle: "Frequently asked questions",
+    pricingLinkLabel: "View pricing",
+    otherServicesTitle: "Explore other services",
     items: [
       {
         title: "Showcase website",
