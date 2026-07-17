@@ -9,7 +9,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import type { Dictionary } from "@/i18n/dictionary";
 import { type Locale, locales } from "@/i18n/locales";
-import { localizedSlugs } from "@/i18n/routes";
+import { localizedSlugs, localizePath } from "@/i18n/routes";
 
 const MotionLink = motion.create(Link);
 
@@ -469,12 +469,14 @@ function LocaleSwitcher({
   /** Only meaningful for the "header" variant -- see CustomSelect. */
   closeSignal?: boolean;
 }) {
+  const pathname = usePathname();
+
   return (
     <CustomSelect
       options={localeOptions}
       value={locale}
       onChange={(next) => {
-        window.location.href = `/${next}`;
+        window.location.href = localizePath(pathname, next as Locale);
       }}
       ariaLabel="Language"
       // Bare in both cases: it always lives inside a shared theme+language

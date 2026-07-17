@@ -1,4 +1,4 @@
-import type { Locale } from "./locales";
+import { isLocale, type Locale } from "./locales";
 
 export type LocalizableRoute =
   | "tarifs"
@@ -88,3 +88,32 @@ export const localizedSlugs: Record<LocalizableRoute, Record<Locale, string>> = 
     ru: "usloviya-ispolzovaniya",
   },
 };
+
+/** Rewrites a pathname (as returned by usePathname(), e.g. "/fr/tarifs" or
+ * "/en/blog/mon-article") to its equivalent under a different locale --
+ * used by the language switcher so picking a new language keeps the
+ * visitor on the same page instead of bouncing to the homepage. Only the
+ * first segment after the locale is ever translated: it's the sole
+ * localized static route in this app (see localizedSlugs above), and
+ * everything after it -- a blog post slug, a /suivi/[token] tracking
+ * token, a /paiement sub-path -- is an opaque identifier shared across
+ * locales that must pass through untouched. Routes with no entry in
+ * localizedSlugs (services, contact, faq, blog, suivi...) already use the
+ * same slug in every locale, so passing the first segment through
+ * unchanged is correct for them too. */
+export function localizePath(pathname: string, toLocale: Locale): string {
+  const segments = pathname.split("/").filter(Boolean);
+  const [currentLocaleSegment, firstRouteSegment, ...rest] = segments;
+  if (!firstRouteSegment) return `/${toLocale}`;
+
+  const fromLocale: Locale =
+    currentLocaleSegment && isLocale(currentLocaleSegment) ? currentLocaleSegment : "fr";
+
+  for (const routeSlugs of Object.values(localizedSlugs)) {
+    if (routeSlugs[fromLocale] === firstRouteSegment) {
+      return `/${[toLocale, routeSlugs[toLocale], ...rest].join("/")}`;
+    }
+  }
+
+  return `/${[toLocale, firstRouteSegment, ...rest].join("/")}`;
+}
