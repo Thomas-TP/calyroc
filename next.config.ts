@@ -30,6 +30,17 @@ const cspHeader = `
 const nextConfig: NextConfig = {
   // Avoid leaking the framework via the default X-Powered-By response header.
   poweredByHeader: false,
+  // Native View Transitions (React's <ViewTransition>, activated
+  // automatically on route navigation) replaced the third-party
+  // next-view-transitions shim this site used to rely on -- that package
+  // predates Next 16's own support and was fighting with this version's
+  // router internals, causing navigations (especially browser back/forward)
+  // to intermittently hang. The existing ::view-transition-old/new(root)
+  // CSS crossfade in globals.css is the plain browser API and needed no
+  // changes.
+  experimental: {
+    viewTransition: true,
+  },
   // Every non-fr locale gets its own translated URL slug (see
   // src/i18n/routes.ts) instead of showing the French folder name under
   // every locale prefix (e.g. /en/realisations) -- confirmed against

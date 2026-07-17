@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
-import { ViewTransitions } from "next-view-transitions";
 import type { ReactNode } from "react";
 import { AskCalyrocLoader } from "@/components/AskCalyrocLoader";
 import { BronzeSweep } from "@/components/BronzeSweep";
@@ -66,36 +65,34 @@ export default async function LocaleLayout({
   const dictionary = getDictionary(locale as Locale);
 
   return (
-    <ViewTransitions>
-      <html lang={locale} className="dark" suppressHydrationWarning>
-        <body className="bg-onyx font-body text-paper antialiased">
-          <Script id="theme-init" strategy="beforeInteractive">
-            {THEME_INIT_SCRIPT}
-          </Script>
-          {/* Umami Cloud: cookieless analytics, so no consent banner is
-              required (see confidentialite page). Simply omitted until
-              NEXT_PUBLIC_UMAMI_WEBSITE_ID is set -- this is a build-time
-              env var (inlined by Next.js), not a Workers runtime secret,
-              so it must be present in the environment when running
-              `bunx opennextjs-cloudflare build`, not just as a `wrangler
-              secret`. */}
-          {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
-            <Script
-              src="https://cloud.umami.is/script.js"
-              data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
-              strategy="afterInteractive"
-            />
-          )}
-          <MotionProvider>
-            <GrainOverlay />
-            <BronzeSweep />
-            <SiteHeader locale={locale as Locale} dictionary={dictionary} />
-            <main>{children}</main>
-            <SiteFooter locale={locale as Locale} dictionary={dictionary} />
-            <AskCalyrocLoader locale={locale as Locale} dictionary={dictionary} />
-          </MotionProvider>
-        </body>
-      </html>
-    </ViewTransitions>
+    <html lang={locale} className="dark" suppressHydrationWarning>
+      <body className="bg-onyx font-body text-paper antialiased">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
+        {/* Umami Cloud: cookieless analytics, so no consent banner is
+            required (see confidentialite page). Simply omitted until
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID is set -- this is a build-time
+            env var (inlined by Next.js), not a Workers runtime secret,
+            so it must be present in the environment when running
+            `bunx opennextjs-cloudflare build`, not just as a `wrangler
+            secret`. */}
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <Script
+            src="https://cloud.umami.is/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+            strategy="afterInteractive"
+          />
+        )}
+        <MotionProvider>
+          <GrainOverlay />
+          <BronzeSweep />
+          <SiteHeader locale={locale as Locale} dictionary={dictionary} />
+          <main>{children}</main>
+          <SiteFooter locale={locale as Locale} dictionary={dictionary} />
+          <AskCalyrocLoader locale={locale as Locale} dictionary={dictionary} />
+        </MotionProvider>
+      </body>
+    </html>
   );
 }
