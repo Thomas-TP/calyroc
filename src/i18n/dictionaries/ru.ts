@@ -582,5 +582,10 @@ export const ru: Dictionary = {
       nextStepsText: "Я вскоре свяжусь с Вами по поводу следующих шагов проекта.",
       signature: "Спасибо за доверие,<br>Тома",
     },
+    clientMessage: {
+      preview: "У Вас новое сообщение от Calyroc.",
+      heading: "Сообщение от Calyroc",
+      signature: "До скорой связи,<br>Тома",
+    },
   },
 };

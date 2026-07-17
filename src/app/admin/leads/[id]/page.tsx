@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { deleteProjectUpdate, updateLead } from "@/app/admin/actions";
 import { CustomSelect } from "@/components/CustomSelect";
+import { MessageComposer } from "@/components/MessageComposer";
 import { PaymentLinkGenerator } from "@/components/PaymentLinkGenerator";
 import { ProjectFileManager } from "@/components/ProjectFileManager";
 import { ProjectStageGenerator } from "@/components/ProjectStageGenerator";
@@ -11,6 +12,7 @@ import { ProjectUpdateComposer } from "@/components/ProjectUpdateComposer";
 import { isLocale } from "@/i18n/locales";
 import { SITE_URL } from "@/i18n/seo";
 import { isAuthenticated } from "@/lib/adminAuth";
+import type { ClientMessage } from "@/lib/clientMessages";
 import { LEAD_STATUS_LABELS, LEAD_STATUSES, type Lead } from "@/lib/leads";
 import type { ProjectUpdate } from "@/lib/projectUpdates";
 
@@ -39,21 +41,26 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
   const lead = await env.DB.prepare("SELECT * FROM leads WHERE id = ?").bind(leadId).first<Lead>();
   if (!lead) redirect("/admin");
 
-  const [{ results: updateResults }, fileList, paidRow] = await Promise.all([
-    env.DB.prepare("SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC")
-      .bind(leadId)
-      .all(),
-    lead.status_token
-      ? env.PROJECT_FILES.list({ prefix: `leads/${lead.status_token}/` })
-      : Promise.resolve(null),
-    env.DB.prepare(
-      "SELECT COALESCE(SUM(amount_paid_cents), 0) AS total FROM payments WHERE lead_id = ? AND status = 'paid'",
-    )
-      .bind(leadId)
-      .first<{ total: number }>(),
-  ]);
+  const [{ results: updateResults }, fileList, paidRow, { results: messageResults }] =
+    await Promise.all([
+      env.DB.prepare("SELECT * FROM project_updates WHERE lead_id = ? ORDER BY created_at DESC")
+        .bind(leadId)
+        .all(),
+      lead.status_token
+        ? env.PROJECT_FILES.list({ prefix: `leads/${lead.status_token}/` })
+        : Promise.resolve(null),
+      env.DB.prepare(
+        "SELECT COALESCE(SUM(amount_paid_cents), 0) AS total FROM payments WHERE lead_id = ? AND status = 'paid'",
+      )
+        .bind(leadId)
+        .first<{ total: number }>(),
+      env.DB.prepare("SELECT * FROM client_messages WHERE lead_id = ? ORDER BY created_at DESC")
+        .bind(leadId)
+        .all(),
+    ]);
   const updates = updateResults as unknown as ProjectUpdate[];
   const alreadyPaidCents = paidRow?.total ?? 0;
+  const messages = messageResults as unknown as ClientMessage[];
 
   const files = (fileList?.objects ?? []).map((object) => {
     const key = object.key.slice(`leads/${lead.status_token}/`.length);
@@ -124,6 +131,27 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
             Enregistrer
           </button>
         </form>
+      </Section>
+
+      <Section title="Écrire au client">
+        <MessageComposer leadId={lead.id} />
+        {messages.length > 0 && (
+          <ul className="mt-5 flex flex-col gap-2.5">
+            {messages.map((item) => (
+              <li key={item.id} className="rounded-lg bg-onyx-soft px-3 py-2.5">
+                <div className="flex items-baseline justify-between gap-3">
+                  <p className="text-sm font-medium text-paper">{item.subject}</p>
+                  <p className="shrink-0 text-[0.6875rem] text-stone">
+                    {formatDate(item.created_at)}
+                  </p>
+                </div>
+                <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-paper/70">
+                  {item.message}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
       </Section>
 
       <Section title="Paiement">

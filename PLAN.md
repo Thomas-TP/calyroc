@@ -163,12 +163,21 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 15. ~~Refonte admin + suivi de projet~~ ✅ dashboard avec stats/recherche/pipeline visuel par statut, cartes de lead dépliables, mises à jour de projet postées depuis l'admin et visibles en fil chronologique sur la page de suivi client (recherche menée sur les portails clients d'agence avant conception, voir §4)
 16. ~~Relecture native des traductions~~ — toujours en attente côté utilisateur pour es/it/de/pt/nl/pl/ru (voir plus bas)
 17. QA multilingue approfondie, perf — reste à faire
+18. ~~Fiabilisation du flux paiement + messagerie client~~ ✅ voir détail ci-dessous
+
+**Fiabilisation du flux paiement (2026-07-17)** — suite à un signalement utilisateur ("si j'envoie un lien de paiement et que le client le voit 2 jours après, il peut pas payer ?" + risque de double paiement) :
+- `createPaymentLink` (admin) n'envoie plus jamais l'URL Stripe brute (`session.url`, qui expire au bout de 24h max) — le lien copié/envoyé par email pointe désormais toujours vers `/suivi/[token]/paiement`, qui génère une session fraîche à chaque clic. Le lien reste donc utilisable indéfiniment.
+- Avant de créer une nouvelle ligne de paiement, `createPaymentLink` annule maintenant (best-effort `stripe.checkout.sessions.expire` + statut D1 `cancelled`) toute ligne `pending` du même `kind` déjà existante pour ce lead — impossible d'avoir deux acomptes payables en même temps pour le même lead.
+- `createBalanceCheckout` (suivi client) expire de la même façon l'ancienne session de la ligne avant d'en générer une nouvelle sur un second clic "Payer".
+- Nouvelle fonctionnalité : "Écrire au client" dans la fiche lead admin — envoie un email direct (sujet + message libre) au client, avec historique des messages envoyés (table `client_messages`, migration `0007`). Comble le manque signalé ("je n'ai pas d'endroit où écrire depuis hello@calyroc.com").
+- Page `/suivi/[token]` réorganisée : résumé + jalons + étape du jour + validation client regroupés dans une seule carte à séparateurs internes au lieu de blocs empilés au style incohérent.
 
 ### Ce qu'il reste à faire côté utilisateur
 
 - Relire les traductions non-fr/en (assistées par IA, jamais relues par un locuteur natif)
 - Décider si un vrai flux RSS pour le blog vaut le coup (permettrait un header `Link rel="alternate"` légitime)
 - Décider si le plan Cloudflare Pro (Markdown for Agents) vaut le coût à ce niveau de trafic
+- **Nettoyer 4 lignes de paiement `pending` dupliquées sur le lead de test (id=1)**, restées d'avant le correctif ci-dessus (créées lors de mes propres tests de la fonctionnalité) : `UPDATE payments SET status = 'cancelled' WHERE id IN (1, 2, 3);` en gardant seulement la ligne `5` active. Non fait automatiquement ici — modification directe de données de paiement en production, refusée par le classificateur de permissions ; à exécuter soit manuellement, soit en régénérant simplement un nouveau lien d'acompte depuis l'admin pour ce lead (le nouveau correctif annulera les anciennes lignes automatiquement).
 
 ### Bug critique trouvé et corrigé lors du premier déploiement
 

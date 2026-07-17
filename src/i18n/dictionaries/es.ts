@@ -577,5 +577,10 @@ export const es: Dictionary = {
       nextStepsText: "Me pondré en contacto con usted próximamente para continuar con el proyecto.",
       signature: "Gracias por su confianza,<br>Thomas",
     },
+    clientMessage: {
+      preview: "Tiene un nuevo mensaje de Calyroc.",
+      heading: "Mensaje de Calyroc",
+      signature: "Hasta pronto,<br>Thomas",
+    },
   },
 };

@@ -578,5 +578,10 @@ export const nl: Dictionary = {
         "Ik neem binnenkort contact met u op over de volgende stappen voor het project.",
       signature: "Bedankt voor uw vertrouwen,<br>Thomas",
     },
+    clientMessage: {
+      preview: "U heeft een nieuw bericht van Calyroc.",
+      heading: "Bericht van Calyroc",
+      signature: "Tot binnenkort,<br>Thomas",
+    },
   },
 };

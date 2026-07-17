@@ -96,6 +96,19 @@ export async function createBalanceCheckout(
   const locale = isLocale(parsed.data.locale) ? parsed.data.locale : "fr";
   const stripeLocale = locale as Stripe.Checkout.SessionCreateParams.Locale;
 
+  // If the client already opened a session for this row on a previous visit
+  // (or Thomas emailed/copied one manually), expire it before creating a
+  // fresh one -- two live sessions for the same row would let the client
+  // pay through whichever one they still have open, twice. Best-effort:
+  // it's fine if the old one is already paid, expired, or invalid.
+  if (payment.stripe_checkout_session_id) {
+    try {
+      await stripe.checkout.sessions.expire(payment.stripe_checkout_session_id);
+    } catch {
+      // Already expired/completed -- nothing to do.
+    }
+  }
+
   let session: Stripe.Checkout.Session;
   try {
     session = await stripe.checkout.sessions.create({

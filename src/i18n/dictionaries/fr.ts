@@ -582,5 +582,10 @@ export const fr: Dictionary = {
       nextStepsText: "Je reviens vers vous prochainement pour la suite du projet.",
       signature: "Merci pour votre confiance,<br>Thomas",
     },
+    clientMessage: {
+      preview: "Vous avez un nouveau message de Calyroc.",
+      heading: "Message de Calyroc",
+      signature: "À bientôt,<br>Thomas",
+    },
   },
 };

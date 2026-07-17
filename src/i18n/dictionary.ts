@@ -313,6 +313,11 @@ export interface Dictionary {
       nextStepsText: string;
       signature: string;
     };
+    clientMessage: {
+      preview: string;
+      heading: string;
+      signature: string;
+    };
   };
 }
 

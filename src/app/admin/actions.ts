@@ -8,6 +8,7 @@ import { z } from "zod";
 import { isLocale } from "@/i18n/locales";
 import { SITE_URL } from "@/i18n/seo";
 import { clearSessionCookie, isAuthenticated, setSessionCookie } from "@/lib/adminAuth";
+import { renderClientMessageEmail } from "@/lib/email/clientMessage";
 import { renderPaymentLinkEmail } from "@/lib/email/paymentLink";
 import { sendEmail } from "@/lib/email/resend";
 import { ensureStatusToken, type Lead, PROJECT_STAGE_COUNT } from "@/lib/leads";
@@ -128,7 +129,38 @@ export async function createPaymentLink(
     isLocale(lead.locale) ? lead.locale : "auto"
   ) as Stripe.Checkout.SessionCreateParams.Locale;
 
+  // A durable token-scoped tracking link, not the raw Stripe session URL, is
+  // what actually gets shown/emailed below -- see the comment further down.
+  const token = await ensureStatusToken(env.DB, parsed.data.leadId);
+  const trackingPaymentUrl = `${SITE_URL}/${leadLocale}/suivi/${token}/paiement`;
+
   try {
+    // Generating a second link for the same kind (e.g. re-sending a deposit
+    // request) must retire the previous one -- otherwise both stay payable
+    // at once and the client could pay twice. Expiring the old Stripe
+    // session is best-effort (it may already be paid/expired/gone); either
+    // way the D1 row is what the client-facing pages actually check.
+    const priorPending = await env.DB.prepare(
+      "SELECT id, stripe_checkout_session_id FROM payments WHERE lead_id = ? AND kind = ? AND status = 'pending'",
+    )
+      .bind(parsed.data.leadId, parsed.data.kind)
+      .all<{ id: number; stripe_checkout_session_id: string }>();
+    for (const prior of priorPending.results) {
+      try {
+        await stripe.checkout.sessions.expire(prior.stripe_checkout_session_id);
+      } catch {
+        // Already paid, expired, or otherwise unusable -- fine, it's being
+        // cancelled in our own records regardless.
+      }
+    }
+    if (priorPending.results.length > 0) {
+      await env.DB.prepare(
+        "UPDATE payments SET status = 'cancelled' WHERE lead_id = ? AND kind = ? AND status = 'pending'",
+      )
+        .bind(parsed.data.leadId, parsed.data.kind)
+        .run();
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       // No payment_method_types: Stripe automatically offers every payment method
@@ -144,8 +176,8 @@ export async function createPaymentLink(
           quantity: 1,
         },
       ],
-      success_url: `${SITE_URL}/${leadLocale}/contact?payment=success`,
-      cancel_url: `${SITE_URL}/${leadLocale}/contact?payment=cancelled`,
+      success_url: `${trackingPaymentUrl}?payment=success`,
+      cancel_url: `${trackingPaymentUrl}?payment=cancelled`,
       metadata: { leadId: String(parsed.data.leadId) },
     });
 
@@ -170,13 +202,20 @@ export async function createPaymentLink(
       .bind(parsed.data.packId, now, parsed.data.leadId)
       .run();
 
+    // The link shown to Thomas (to copy) and emailed to the client always
+    // points at the tracking page, never at session.url directly: Stripe
+    // Checkout Sessions expire 24h after creation and can't be extended, so
+    // a raw session link silently stops working if it sits unopened for a
+    // day or two. The tracking page instead generates a fresh session at
+    // the moment of the click (see suivi/[token]/actions.ts), so the same
+    // link stays usable indefinitely.
     let emailSent = false;
     if (parsed.data.sendEmail === "true") {
       const emailContent = renderPaymentLinkEmail({
         locale: leadLocale,
         amountLabel: `${amountChf.toFixed(2)} CHF`,
         description: parsed.data.description,
-        url: session.url,
+        url: trackingPaymentUrl,
         personalMessage: parsed.data.personalMessage,
       });
       emailSent = await sendEmail({
@@ -188,7 +227,8 @@ export async function createPaymentLink(
     }
 
     revalidatePath("/admin");
-    return { status: "success", url: session.url, emailSent };
+    revalidatePath(`/admin/leads/${parsed.data.leadId}`);
+    return { status: "success", url: trackingPaymentUrl, emailSent };
   } catch (error) {
     console.error("Failed to create Stripe checkout session", error);
     return { status: "error", message: "stripe-error" };
@@ -376,4 +416,70 @@ export async function deleteProjectFile(formData: FormData): Promise<void> {
 
   revalidatePath("/admin");
   revalidatePath(`/admin/leads/${parsed.data.leadId}`);
+}
+
+const SendClientMessageSchema = z.object({
+  leadId: z.coerce.number(),
+  subject: z.string().min(1).max(200),
+  message: z.string().min(1).max(5000),
+});
+
+export interface ClientMessageState {
+  status: "idle" | "success" | "error";
+  message?: string;
+}
+
+/** The direct-email counterpart to addProjectUpdate: that one posts a note
+ * to the client's public timeline (one-way, Thomas -> visible log), this
+ * one sends an actual email to the client's inbox -- the "I have nowhere
+ * to write to the client" gap. Every send is logged in client_messages so
+ * Thomas has a history of what was said, even though the client's replies
+ * still land in hello@calyroc.com (already forwarded to Thomas) rather
+ * than anywhere in this admin. */
+export async function sendMessageToClient(
+  _prevState: ClientMessageState,
+  formData: FormData,
+): Promise<ClientMessageState> {
+  if (!(await isAuthenticated())) redirect("/admin/login");
+
+  const parsed = SendClientMessageSchema.safeParse({
+    leadId: formData.get("leadId"),
+    subject: formData.get("subject"),
+    message: formData.get("message"),
+  });
+  if (!parsed.success) {
+    return { status: "error", message: "invalid" };
+  }
+
+  const { env } = await getCloudflareContext({ async: true });
+  const lead = await env.DB.prepare("SELECT * FROM leads WHERE id = ?")
+    .bind(parsed.data.leadId)
+    .first<Lead>();
+  if (!lead) {
+    return { status: "error", message: "lead-not-found" };
+  }
+
+  const leadLocale = isLocale(lead.locale) ? lead.locale : "fr";
+  const emailContent = renderClientMessageEmail({
+    locale: leadLocale,
+    subject: parsed.data.subject,
+    message: parsed.data.message,
+  });
+  const sent = await sendEmail({
+    to: lead.email,
+    subject: emailContent.subject,
+    html: emailContent.html,
+    text: emailContent.text,
+    replyTo: "hello@calyroc.com",
+  });
+  if (!sent) {
+    return { status: "error", message: "send-failed" };
+  }
+
+  await env.DB.prepare("INSERT INTO client_messages (lead_id, subject, message) VALUES (?, ?, ?)")
+    .bind(parsed.data.leadId, parsed.data.subject, parsed.data.message)
+    .run();
+
+  revalidatePath(`/admin/leads/${parsed.data.leadId}`);
+  return { status: "success" };
 }

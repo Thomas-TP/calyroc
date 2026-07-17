@@ -88,126 +88,130 @@ export default async function ProjectTrackingPage({
         paymentsLabel={trackingPage.paymentsNavLabel}
       />
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-paper/10 bg-onyx-soft px-6 py-5">
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-stone">
-            {trackingPage.summaryHeading}
-          </p>
-          {pack && <p className="mt-1.5 font-display text-lg font-bold text-paper">{pack.name}</p>}
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          {lead.preview_url && (
-            <a
-              href={lead.preview_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary !px-4 !py-2 text-xs"
-            >
-              {trackingPage.previewCta}
-            </a>
-          )}
-          <p className="text-sm text-stone">{formatRelative(lead.created_at, locale)}</p>
-        </div>
-      </div>
-
-      <div className="relative mt-16">
-        {/* Vertical rail — mobile only */}
-        <div className="absolute bottom-4 left-4 top-4 w-px bg-paper/10 md:hidden">
-          <div
-            className="h-full w-full origin-top bg-bronze"
-            style={{ transform: `scaleY(${fillFraction})` }}
-          />
-        </div>
-
-        {/* Horizontal rail — desktop only, centered through the node circles */}
-        <div className="absolute left-0 right-0 top-4 hidden h-px bg-paper/10 md:block">
-          <div
-            className="h-full w-full origin-left bg-bronze"
-            style={{ transform: `scaleX(${fillFraction})` }}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-6">
-          {steps.map((step, index) => {
-            const stepNumber = index + 1;
-            const isDone = stepNumber < currentStage;
-            const isCurrent = stepNumber === currentStage;
-
-            return (
-              <div key={step.title} className="relative pl-12 md:pl-0">
-                <span
-                  className={`absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border font-display text-xs font-bold md:static md:mb-5 ${
-                    isDone
-                      ? "border-bronze bg-bronze text-ink"
-                      : isCurrent
-                        ? "border-bronze bg-onyx text-bronze"
-                        : "border-paper/20 bg-onyx text-stone"
-                  }`}
-                >
-                  {isDone ? "✓" : stepNumber}
-                </span>
-                <h3
-                  className={`font-display text-base font-bold ${isCurrent || isDone ? "text-paper" : "text-stone"}`}
-                >
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-stone">{step.description}</p>
-                {isCurrent && (
-                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-bronze/15 px-2.5 py-1 text-xs font-medium text-bronze">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-bronze" />
-                    {trackingPage.currentBadge}
-                  </span>
-                )}
-                {isDone && (
-                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-paper/8 px-2.5 py-1 text-xs font-medium text-stone">
-                    {trackingPage.doneBadge}
-                  </span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {currentStep && (
-        <div className="mt-16 rounded-2xl border border-bronze/30 bg-bronze/8 px-6 py-7 md:px-8">
-          <p className="text-eyebrow">{trackingPage.todayHeading}</p>
-          <h2 className="mt-2 font-display text-xl font-bold text-paper md:text-2xl">
-            {currentStep.title}
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-paper/80 md:text-base">
-            {currentStep.description}
-          </p>
-        </div>
-      )}
-
-      {lead.preview_url && !lead.client_approved_at && (
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-paper/10 bg-onyx-soft px-6 py-5">
+      <div className="mt-8 overflow-hidden rounded-3xl border border-paper/10 bg-onyx-soft">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-paper/10 px-6 py-5 md:px-8">
           <div>
-            <p className="font-display text-sm font-bold text-paper">
-              {trackingPage.approveHeading}
+            <p className="text-xs uppercase tracking-[0.2em] text-stone">
+              {trackingPage.summaryHeading}
             </p>
-            <p className="mt-1 text-sm text-stone">{trackingPage.approveDescription}</p>
+            {pack && (
+              <p className="mt-1.5 font-display text-lg font-bold text-paper">{pack.name}</p>
+            )}
           </div>
-          <form action={approveProject}>
-            <input type="hidden" name="token" value={token} />
-            <input type="hidden" name="locale" value={locale} />
-            <button type="submit" className="btn-primary !px-5 !py-2.5 text-sm">
-              {trackingPage.approveButton}
-            </button>
-          </form>
+          <div className="flex flex-wrap items-center gap-3">
+            {lead.preview_url && (
+              <a
+                href={lead.preview_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary !px-4 !py-2 text-xs"
+              >
+                {trackingPage.previewCta}
+              </a>
+            )}
+            <p className="text-sm text-stone">{formatRelative(lead.created_at, locale)}</p>
+          </div>
         </div>
-      )}
 
-      {lead.client_approved_at && (
-        <p className="mt-6 flex items-center gap-1.5 text-xs font-medium text-bronze">
-          <span aria-hidden>✓</span>
-          {trackingPage.approvedNotice}
-        </p>
-      )}
+        <div className="relative px-6 py-10 md:px-8">
+          {/* Vertical rail — mobile only */}
+          <div className="absolute bottom-4 left-4 top-14 w-px bg-paper/10 md:hidden">
+            <div
+              className="h-full w-full origin-top bg-bronze"
+              style={{ transform: `scaleY(${fillFraction})` }}
+            />
+          </div>
+
+          {/* Horizontal rail — desktop only, centered through the node circles */}
+          <div className="absolute left-8 right-8 top-14 hidden h-px bg-paper/10 md:block">
+            <div
+              className="h-full w-full origin-left bg-bronze"
+              style={{ transform: `scaleX(${fillFraction})` }}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-6">
+            {steps.map((step, index) => {
+              const stepNumber = index + 1;
+              const isDone = stepNumber < currentStage;
+              const isCurrent = stepNumber === currentStage;
+
+              return (
+                <div key={step.title} className="relative pl-12 md:pl-0">
+                  <span
+                    className={`absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border font-display text-xs font-bold md:static md:mb-5 ${
+                      isDone
+                        ? "border-bronze bg-bronze text-ink"
+                        : isCurrent
+                          ? "border-bronze bg-onyx text-bronze"
+                          : "border-paper/20 bg-onyx text-stone"
+                    }`}
+                  >
+                    {isDone ? "✓" : stepNumber}
+                  </span>
+                  <h3
+                    className={`font-display text-base font-bold ${isCurrent || isDone ? "text-paper" : "text-stone"}`}
+                  >
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone">{step.description}</p>
+                  {isCurrent && (
+                    <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-bronze/15 px-2.5 py-1 text-xs font-medium text-bronze">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-bronze" />
+                      {trackingPage.currentBadge}
+                    </span>
+                  )}
+                  {isDone && (
+                    <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-paper/8 px-2.5 py-1 text-xs font-medium text-stone">
+                      {trackingPage.doneBadge}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {currentStep && (
+          <div className="border-t border-bronze/20 bg-bronze/8 px-6 py-7 md:px-8">
+            <p className="text-eyebrow">{trackingPage.todayHeading}</p>
+            <h2 className="mt-2 font-display text-xl font-bold text-paper md:text-2xl">
+              {currentStep.title}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-paper/80 md:text-base">
+              {currentStep.description}
+            </p>
+          </div>
+        )}
+
+        {lead.preview_url && !lead.client_approved_at && (
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-paper/10 px-6 py-5 md:px-8">
+            <div>
+              <p className="font-display text-sm font-bold text-paper">
+                {trackingPage.approveHeading}
+              </p>
+              <p className="mt-1 text-sm text-stone">{trackingPage.approveDescription}</p>
+            </div>
+            <form action={approveProject}>
+              <input type="hidden" name="token" value={token} />
+              <input type="hidden" name="locale" value={locale} />
+              <button type="submit" className="btn-primary !px-5 !py-2.5 text-sm">
+                {trackingPage.approveButton}
+              </button>
+            </form>
+          </div>
+        )}
+
+        {lead.client_approved_at && (
+          <p className="flex items-center gap-1.5 border-t border-paper/10 px-6 py-4 text-xs font-medium text-bronze md:px-8">
+            <span aria-hidden>✓</span>
+            {trackingPage.approvedNotice}
+          </p>
+        )}
+      </div>
 
       {files.length > 0 && (
-        <div className="mt-16">
+        <div className="mt-14">
           <p className="text-eyebrow">{trackingPage.filesHeading}</p>
           <div className="mt-5 flex flex-wrap gap-3">
             {files.map((file) => (
@@ -226,7 +230,7 @@ export default async function ProjectTrackingPage({
         </div>
       )}
 
-      <div className="mt-16">
+      <div className="mt-14">
         <p className="text-eyebrow">{trackingPage.updatesHeading}</p>
         {updates.length === 0 ? (
           <p className="mt-4 rounded-2xl border border-dashed border-paper/15 px-6 py-8 text-center text-sm text-stone">
