@@ -92,11 +92,11 @@ Multipage, routing localisé `/{locale}/...` pour 9 langues (`fr` par défaut, `
 - Paiement : générateur de lien de paiement Stripe **dans l'admin**, par lead, montant libre (pas de self-checkout public sur `/tarifs`, volontaire — un acompte se négocie après discussion). Webhook `/api/stripe/webhook` confirme les paiements côté serveur.
 - Chatbot : Workers AI, modèle `@cf/zai-org/glm-4.7-flash` (changé depuis Llama 3.1 8B pour un meilleur suivi d'instructions multilingue et un contexte bien plus large — 131k tokens vs 4k), contexte injecté depuis le dictionnaire réel (services/tarifs/FAQ), garde-fous anti-promesse ferme, badge de disclosure IA visible.
 - Formulaire de contact : protégé par Turnstile, stocke chaque lead dans D1 (table `leads`) puis tente l'envoi Resend en best-effort.
-- Admin : `/admin` protégé par mot de passe (cookie signé HMAC), liste des leads D1 avec statut/notes éditables, sélecteur d'étape de suivi client (génère un lien `/suivi/[token]` partageable), export CSV, génération de liens de paiement Stripe.
+- Admin : `/admin` protégé par mot de passe (cookie signé HMAC). Dashboard avec bandeau de stats (leads/nouveaux cette semaine/en cours/gagnés/taux de conversion), recherche + filtre par statut, pipeline visuel (leads groupés par colonne de statut). Chaque lead est une carte dépliable : statut/notes éditables, génération de liens de paiement Stripe, sélecteur d'étape de suivi client (génère un lien `/suivi/[token]` partageable), composeur de mises à jour de projet, export CSV.
 - Anti-spam (Turnstile) : widget `calyroc (Spin)` + Worker de vérification managé déployé séparément.
 - Blog : infrastructure `src/content/blog/` (un fichier par article + `index.ts` barrel + `types.ts`), premier article publié (comparatif gestionnaires de paquets / stacks frontend 2026).
 - FAQ : page dédiée pilotée par le dictionnaire, liée depuis la page Tarifs.
-- Suivi de projet : 4 étapes client-facing (même texte que les étapes du process affiché sur l'accueil, pour ne pas inventer un second vocabulaire), page publique sans authentification (le token fait office de secret).
+- Suivi de projet : 4 étapes client-facing (même texte que les étapes du process affiché sur l'accueil), panneau résumé (pack + date de début relative), panneau "où en est-on aujourd'hui" mettant en avant l'étape en cours, fil chronologique des mises à jour postées depuis l'admin (table D1 `project_updates`) — page publique sans authentification, le token fait office de secret.
 - Analytics : **Umami Cloud** — script chargé conditionnellement (`NEXT_PUBLIC_UMAMI_WEBSITE_ID`, omis si non défini) + **Cloudflare Web Analytics** natif (RUM, activé côté dashboard, aucune ligne de code).
 - Avis clients : **Trustpilot** — invitations configurées côté dashboard Trustpilot (pas d'intégration de code sur le site à ce stade).
 
@@ -157,8 +157,9 @@ Modalités : acompte 30-50% à la commande via Stripe, solde à la livraison, 2 
 12. ~~Extension i18n 6→9 langues (nl, pl, ru) + slugs d'URL traduits par locale~~ ✅
 13. ~~Refonte du contenu légal : traduction 9 langues + audit conformité nLPD/RGPD/UK GDPR + redesign visuel~~ ✅
 14. ~~Audit SEO/GEO complet~~ ✅ Ahrefs Health Score 90→100, Content Signals, security.txt, IndexNow, en-têtes de sécurité durcis, formulaire de contact adapté aux agents IA
-15. ~~Relecture native des traductions~~ — toujours en attente côté utilisateur pour es/it/de/pt/nl/pl/ru (voir plus bas)
-16. QA multilingue approfondie, perf — reste à faire
+15. ~~Refonte admin + suivi de projet~~ ✅ dashboard avec stats/recherche/pipeline visuel par statut, cartes de lead dépliables, mises à jour de projet postées depuis l'admin et visibles en fil chronologique sur la page de suivi client (recherche menée sur les portails clients d'agence avant conception, voir §4)
+16. ~~Relecture native des traductions~~ — toujours en attente côté utilisateur pour es/it/de/pt/nl/pl/ru (voir plus bas)
+17. QA multilingue approfondie, perf — reste à faire
 
 ### Ce qu'il reste à faire côté utilisateur
 
