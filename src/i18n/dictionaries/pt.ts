@@ -97,6 +97,7 @@ export const pt: Dictionary = {
     faqTitle: "Perguntas frequentes",
     pricingLinkLabel: "Ver preços",
     otherServicesTitle: "Descobrir outros serviços",
+    learnMoreLabel: "Saber mais",
     items: [
       {
         title: "Site institucional",
@@ -443,6 +444,7 @@ export const pt: Dictionary = {
     title: "Todas as perguntas.",
     subtitle:
       "Para além dos preços: o processo, as tecnologias, o que acontece após a entrega. Não encontra a sua pergunta? Escreva-me diretamente.",
+    servicesLinkLabel: "Descobrir os nossos serviços",
     items: [
       {
         question: "Como decorre um projeto, do primeiro contacto até à publicação?",
@@ -472,12 +474,37 @@ export const pt: Dictionary = {
       {
         question: "Trabalha com clientes fora da Suíça?",
         answer:
-          "Sim, todo o processo decorre à distância e o site (assim como o assistente Ask Calyroc) está disponível em 6 idiomas — francês, inglês, espanhol, italiano, alemão e português.",
+          "Sim, todo o processo decorre à distância e o site (assim como o assistente Ask Calyroc) está disponível em 9 idiomas — francês, inglês, espanhol, italiano, alemão, português, neerlandês, polaco e russo.",
       },
       {
         question: "Como posso contactá-lo durante o desenvolvimento?",
         answer:
           "Diretamente — lida comigo, não com um gestor de projeto nem com um serviço de apoio ao cliente. É uma das principais vantagens de trabalhar com um estúdio individual em vez de uma agência.",
+      },
+      {
+        question: "Qual serviço é o certo para mim?",
+        answer:
+          "Depende do seu ponto de partida. Um negócio totalmente novo costuma começar com um Site institucional; um site existente que precisa de ser modernizado pede um Redesign; uma campanha pontual ou o lançamento de um produto é melhor servido por uma Landing page. Consulte a página de Serviços para uma visão completa, ou descreva a sua situação no formulário de contacto para uma recomendação direta.",
+      },
+      {
+        question: "Posso combinar vários serviços, como um redesign e SEO técnico?",
+        answer:
+          "Sim — os serviços são frequentemente combinados na prática. Um Redesign inclui frequentemente SEO técnico por defeito, e a Identidade visual é habitualmente associada a um primeiro projeto de Site institucional ou Loja online. Descreva o que precisa no formulário de contacto e o âmbito é combinado num único orçamento claro.",
+      },
+      {
+        question: "Constroem lojas online, não só sites institucionais?",
+        answer:
+          "Sim, a Loja online é um dos sete serviços oferecidos, construída em torno do Stripe para pagamento seguro e um catálogo de produtos completo com controlo de stock — consulte a página dedicada da Loja online para mais detalhes.",
+      },
+      {
+        question: "Já tenho um site — podem apenas melhorar algumas partes?",
+        answer:
+          "Sim. Um Redesign completo nem sempre é necessário — o SEO técnico, uma nova Identidade visual, ou uma Landing page adicional para uma campanha específica podem cada um ser entregues como projeto autónomo sobre um site já existente.",
+      },
+      {
+        question: "Posso começar com um serviço e adicionar mais depois?",
+        answer:
+          "Sim, é um caminho comum — muitos clientes começam com um Site institucional e adicionam depois Manutenção, uma Landing page para uma futura campanha, ou SEO técnico assim que o site está online e a gerar tráfego.",
       },
     ],
   },

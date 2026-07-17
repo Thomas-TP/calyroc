@@ -98,6 +98,7 @@ export const nl: Dictionary = {
     faqTitle: "Veelgestelde vragen",
     pricingLinkLabel: "Bekijk tarieven",
     otherServicesTitle: "Andere diensten ontdekken",
+    learnMoreLabel: "Meer weten",
     items: [
       {
         title: "Vitrinewebsite",
@@ -440,6 +441,7 @@ export const nl: Dictionary = {
     title: "Alle vragen.",
     subtitle:
       "Meer dan alleen prijzen: het proces, de technologie, wat er na levering gebeurt. Staat uw vraag er niet bij? Schrijf mij rechtstreeks.",
+    servicesLinkLabel: "Onze diensten ontdekken",
     items: [
       {
         question: "Hoe verloopt een project van eerste contact tot lancering?",
@@ -469,12 +471,37 @@ export const nl: Dictionary = {
       {
         question: "Werkt u met klanten buiten Zwitserland?",
         answer:
-          "Ja, het hele proces verloopt op afstand, en de site (net als de Ask Calyroc-assistent) is beschikbaar in 6 talen — Frans, Engels, Spaans, Italiaans, Duits en Portugees.",
+          "Ja, het hele proces verloopt op afstand, en de site (net als de Ask Calyroc-assistent) is beschikbaar in 9 talen — Frans, Engels, Spaans, Italiaans, Duits, Portugees, Nederlands, Pools en Russisch.",
       },
       {
         question: "Hoe bereik ik u tijdens de ontwikkeling?",
         answer:
           "Rechtstreeks — u heeft te maken met mij, niet met een projectmanager of een helpdesk. Dat is een van de belangrijkste voordelen van werken met een zelfstandige studio in plaats van een bureau.",
+      },
+      {
+        question: "Welke dienst past bij mij?",
+        answer:
+          "Dat hangt af van uw vertrekpunt. Een gloednieuw bedrijf begint meestal met een Bedrijfswebsite; een bestaande site die gemoderniseerd moet worden, vraagt om een Website-redesign; een eenmalige campagne of productlancering wordt beter bediend door een Landingspagina. Bekijk de Diensten-pagina voor het volledige overzicht, of beschrijf uw situatie via het contactformulier voor een directe aanbeveling.",
+      },
+      {
+        question: "Kan ik meerdere diensten combineren, zoals een redesign en technische SEO?",
+        answer:
+          "Ja — diensten worden in de praktijk vaak gecombineerd. Een Website-redesign omvat standaard vaak technische SEO, en Huisstijl wordt vaak gecombineerd met een eerste Bedrijfswebsite- of Webshopproject. Beschrijf wat u nodig heeft in het contactformulier en de scope wordt samengevoegd tot één duidelijke offerte.",
+      },
+      {
+        question: "Bouwen jullie webshops, niet alleen bedrijfswebsites?",
+        answer:
+          "Ja, de Webshop is een van de zeven aangeboden diensten, gebouwd rond Stripe voor veilig betalen en een volledige productcatalogus met voorraadbeheer — zie de speciale Webshop-pagina voor details.",
+      },
+      {
+        question: "Ik heb al een website — kunnen jullie gewoon onderdelen ervan verbeteren?",
+        answer:
+          "Ja. Een volledige Website-redesign is niet altijd nodig — technische SEO, een nieuwe Huisstijl, of een extra Landingspagina voor een specifieke campagne kunnen elk als op zichzelf staand project bovenop een bestaande site worden geleverd.",
+      },
+      {
+        question: "Kan ik met één dienst beginnen en later meer toevoegen?",
+        answer:
+          "Ja, dat is een gangbaar pad — veel klanten beginnen met een Bedrijfswebsite en voegen later Onderhoud, een Landingspagina voor een latere campagne, of technische SEO toe zodra de site online is en verkeer genereert.",
       },
     ],
   },

@@ -138,6 +138,7 @@ export interface Dictionary {
     faqTitle: string;
     pricingLinkLabel: string;
     otherServicesTitle: string;
+    learnMoreLabel: string;
   };
   workPage: {
     eyebrow: string;
@@ -229,6 +230,7 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     subtitle: string;
+    servicesLinkLabel: string;
     items: FaqItem[];
   };
   trackingPage: {

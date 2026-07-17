@@ -98,6 +98,7 @@ export const fr: Dictionary = {
     faqTitle: "Questions fréquentes",
     pricingLinkLabel: "Voir les tarifs",
     otherServicesTitle: "Découvrir les autres services",
+    learnMoreLabel: "En savoir plus",
     items: [
       {
         title: "Site vitrine",
@@ -445,6 +446,7 @@ export const fr: Dictionary = {
     title: "Toutes les questions.",
     subtitle:
       "Au-delà des tarifs : le processus, les technologies, la suite après la livraison. Une question n'y figure pas ? Écrivez-moi directement.",
+    servicesLinkLabel: "Découvrir nos services",
     items: [
       {
         question: "Comment se déroule un projet, du premier contact à la mise en ligne ?",
@@ -474,12 +476,38 @@ export const fr: Dictionary = {
       {
         question: "Travaillez-vous avec des clients en dehors de la Suisse ?",
         answer:
-          "Oui, l'ensemble du processus se fait à distance et le site (comme l'assistant Ask Calyroc) est disponible en 6 langues — français, anglais, espagnol, italien, allemand et portugais.",
+          "Oui, l'ensemble du processus se fait à distance et le site (comme l'assistant Ask Calyroc) est disponible en 9 langues — français, anglais, espagnol, italien, allemand, portugais, néerlandais, polonais et russe.",
       },
       {
         question: "Comment vous contacter pendant le développement ?",
         answer:
           "Directement — vous échangez avec moi, pas avec un chef de projet ni un service client. C'est l'un des principaux avantages de travailler avec un studio solo plutôt qu'une agence.",
+      },
+      {
+        question: "Quel service me correspond ?",
+        answer:
+          "Cela dépend de votre point de départ. Une entreprise toute nouvelle démarre en général avec un Site vitrine ; un site existant à moderniser appelle une Refonte ; une campagne ou un lancement de produit ponctuel est mieux servi par une Landing page. Parcourez la page Services pour une vue d'ensemble, ou décrivez votre situation via le formulaire de contact pour une recommandation directe.",
+      },
+      {
+        question:
+          "Puis-je combiner plusieurs services, par exemple une refonte et du SEO technique ?",
+        answer:
+          "Oui — les services sont souvent combinés en pratique. Une Refonte inclut fréquemment du SEO technique par défaut, et l'Identité visuelle est couramment associée à un premier projet de Site vitrine ou d'E-commerce. Décrivez votre besoin dans le formulaire de contact et le périmètre est combiné en un devis clair unique.",
+      },
+      {
+        question: "Construisez-vous des boutiques en ligne, pas seulement des sites vitrines ?",
+        answer:
+          "Oui, l'E-commerce fait partie des sept services proposés, construit autour de Stripe pour un paiement sécurisé et un catalogue produits complet avec suivi de stock — voir la page E-commerce dédiée pour le détail.",
+      },
+      {
+        question: "J'ai déjà un site — pouvez-vous simplement en améliorer certaines parties ?",
+        answer:
+          "Oui. Une Refonte complète n'est pas toujours nécessaire — le SEO technique, une nouvelle Identité visuelle, ou l'ajout d'une Landing page pour une campagne précise peuvent chacun être livrés comme projet autonome par-dessus un site existant.",
+      },
+      {
+        question: "Puis-je commencer par un service et en ajouter d'autres plus tard ?",
+        answer:
+          "Oui, c'est un chemin courant — de nombreux clients démarrent avec un Site vitrine et ajoutent ensuite la Maintenance, une Landing page pour une future campagne, ou du SEO technique une fois le site en ligne et générant du trafic.",
       },
     ],
   },

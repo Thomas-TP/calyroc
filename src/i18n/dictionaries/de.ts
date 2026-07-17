@@ -100,6 +100,7 @@ export const de: Dictionary = {
     faqTitle: "Häufige Fragen",
     pricingLinkLabel: "Preise ansehen",
     otherServicesTitle: "Weitere Leistungen entdecken",
+    learnMoreLabel: "Mehr erfahren",
     items: [
       {
         title: "Website",
@@ -450,6 +451,7 @@ export const de: Dictionary = {
     title: "Alle Fragen.",
     subtitle:
       "Über die Preise hinaus: der Ablauf, die Technologien, was nach der Lieferung passiert. Ihre Frage ist nicht dabei? Schreiben Sie mir direkt.",
+    servicesLinkLabel: "Unsere Leistungen entdecken",
     items: [
       {
         question: "Wie läuft ein Projekt ab, vom Erstkontakt bis zur Veröffentlichung?",
@@ -479,12 +481,38 @@ export const de: Dictionary = {
       {
         question: "Arbeiten Sie auch mit Kunden ausserhalb der Schweiz?",
         answer:
-          "Ja, der gesamte Prozess läuft remote ab, und die Website (ebenso wie der Ask-Calyroc-Assistent) ist in 6 Sprachen verfügbar — Französisch, Englisch, Spanisch, Italienisch, Deutsch und Portugiesisch.",
+          "Ja, der gesamte Prozess läuft remote ab, und die Website (ebenso wie der Ask-Calyroc-Assistent) ist in 9 Sprachen verfügbar — Französisch, Englisch, Spanisch, Italienisch, Deutsch, Portugiesisch, Niederländisch, Polnisch und Russisch.",
       },
       {
         question: "Wie erreiche ich Sie während der Entwicklung?",
         answer:
           "Direkt — Sie haben es mit mir zu tun, nicht mit einem Projektmanager oder einem Kundendienst. Das ist einer der Hauptvorteile, mit einem Einzelstudio statt einer Agentur zu arbeiten.",
+      },
+      {
+        question: "Welche Leistung passt zu mir?",
+        answer:
+          "Das hängt von Ihrem Ausgangspunkt ab. Ein völlig neues Unternehmen startet meist mit einer Unternehmenswebsite; eine bestehende Website, die modernisiert werden muss, braucht einen Website-Relaunch; eine einzelne Kampagne oder ein Produktlaunch wird besser durch eine Landingpage bedient. Schauen Sie sich die Leistungen-Seite für den vollständigen Überblick an, oder beschreiben Sie Ihre Situation im Kontaktformular für eine direkte Empfehlung.",
+      },
+      {
+        question:
+          "Kann ich mehrere Leistungen kombinieren, z. B. einen Relaunch und technisches SEO?",
+        answer:
+          "Ja — Leistungen werden in der Praxis oft kombiniert. Ein Website-Relaunch enthält häufig standardmässig technisches SEO, und Corporate Design wird üblicherweise mit einem ersten Unternehmenswebsite- oder Onlineshop-Projekt kombiniert. Beschreiben Sie Ihren Bedarf im Kontaktformular, und der Umfang wird zu einem einzigen klaren Angebot zusammengeführt.",
+      },
+      {
+        question: "Bauen Sie Onlineshops, nicht nur Unternehmenswebsites?",
+        answer:
+          "Ja, der Onlineshop ist eine der sieben angebotenen Leistungen, aufgebaut rund um Stripe für sichere Zahlungen und einen vollständigen Produktkatalog mit Bestandsverfolgung — Details finden Sie auf der eigenen Onlineshop-Seite.",
+      },
+      {
+        question: "Ich habe bereits eine Website — können Sie einfach Teile davon verbessern?",
+        answer:
+          "Ja. Ein vollständiger Website-Relaunch ist nicht immer nötig — technisches SEO, ein neues Corporate Design, oder eine zusätzliche Landingpage für eine bestimmte Kampagne können jeweils als eigenständiges Projekt auf einer bestehenden Website geliefert werden.",
+      },
+      {
+        question: "Kann ich mit einer Leistung starten und später weitere hinzufügen?",
+        answer:
+          "Ja, das ist ein gängiger Weg — viele Kunden starten mit einer Unternehmenswebsite und ergänzen später Wartung, eine Landingpage für eine spätere Kampagne, oder technisches SEO, sobald die Website online ist und Traffic generiert.",
       },
     ],
   },

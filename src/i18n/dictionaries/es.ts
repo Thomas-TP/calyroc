@@ -97,6 +97,7 @@ export const es: Dictionary = {
     faqTitle: "Preguntas frecuentes",
     pricingLinkLabel: "Ver precios",
     otherServicesTitle: "Descubrir otros servicios",
+    learnMoreLabel: "Saber más",
     items: [
       {
         title: "Sitio corporativo",
@@ -438,6 +439,7 @@ export const es: Dictionary = {
     title: "Todas las preguntas.",
     subtitle:
       "Más allá de los precios: el proceso, la tecnología, qué ocurre tras la entrega. ¿No encuentra su pregunta? Escríbame directamente.",
+    servicesLinkLabel: "Descubrir nuestros servicios",
     items: [
       {
         question: "¿Cómo se desarrolla un proyecto, del primer contacto a la puesta en línea?",
@@ -467,12 +469,37 @@ export const es: Dictionary = {
       {
         question: "¿Trabaja con clientes fuera de Suiza?",
         answer:
-          "Sí, todo el proceso se realiza a distancia y el sitio (así como el asistente Ask Calyroc) está disponible en 6 idiomas — francés, inglés, español, italiano, alemán y portugués.",
+          "Sí, todo el proceso se realiza a distancia y el sitio (así como el asistente Ask Calyroc) está disponible en 9 idiomas — francés, inglés, español, italiano, alemán, portugués, neerlandés, polaco y ruso.",
       },
       {
         question: "¿Cómo puedo contactarle durante el desarrollo?",
         answer:
           "Directamente — trata conmigo, no con un jefe de proyecto ni un servicio de atención al cliente. Es una de las principales ventajas de trabajar con un estudio individual en lugar de una agencia.",
+      },
+      {
+        question: "¿Qué servicio es el adecuado para mí?",
+        answer:
+          "Depende de su punto de partida. Un negocio totalmente nuevo suele empezar con un Sitio corporativo; un sitio existente que necesita modernizarse requiere un Rediseño; una campaña puntual o el lanzamiento de un producto se sirve mejor con una Landing page. Consulte la página de Servicios para una visión completa, o describa su situación en el formulario de contacto para obtener una recomendación directa.",
+      },
+      {
+        question: "¿Puedo combinar varios servicios, como un rediseño y SEO técnico?",
+        answer:
+          "Sí — los servicios suelen combinarse en la práctica. Un Rediseño incluye con frecuencia SEO técnico por defecto, y la Identidad visual se combina habitualmente con un primer proyecto de Sitio corporativo o Tienda online. Describa lo que necesita en el formulario de contacto y el alcance se combina en un único presupuesto claro.",
+      },
+      {
+        question: "¿Construyen tiendas online, no solo sitios corporativos?",
+        answer:
+          "Sí, la Tienda online es uno de los siete servicios ofrecidos, construida en torno a Stripe para un pago seguro y un catálogo de productos completo con seguimiento de stock — consulte la página dedicada de Tienda online para más detalles.",
+      },
+      {
+        question: "Ya tengo un sitio web — ¿pueden simplemente mejorar algunas partes?",
+        answer:
+          "Sí. No siempre es necesario un Rediseño completo — el SEO técnico, una nueva Identidad visual, o añadir una Landing page para una campaña concreta pueden entregarse cada uno como un proyecto independiente sobre un sitio ya existente.",
+      },
+      {
+        question: "¿Puedo empezar con un servicio y añadir más adelante?",
+        answer:
+          "Sí, es un camino habitual — muchos clientes empiezan con un Sitio corporativo y añaden después Mantenimiento, una Landing page para una futura campaña, o SEO técnico una vez que el sitio está en línea y generando tráfico.",
       },
     ],
   },

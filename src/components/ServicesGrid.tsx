@@ -44,6 +44,12 @@ export function ServicesGrid({
                 <span className="text-paper/60">{servicesPage.timelineLabel}:</span> {item.timeline}
               </span>
             </div>
+            {href && (
+              <div className="mt-5 flex items-center gap-1.5 text-sm font-medium text-bronze">
+                {servicesPage.learnMoreLabel}
+                <span aria-hidden>→</span>
+              </div>
+            )}
           </article>
         );
         return (

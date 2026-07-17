@@ -47,7 +47,7 @@ Ce point a été une source de bug réelle, donc à bien comprendre avant d'y re
 ## Chatbot "Ask Calyroc"
 
 - `src/app/api/chat/route.ts` — endpoint qui appelle Workers AI (`@cf/zai-org/glm-4.7-flash`, un modèle "flash" léger mais orienté multilingue avec un contexte de 131k tokens) via le binding `env.AI`. Modèle "reasoning" : `chat_template_kwargs: { enable_thinking: false }` désactive la chaîne de pensée cachée pour que tout le budget de tokens aille à la réponse visible (sinon `max_tokens` peut s'épuiser avant même d'écrire une réponse).
-- `src/i18n/chatContext.ts` — `buildSystemPrompt(locale)` construit le system prompt **à partir du dictionnaire réel** (`servicesPage.items`, `pricingPage.packs`, `pricingPage.terms`), pas d'un texte statique séparé. Ça veut dire qu'ajouter un service ou un pack dans le dictionnaire met à jour le chatbot automatiquement, sans y retoucher. Le prompt inclut des garde-fous stricts (pas de prix/délai ferme, pas de promesse hors de ce qui est listé).
+- `src/i18n/chatContext.ts` — `buildSystemPrompt(locale)` construit le system prompt **à partir du dictionnaire réel** (`servicesPage.items`, `pricingPage.packs`, `pricingPage.terms`), pas d'un texte statique séparé. Ça veut dire qu'ajouter un service ou un pack dans le dictionnaire met à jour le chatbot automatiquement, sans y retoucher. Construit aussi une `servicesLinkTable` distincte (une ligne par langue, un lien par service) à partir de `src/content/services/` (le barrel) + `serviceSlugs`, pour que le modèle puisse lier directement vers la page dédiée d'un service précis plutôt que toujours vers la liste générique `/services` — voir la règle `<format>` dédiée dans le prompt. Le prompt inclut des garde-fous stricts (pas de prix/délai ferme, pas de promesse hors de ce qui est listé).
 - `src/components/AskCalyroc.tsx` — widget flottant (client component), badge de disclosure IA visible dès l'ouverture, `AskCalyrocLoader.tsx` pour l'état de chargement, animation d'ouverture, auto-scroll, autofocus.
 
 ## Formulaire de contact → leads
@@ -82,6 +82,13 @@ Ce point a été une source de bug réelle, donc à bien comprendre avant d'y re
 - `src/content/blog/` — un fichier par article (ex. `gestionnaires-paquets-2026.ts`) + `types.ts` (forme d'un article) + `index.ts` (barrel qui exporte `blogPosts`). Un article est rédigé **une seule fois** (pas de traduction par locale) et servi sous chaque préfixe de langue — même pattern que les pages légales avant leur traduction complète.
 - `src/app/[locale]/blog/page.tsx` (liste) et `src/app/[locale]/blog/[slug]/page.tsx` (article).
 
+## Pages de service dédiées
+
+- `src/content/services/` — contenu approfondi des 7 services (site vitrine, e-commerce, refonte, landing page, maintenance, SEO technique, identité visuelle), un fichier par service + `types.ts` (`ServiceDefinition`/`ServiceTranslation`) + `index.ts` (barrel qui exporte `services`, `getService`, `getServiceTranslation`). Contrairement au blog, **chaque service est traduit dans les 9 langues** (`ServiceTranslation` par locale) — c'est le contenu marketing principal du site, pas un article ponctuel.
+- Slug à deux niveaux : `src/i18n/routes.ts::serviceSlugs` donne le slug traduit par locale pour le deuxième segment (`/services/[slug]`), même convention que `localizedSlugs` (français = dossier physique canonique). `next.config.ts::rewrites` boucle sur `serviceSlugs` en plus de `localizedSlugs` pour réécrire chaque URL localisée vers ce dossier ; `localizePath()` (`src/i18n/routes.ts`, utilisé par le sélecteur de langue) traduit spécifiquement ce deuxième segment quand le premier vaut `"services"`.
+- `src/app/[locale]/services/[service]/page.tsx` — page dynamique unique pour les 7 services × 9 langues (63 pages statiques). `generateStaticParams` ne retourne que les 7 slugs canoniques (français) : `params.service` reçu par la page est **toujours** ce slug canonique, quelle que soit la locale visitée, puisque `rewrites()` a déjà réécrit l'URL localisée vers lui avant que la route ne matche (même mécanisme que les routes à un niveau).
+- `src/components/ServicesGrid.tsx` (page `/services`) fait le lien entre les deux couches : `servicesPage.items` (dictionnaire, résumé court) est dans le même ordre que le barrel `services` (contenu approfondi) — l'index du tableau sert à retrouver l'`id`/slug correspondant, pas de champ `id` dupliqué dans le dictionnaire.
+
 ## Composant `CustomSelect`
 
 `src/components/CustomSelect.tsx` — remplace tous les `<select>` natifs du site (sélecteur de langue, pack du formulaire de contact, statut admin, dropdown Studio du header) par un listbox stylé aux couleurs du site (onyx/bronze), animé (`motion`). Rend un `<input type="hidden">` synchronisé avec la sélection quand `name` est fourni, donc compatible avec les `<form action={...}>` (server actions) sans rien changer côté serveur. Props de personnalisation : `panelPosition` (`"top"`/`"bottom"`, pour un trigger proche du bas de son conteneur), `variant` (`"bordered"`/`"bare"`, pour s'intégrer dans un conteneur groupé qui fournit déjà sa propre bordure), `closeSignal` (force la fermeture depuis l'extérieur), `toolParamDescription` (hint WebMCP, voir plus haut).
@@ -104,7 +111,7 @@ Ce point a été une source de bug réelle, donc à bien comprendre avant d'y re
 ## SEO / GEO
 
 - `src/app/sitemap.ts` / `src/app/robots.ts` — génération dynamique. **`robots.ts` ne raconte pas toute l'histoire** : Cloudflare enrichit la réponse à l'edge avec les Content Signals et des règles `Disallow` pour les bots d'entraînement IA nommés — voir `AGENTS.md` règle #8 et `PLAN.md` §4.
-- JSON-LD : `ProfessionalService` sur l'accueil, `Service` + `BreadcrumbList` sur les pages de service, `FAQPage` sur `/tarifs` et `/faq`.
+- JSON-LD : `ProfessionalService` sur l'accueil, `Service` + `BreadcrumbList` + `FAQPage` sur chacune des 7 pages de service dédiées, `FAQPage` sur `/tarifs` et `/faq`.
 - Open Graph / Twitter Card définis dans `[locale]/layout.tsx::generateMetadata`, image statique `public/og-image.png`.
 - security.txt géré entièrement côté Cloudflare (voir `AGENTS.md` règle #8) — aucun fichier correspondant dans ce repo.
 - `scripts/submit-indexnow.mjs` — soumission IndexNow (Bing/Yandex/Seznam/Naver), à relancer manuellement après un changement de contenu notable.

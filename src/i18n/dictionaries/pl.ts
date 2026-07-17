@@ -99,6 +99,7 @@ export const pl: Dictionary = {
     faqTitle: "Najczęściej zadawane pytania",
     pricingLinkLabel: "Zobacz cennik",
     otherServicesTitle: "Poznaj pozostałe usługi",
+    learnMoreLabel: "Dowiedz się więcej",
     items: [
       {
         title: "Strona wizytówkowa",
@@ -446,6 +447,7 @@ export const pl: Dictionary = {
     title: "Wszystkie pytania.",
     subtitle:
       "Poza cennikiem: proces, technologia, co dzieje się po dostawie. Nie widzisz swojego pytania? Napisz do mnie bezpośrednio.",
+    servicesLinkLabel: "Poznaj nasze usługi",
     items: [
       {
         question: "Jak wygląda projekt od pierwszego kontaktu do uruchomienia?",
@@ -475,12 +477,37 @@ export const pl: Dictionary = {
       {
         question: "Czy współpracujesz z klientami spoza Szwajcarii?",
         answer:
-          "Tak, cały proces odbywa się zdalnie, a strona (podobnie jak asystent Ask Calyroc) jest dostępna w 6 językach — francuskim, angielskim, hiszpańskim, włoskim, niemieckim i portugalskim.",
+          "Tak, cały proces odbywa się zdalnie, a strona (podobnie jak asystent Ask Calyroc) jest dostępna w 9 językach — francuskim, angielskim, hiszpańskim, włoskim, niemieckim, portugalskim, niderlandzkim, polskim i rosyjskim.",
       },
       {
         question: "Jak mogę się z Tobą skontaktować w trakcie realizacji?",
         answer:
           "Bezpośrednio — masz do czynienia ze mną, a nie z kierownikiem projektu czy działem wsparcia. To jedna z głównych zalet pracy z samodzielnym studiem zamiast z agencją.",
+      },
+      {
+        question: "Która usługa jest odpowiednia dla mnie?",
+        answer:
+          "To zależy od Twojego punktu wyjścia. Zupełnie nowa firma zazwyczaj zaczyna od Strony wizytówki; istniejąca strona wymagająca modernizacji potrzebuje Redesignu; jednorazowa kampania lub premiera produktu lepiej sprawdzi się z Landing page. Przejrzyj stronę Usługi, aby zobaczyć pełny obraz, albo opisz swoją sytuację w formularzu kontaktowym, by otrzymać bezpośrednią rekomendację.",
+      },
+      {
+        question: "Czy mogę połączyć kilka usług, np. redesign i SEO techniczne?",
+        answer:
+          "Tak — usługi są w praktyce często łączone. Redesign często domyślnie obejmuje SEO techniczne, a Identyfikacja wizualna jest zwykle łączona z pierwszym projektem Strony wizytówki lub Sklepu internetowego. Opisz swoją potrzebę w formularzu kontaktowym, a zakres zostanie połączony w jedną jasną wycenę.",
+      },
+      {
+        question: "Czy budujecie sklepy internetowe, a nie tylko strony wizytówki?",
+        answer:
+          "Tak, Sklep internetowy to jedna z siedmiu oferowanych usług, zbudowana wokół Stripe dla bezpiecznych płatności i pełnego katalogu produktów ze śledzeniem stanów magazynowych — szczegóły znajdziesz na dedykowanej stronie Sklepu internetowego.",
+      },
+      {
+        question: "Mam już stronę — czy możecie po prostu poprawić jej fragmenty?",
+        answer:
+          "Tak. Pełny Redesign nie zawsze jest konieczny — SEO techniczne, nowa Identyfikacja wizualna, lub dodatkowa Landing page dla konkretnej kampanii mogą zostać dostarczone jako samodzielny projekt na bazie już istniejącej strony.",
+      },
+      {
+        question: "Czy mogę zacząć od jednej usługi i dodać kolejne później?",
+        answer:
+          "Tak, to częsta ścieżka — wielu klientów zaczyna od Strony wizytówki, a później dodaje Utrzymanie, Landing page na przyszłą kampanię, lub SEO techniczne, gdy strona jest już online i generuje ruch.",
       },
     ],
   },

@@ -43,6 +43,8 @@ src/
       layout.tsx            Layout par locale : html/body, header/footer/chatbot, metadata (OG/Twitter)
       page.tsx               Accueil
       services/ realisations/ tarifs/ contact/  Pages publiques (slug traduit par locale, voir i18n/routes.ts)
+      services/[service]/page.tsx  Page dédiée par service (contenu dans src/content/services/, slug à 2 niveaux -- voir
+                              i18n/routes.ts::serviceSlugs et docs/CONTENT_GUIDE.md)
       blog/ blog/[slug]/     Liste + articles (contenu dans src/content/blog/, rédigé une fois, servi sous chaque préfixe de locale)
       faq/                   Page FAQ dédiée, contenu 100% dictionnaire
       suivi/[token]/         Page publique de suivi de projet (lecture seule, pas d'auth -- le token fait office de secret)
@@ -62,6 +64,8 @@ src/
     robots.ts sitemap.ts     SEO technique (voir règle #8 -- robots.ts ne raconte pas toute l'histoire)
   components/               Composants partagés (voir docs/ARCHITECTURE.md pour le détail)
   content/blog/              Contenu éditorial du blog, un fichier par article + index.ts barrel + types.ts
+  content/services/          Contenu approfondi des 7 pages de service, un fichier par service (9 langues chacun) +
+                              index.ts barrel + types.ts -- voir docs/CONTENT_GUIDE.md
   i18n/
     locales.ts               Liste des 9 locales + helpers
     routes.ts                 Slug d'URL traduit par locale pour les 6 routes qui en ont un (tarifs, réalisations, à-propos, mentions
@@ -102,7 +106,7 @@ Si tu ajoutes une page (`src/app/[locale]/ma-page/page.tsx`), mets à jour **tou
 4. **`src/components/SiteHeader.tsx`** — ajoute un lien dans `navLinks` si la page doit apparaître dans la nav (desktop + menu mobile, c'est le même tableau pour les deux). Utilise `localizedSlugs` si le slug est traduit.
 5. **`src/app/sitemap.ts`** — ajoute le slug dans `staticRoutes` (slug identique partout) ou laisse `localizedSlugs` s'en charger automatiquement (slug traduit).
 6. **`generateMetadata`** dans la nouvelle page — title/description via le dictionnaire, `alternates: buildAlternates(locale, "mon-slug")` (chaîne fixe) ou `buildAlternates(locale, monSlugMap)` (map par locale, voir `src/i18n/seo.ts`).
-7. **Chatbot** — vérifie si la page doit être connue du chatbot. `buildSystemPrompt` (`src/i18n/chatContext.ts`) résume automatiquement `servicesPage.items` et `pricingPage.packs` à partir du dictionnaire : si ta page ajoute un nouveau service/pack à ces sections, le chatbot le saura **automatiquement**, rien à faire. Si c'est un tout autre type de contenu (une nouvelle section indépendante), il faut l'ajouter explicitement dans `buildSystemPrompt`.
+7. **Chatbot** — vérifie si la page doit être connue du chatbot. `buildSystemPrompt` (`src/i18n/chatContext.ts`) résume automatiquement `servicesPage.items` et `pricingPage.packs` à partir du dictionnaire : si ta page ajoute un nouveau service/pack à ces sections, le chatbot le saura **automatiquement**, rien à faire. Si c'est un tout autre type de contenu (une nouvelle section indépendante), il faut l'ajouter explicitement dans `buildSystemPrompt`. Exemple déjà en place : les 7 pages de service dédiées (`src/content/services/`) ne sont pas dans le dictionnaire, donc `buildSystemPrompt` construit une `servicesLinkTable` séparée à partir de `services` (le barrel) + `serviceSlugs` -- si tu ajoutes un **8e service** avec sa propre page, cette table le reprend automatiquement (elle boucle sur `services`), mais un tout nouveau type de contenu (comme le blog aujourd'hui) demanderait le même ajout manuel que ci-dessus.
 8. **PLAN.md** — coche/ajoute la ligne correspondante dans la roadmap (§7) si c'est un morceau de fonctionnalité notable.
 9. **Commit + push** — voir Règle n°0 en haut de ce fichier. Ne pas laisser la page trainer non commitée "pour plus tard".
 

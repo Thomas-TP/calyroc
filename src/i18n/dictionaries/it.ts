@@ -99,6 +99,7 @@ export const it: Dictionary = {
     faqTitle: "Domande frequenti",
     pricingLinkLabel: "Vedi i prezzi",
     otherServicesTitle: "Scopri gli altri servizi",
+    learnMoreLabel: "Scopri di più",
     items: [
       {
         title: "Sito vetrina",
@@ -446,6 +447,7 @@ export const it: Dictionary = {
     title: "Tutte le domande.",
     subtitle:
       "Oltre ai prezzi: il processo, le tecnologie, cosa succede dopo la consegna. Non trova la Sua domanda? Mi scriva direttamente.",
+    servicesLinkLabel: "Scopri i nostri servizi",
     items: [
       {
         question: "Come si svolge un progetto, dal primo contatto alla messa online?",
@@ -475,12 +477,37 @@ export const it: Dictionary = {
       {
         question: "Lavora con clienti al di fuori della Svizzera?",
         answer:
-          "Sì, l'intero processo avviene a distanza e il sito (così come l'assistente Ask Calyroc) è disponibile in 6 lingue — francese, inglese, spagnolo, italiano, tedesco e portoghese.",
+          "Sì, l'intero processo avviene a distanza e il sito (così come l'assistente Ask Calyroc) è disponibile in 9 lingue — francese, inglese, spagnolo, italiano, tedesco, portoghese, olandese, polacco e russo.",
       },
       {
         question: "Come posso contattarLa durante lo sviluppo?",
         answer:
           "Direttamente — Lei si confronta con me, non con un project manager né con un servizio clienti. È uno dei principali vantaggi di lavorare con uno studio individuale anziché con un'agenzia.",
+      },
+      {
+        question: "Quale servizio fa al caso mio?",
+        answer:
+          "Dipende dal Suo punto di partenza. Un'attività del tutto nuova parte solitamente con un Sito vetrina; un sito esistente da modernizzare richiede un Restyling; una campagna singola o il lancio di un prodotto sono serviti meglio da una Landing page. Consulti la pagina Servizi per una panoramica completa, oppure descriva la Sua situazione nel modulo di contatto per una raccomandazione diretta.",
+      },
+      {
+        question: "Posso combinare più servizi, ad esempio un restyling e SEO tecnico?",
+        answer:
+          "Sì — nella pratica i servizi vengono spesso combinati. Un Restyling include spesso il SEO tecnico per impostazione predefinita, e l'Identità visiva è comunemente abbinata a un primo progetto di Sito vetrina o E-commerce. Descriva ciò di cui ha bisogno nel modulo di contatto e l'ambito viene unito in un unico preventivo chiaro.",
+      },
+      {
+        question: "Costruite negozi online, non solo siti vetrina?",
+        answer:
+          "Sì, l'E-commerce è uno dei sette servizi offerti, costruito attorno a Stripe per un pagamento sicuro e un catalogo prodotti completo con tracciamento delle scorte — consulti la pagina E-commerce dedicata per i dettagli.",
+      },
+      {
+        question: "Ho già un sito — potete semplicemente migliorarne alcune parti?",
+        answer:
+          "Sì. Un Restyling completo non è sempre necessario — il SEO tecnico, una nuova Identità visiva, o l'aggiunta di una Landing page per una campagna specifica possono essere consegnati ciascuno come progetto autonomo sopra un sito già esistente.",
+      },
+      {
+        question: "Posso iniziare con un servizio e aggiungerne altri in seguito?",
+        answer:
+          "Sì, è un percorso comune — molti clienti iniziano con un Sito vetrina e aggiungono poi Manutenzione, una Landing page per una campagna futura, o SEO tecnico una volta che il sito è online e genera traffico.",
       },
     ],
   },

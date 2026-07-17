@@ -244,6 +244,13 @@ export default async function ServiceDetailPage({
           <h2 className="font-display text-lg font-bold text-paper">{servicesPage.faqTitle}</h2>
         </Reveal>
         <FaqAccordion items={translation.faq} />
+        <Link
+          href={`/${loc}/faq`}
+          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-bronze transition-colors hover:text-bronze-soft"
+        >
+          {dictionary.pricingPage.faqSeeMoreLabel}
+          <span aria-hidden>→</span>
+        </Link>
       </div>
 
       <div className="mt-20">

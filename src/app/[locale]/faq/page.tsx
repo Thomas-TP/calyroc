@@ -62,9 +62,12 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
         <FaqAccordion items={faqPage.items} />
       </div>
 
-      <div className="mt-16 text-center">
+      <div className="mt-16 flex flex-wrap items-center justify-center gap-4">
         <Link href={`/${locale}/contact`} className="btn-primary">
           {dictionary.pricingPage.ctaLabel}
+        </Link>
+        <Link href={`/${locale}/services`} className="btn-secondary">
+          {faqPage.servicesLinkLabel}
         </Link>
       </div>
     </section>

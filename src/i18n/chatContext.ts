@@ -1,6 +1,7 @@
+import { getServiceTranslation, services } from "../content/services";
 import { getDictionary } from "./dictionary";
 import { type Locale, locales } from "./locales";
-import { localizedSlugs } from "./routes";
+import { localizedSlugs, serviceSlugs } from "./routes";
 
 const LOCALE_NAMES: Record<Locale, string> = {
   fr: "français",
@@ -14,12 +15,13 @@ const LOCALE_NAMES: Record<Locale, string> = {
   ru: "русский",
 };
 
-// "contact"/"services" stay identical across every locale; "pricing"/"work"/
-// "about" are translated per locale (see src/i18n/routes.ts) so the model
-// links to /en/pricing rather than /en/tarifs.
+// "contact"/"services"/"faq" stay identical across every locale; "pricing"/
+// "work"/"about" are translated per locale (see src/i18n/routes.ts) so the
+// model links to /en/pricing rather than /en/tarifs.
 const STATIC_SLUGS = {
   contact: "contact",
   services: "services",
+  faq: "faq",
 } as const;
 
 /** Builds the system prompt for the "Ask Calyroc" chatbot from real site content,
@@ -44,8 +46,25 @@ export function buildSystemPrompt(locale: Locale): string {
   // locale's pages.
   const linkTable = locales
     .map((loc) => {
-      const { nav: locNav } = getDictionary(loc);
-      return `- ${LOCALE_NAMES[loc]}: ${locNav.pricing}=/${loc}/${localizedSlugs.tarifs[loc]} | ${locNav.contact}=/${loc}/${STATIC_SLUGS.contact} | ${locNav.services}=/${loc}/${STATIC_SLUGS.services} | ${locNav.work}=/${loc}/${localizedSlugs.realisations[loc]} | ${locNav.about}=/${loc}/${localizedSlugs.aPropos[loc]}`;
+      const { nav: locNav, faqPage: locFaqPage } = getDictionary(loc);
+      return `- ${LOCALE_NAMES[loc]}: ${locNav.pricing}=/${loc}/${localizedSlugs.tarifs[loc]} | ${locNav.contact}=/${loc}/${STATIC_SLUGS.contact} | ${locNav.services}=/${loc}/${STATIC_SLUGS.services} | ${locNav.work}=/${loc}/${localizedSlugs.realisations[loc]} | ${locNav.about}=/${loc}/${localizedSlugs.aPropos[loc]} | ${locFaqPage.eyebrow}=/${loc}/${STATIC_SLUGS.faq}`;
+    })
+    .join("\n");
+
+  // Each of the 7 services now has its own dedicated, deeper page (hero,
+  // process, FAQ, related pack) instead of only a flat summary on the
+  // generic /services listing -- this table lets the model link straight
+  // to the specific page when a visitor asks about one service in
+  // particular, rather than always pointing to the general listing.
+  const servicesLinkTable = locales
+    .map((loc) => {
+      const links = services
+        .map((service) => {
+          const translation = getServiceTranslation(service, loc);
+          return `${translation.title}=/${loc}/services/${serviceSlugs[service.id][loc]}`;
+        })
+        .join(" | ");
+      return `- ${LOCALE_NAMES[loc]}: ${links}`;
     })
     .join("\n");
 
@@ -71,6 +90,9 @@ Liens externes utiles (mêmes pour toutes les langues):
 
 Pages du site par langue (choisis TOUJOURS la ligne correspondant à la langue de ta réponse, format "Libellé=/chemin"):
 ${linkTable}
+
+Page dédiée par service, par langue (chacun des 7 services a sa propre page approfondie -- hero, description, étapes, FAQ, pack tarifaire associé -- choisis TOUJOURS la ligne de la langue de ta réponse, format "Nom du service=/chemin"):
+${servicesLinkTable}
 </context>
 
 <language>
@@ -82,7 +104,8 @@ ${linkTable}
 
 <format>
 - Markdown léger uniquement: **gras** pour un mot-clé isolé (prix, délai, nom de formule), jamais sur une phrase entière.
-- Insère un lien Markdown [texte](url) chaque fois qu'une page de <context> est pertinente pour la question -- n'attends pas qu'on te le demande explicitement. Une question sur les prix appelle un lien vers la page Tarifs; "comment démarrer" ou "comment vous contacter" appelle un lien vers Contact; une question sur Thomas, son parcours ou ses compétences appelle un lien vers À propos et/ou son portfolio; une question sur des exemples concrets appelle un lien vers Réalisations.
+- Insère un lien Markdown [texte](url) chaque fois qu'une page de <context> est pertinente pour la question -- n'attends pas qu'on te le demande explicitement. Une question sur les prix appelle un lien vers la page Tarifs; "comment démarrer" ou "comment vous contacter" appelle un lien vers Contact; une question sur Thomas, son parcours ou ses compétences appelle un lien vers À propos et/ou son portfolio; une question sur des exemples concrets appelle un lien vers Réalisations; une question qui sort du cadre couvert par <context> (au-delà des services/tarifs/modalités déjà listés) appelle un lien vers FAQ plutôt qu'une réponse inventée.
+- Une question sur un service précis (ex. "vous faites du e-commerce ?", "c'est quoi une refonte ?", "identité visuelle, ça inclut quoi ?") appelle TOUJOURS un lien vers SA page dédiée dans la table "Page dédiée par service" -- jamais seulement le lien générique Services quand un service précis est identifiable.
 - Le texte affiché du lien est TOUJOURS écrit dans la langue de ta réponse, jamais recopié tel quel depuis <context> -- seule l'URL est fixe.
 - Quand tu cites l'adresse email de contact, écris-la TOUJOURS comme un lien Markdown mailto: [hello@calyroc.com](mailto:hello@calyroc.com), jamais en texte brut.
 - Jamais de Markdown au-delà de gras et liens (pas de titres, pas de listes à puces, pas de tableaux, pas de blocs de code) -- l'affichage est une bulle de chat compacte.
@@ -110,6 +133,10 @@ assistant: The fastest way is to describe your project through the [contact form
 <example>
 visiteur: c'est quoi ton avis sur le meilleur framework JS en 2026, tu peux comparer avec Vue ?
 assistant: Ça sort un peu du cadre de ce que je peux couvrir ici -- je suis surtout là pour vos questions sur Calyroc. Pour discuter choix technique sur votre propre projet, le plus simple est d'en parler directement via le [formulaire de contact](/fr/contact).
+</example>
+<example>
+visiteur: vous faites de l'e-commerce ou juste des sites vitrines ?
+assistant: Les deux -- l'**E-commerce** fait partie des 7 services proposés, avec paiement sécurisé Stripe et catalogue produits complet. Tous les détails sont sur la page [E-commerce](/fr/services/e-commerce), et le [Site vitrine](/fr/services/site-vitrine) reste le bon choix si vous n'avez pas besoin de vendre en ligne.
 </example>
 </examples>`;
 }

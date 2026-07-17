@@ -95,6 +95,7 @@ export const en: Dictionary = {
     faqTitle: "Frequently asked questions",
     pricingLinkLabel: "View pricing",
     otherServicesTitle: "Explore other services",
+    learnMoreLabel: "Learn more",
     items: [
       {
         title: "Showcase website",
@@ -436,6 +437,7 @@ export const en: Dictionary = {
     title: "All the questions.",
     subtitle:
       "Beyond pricing: the process, the technology, what happens after delivery. Don't see your question? Write to me directly.",
+    servicesLinkLabel: "Explore our services",
     items: [
       {
         question: "How does a project go from first contact to launch?",
@@ -465,12 +467,37 @@ export const en: Dictionary = {
       {
         question: "Do you work with clients outside Switzerland?",
         answer:
-          "Yes, the whole process happens remotely, and the site (as well as the Ask Calyroc assistant) is available in 6 languages — French, English, Spanish, Italian, German, and Portuguese.",
+          "Yes, the whole process happens remotely, and the site (as well as the Ask Calyroc assistant) is available in 9 languages — French, English, Spanish, Italian, German, Portuguese, Dutch, Polish, and Russian.",
       },
       {
         question: "How do I reach you during development?",
         answer:
           "Directly — you deal with me, not a project manager or a support desk. That's one of the main advantages of working with a solo studio rather than an agency.",
+      },
+      {
+        question: "Which service is right for me?",
+        answer:
+          "It depends on where you're starting from. A brand-new business usually starts with a Showcase Website; an existing site that needs modernizing calls for a Redesign; a single campaign or product launch is better served by a Landing Page. Browse the Services page for the full picture, or describe your situation through the contact form and get a direct recommendation.",
+      },
+      {
+        question: "Can I combine several services, like a redesign and technical SEO?",
+        answer:
+          "Yes — services are often combined in practice. A Redesign frequently includes Technical SEO by default, and Visual Identity is commonly paired with a first Showcase Website or Ecommerce project. Describe what you need in the contact form and the scope gets combined into a single clear quote.",
+      },
+      {
+        question: "Do you build online stores, not just showcase websites?",
+        answer:
+          "Yes, Ecommerce is one of the seven services on offer, built around Stripe for secure payment and a full product catalog with stock tracking — see the dedicated Ecommerce page for details.",
+      },
+      {
+        question: "I already have a website — can you just improve parts of it?",
+        answer:
+          "Yes. A full Redesign isn't always necessary — Technical SEO, a new Visual Identity, or an added Landing Page for a specific campaign can each be delivered as a standalone project on top of an existing site.",
+      },
+      {
+        question: "Can I start with one service and add more later?",
+        answer:
+          "Yes, that's a common path — many clients start with a Showcase Website and add Maintenance, a Landing Page for a later campaign, or Technical SEO once the site is live and generating traffic.",
       },
     ],
   },
