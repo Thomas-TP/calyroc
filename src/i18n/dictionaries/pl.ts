@@ -434,6 +434,7 @@ export const pl: Dictionary = {
     readMoreLabel: "Czytaj artykuł",
     backLabel: "← Powrót do bloga",
     minutesLabel: "min czytania",
+    byLabel: "Autor:",
   },
   faqPage: {
     eyebrow: "FAQ",

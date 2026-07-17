@@ -428,6 +428,7 @@ export const nl: Dictionary = {
     readMoreLabel: "Lees het artikel",
     backLabel: "← Terug naar de blog",
     minutesLabel: "min. leestijd",
+    byLabel: "Door",
   },
   faqPage: {
     eyebrow: "FAQ",

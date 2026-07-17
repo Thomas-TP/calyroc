@@ -4,6 +4,7 @@ import { TransitionLink as Link } from "@/components/TransitionLink";
 import { blogPosts, getBlogPost, getBlogPostTranslation } from "@/content/blog";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { localizedSlugs } from "@/i18n/routes";
 import {
   buildAlternates,
   buildBreadcrumbJsonLd,
@@ -99,6 +100,16 @@ export default async function BlogPostPage({
         <span aria-hidden>·</span>
         <span>
           {translation.readingTimeMinutes} {blogPage.minutesLabel}
+        </span>
+        <span aria-hidden>·</span>
+        <span>
+          {blogPage.byLabel}{" "}
+          <Link
+            href={`/${locale}/${localizedSlugs.aPropos[locale]}`}
+            className="text-stone underline decoration-paper/20 underline-offset-2 transition-colors hover:text-bronze"
+          >
+            Thomas Prud'homme
+          </Link>
         </span>
       </div>
       <h1 className="text-display-lg mt-4 text-balance text-paper">{translation.title}</h1>

@@ -218,6 +218,7 @@ export interface Dictionary {
     readMoreLabel: string;
     backLabel: string;
     minutesLabel: string;
+    byLabel: string;
   };
   faqPage: {
     eyebrow: string;

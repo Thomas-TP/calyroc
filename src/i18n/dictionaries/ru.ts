@@ -433,6 +433,7 @@ export const ru: Dictionary = {
     readMoreLabel: "Читать статью",
     backLabel: "← Назад к блогу",
     minutesLabel: "мин чтения",
+    byLabel: "Автор:",
   },
   faqPage: {
     eyebrow: "FAQ",
