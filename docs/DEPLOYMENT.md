@@ -47,10 +47,13 @@ Rotation : `wrangler secret put <NOM>` puis coller la nouvelle valeur (le prompt
 | Binding | Type | Nom |
 |---|---|---|
 | `env.DB` | D1 | `calyroc-leads` |
+| `env.PROJECT_FILES` | R2 | `calyroc-project-files` |
 | `env.AI` | Workers AI | — |
 | `env.ASSETS` | Assets | — |
 
-Schéma D1 dans `migrations/0001_init.sql` (table `leads`), `migrations/0002_payments.sql` (colonnes `leads.pack_id`/`leads.updated_at` + table `payments`), et `migrations/0003_project_tracking.sql` (colonnes `leads.status_token`/`leads.project_stage` pour le suivi client public sur `/suivi/[token]`).
+Schéma D1 dans `migrations/0001_init.sql` (table `leads`), `migrations/0002_payments.sql` (colonnes `leads.pack_id`/`leads.updated_at` + table `payments`), `migrations/0003_project_tracking.sql` (colonnes `leads.status_token`/`leads.project_stage`), `migrations/0004_project_updates.sql` (table `project_updates`), et `migrations/0005_lead_files_and_preview.sql` (colonnes `leads.preview_url`/`leads.suivi_last_viewed_at`).
+
+R2 (`calyroc-project-files`) stocke les images/logos partagés avec un client, sous la clé `leads/{status_token}/{fichier}` — servi publiquement mais sécurisé par le token via `src/app/api/files/[token]/[key]/route.ts`, pas par l'auth admin (ce n'est pas une route `/admin/*`). Après tout changement de `wrangler.jsonc` touchant les bindings, relancer `bun run cf-typegen` pour régénérer `src/cloudflare-env.d.ts` (gitignoré, généré automatiquement aussi par `postinstall`).
 
 ## Stripe — configuration complète
 

@@ -51,9 +51,13 @@ src/
       not-found.tsx          404 dans un contexte de locale valide (client component, lit la locale via usePathname)
     not-found.tsx            404 racine pour une locale invalide (ex: /xx/...) — layout.tsx lève notFound() avant
                               même d'atteindre [locale]/not-found.tsx, donc ce fichier doit avoir son propre <html><body>
-    admin/                  Zone privée (auth par mot de passe), non localisée -- leads, statut, suivi client, liens de paiement Stripe
+    admin/                  Zone privée (auth par mot de passe), non localisée
+      page.tsx               Dashboard : stats, recherche/filtre, pipeline par statut (cartes qui renvoient vers leads/[id])
+      leads/[id]/page.tsx     Page de détail d'un lead : statut/notes, paiement, suivi client, fichiers R2, mises à jour
     api/chat/route.ts       Endpoint du chatbot (Workers AI)
     api/stripe/webhook/     Confirmation des paiements Stripe côté serveur
+    api/files/[token]/[key]/route.ts   Sert les images R2 d'un lead -- non authentifié mais scopé par le token
+                              (même principe que suivi/[token], voir docs/DEPLOYMENT.md)
     actions.ts               Server action du formulaire de contact
     robots.ts sitemap.ts     SEO technique (voir règle #8 -- robots.ts ne raconte pas toute l'histoire)
   components/               Composants partagés (voir docs/ARCHITECTURE.md pour le détail)
@@ -64,8 +68,8 @@ src/
                                légales, confidentialité, CGV) -- le français est toujours le slug "canonique"/dossier physique
     dictionary.ts             Interface TypeScript du dictionnaire (SOURCE DE VÉRITÉ des champs traduisibles)
     dictionaries/{fr,en,es,it,de,pt,nl,pl,ru}.ts   Contenu traduit, un fichier par langue
-    legal/                    Contenu légal par locale (types.ts, mentions-legales.ts, confidentialite.ts, cgv.ts, index.ts) --
-                               plus un fichier legal.ts unique en français, voir docs/CONTENT_GUIDE.md
+    legal/                    Contenu légal par locale (types.ts, mentions-legales.ts, confidentialite.ts, cgv.ts, index.ts),
+                               voir docs/CONTENT_GUIDE.md
     chatContext.ts            Construit le system prompt du chatbot À PARTIR du dictionnaire (voir plus bas)
     seo.ts                    SITE_URL, buildAlternates (hreflang/canonical, accepte un slug fixe ou une map par locale), geneva
                                (nom de Genève par locale, utilisé en marketing -- voir la note Gland/Genève plus bas)
@@ -84,6 +88,8 @@ scripts/
 migrations/0001_init.sql      Schéma D1 (table leads)
 migrations/0002_payments.sql  Colonnes leads.pack_id/updated_at + table payments
 migrations/0003_project_tracking.sql  Colonnes leads.status_token/project_stage (suivi client public)
+migrations/0004_project_updates.sql   Table project_updates (mises à jour visibles par le client)
+migrations/0005_lead_files_and_preview.sql  Colonnes leads.preview_url/suivi_last_viewed_at
 ```
 
 ## Ajouter une page publique — checklist complète

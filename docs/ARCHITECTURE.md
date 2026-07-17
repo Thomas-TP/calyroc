@@ -66,9 +66,16 @@ Ce point a été une source de bug réelle, donc à bien comprendre avant d'y re
 ## Admin (`/admin`, non localisé)
 
 - Auth : mot de passe unique (`ADMIN_PASSWORD`), cookie de session signé HMAC-SHA256 (`src/lib/adminAuth.ts`, Web Crypto API, comparaison timing-safe), secret de signature `ADMIN_SESSION_SECRET`.
-- `src/components/LeadsTable.tsx` — liste des leads D1, statut éditable (`LEAD_STATUSES` dans `src/lib/leads.ts`), notes, export CSV (`src/app/admin/export/route.ts`).
-- `src/components/PaymentLinkGenerator.tsx` + `src/lib/stripe.ts` — génère un lien de paiement Stripe Checkout par lead, montant libre. Pas de self-checkout public sur `/tarifs` (décision volontaire, voir `PLAN.md`).
-- `src/components/ProjectStageGenerator.tsx` — sélectionne l'étape de suivi (1 à 4, `PROJECT_STAGE_COUNT` dans `src/lib/leads.ts`) d'un lead et génère le lien public `/suivi/[token]` à partager avec le client (`status_token` généré côté serveur, colonne ajoutée par `migrations/0003_project_tracking.sql`).
+- `src/app/admin/page.tsx` + `src/components/AdminDashboard.tsx` — vue d'ensemble : stats agrégées en mémoire depuis la liste des leads déjà chargée (pas de requête D1 séparée), recherche/filtre côté client, leads groupés en colonnes par statut. `src/components/LeadCard.tsx` est un résumé cliquable (nom, email, badge, aperçu du message, indicateurs "suivi actif"/"vu il y a X") qui renvoie vers la page de détail — il ne contient plus aucun formulaire lui-même.
+- `src/app/admin/leads/[id]/page.tsx` — page de détail complète d'un lead : statut/notes (+ lien de preview du site, `leads.preview_url`), section paiement (`PaymentLinkGenerator` + `src/lib/stripe.ts`), section suivi client (`ProjectStageGenerator` — étape 1 à 4, `PROJECT_STAGE_COUNT` dans `src/lib/leads.ts` — avec le lien `/suivi/[token]` **toujours affiché** dès qu'un token existe, pas seulement juste après une soumission), section fichiers (`ProjectFileManager`, voir plus bas), section mises à jour (`ProjectUpdateComposer` + historique).
+- Export CSV : `src/app/admin/export/route.ts`.
+
+### Partage d'images/logo (R2)
+
+- `env.PROJECT_FILES` (binding R2, bucket `calyroc-project-files`) stocke les fichiers sous la clé `leads/{status_token}/{fichier}` — **par token, pas par id numérique de lead** : ça permet à la route de service publique de rester non authentifiée tout en restant sécurisée (même principe que `/suivi/[token]`, voir `src/lib/leads.ts::ensureStatusToken`).
+- Upload : `src/components/ProjectFileManager.tsx` (client) → `src/app/admin/actions.ts::uploadProjectFile` (server action, FormData avec un vrai `File`, PNG/JPEG/WebP/SVG uniquement, 8 Mo max).
+- Service : `src/app/api/files/[token]/[key]/route.ts` — `GET`, lit directement `env.PROJECT_FILES.get(...)`, aucune vérification D1 nécessaire puisque la clé elle-même encode déjà l'autorisation.
+- Le même composant de galerie (miniatures + suppression au survol) est utilisé côté admin ; côté client (`/suivi/[token]`), les images s'affichent en lecture seule, section masquée s'il n'y a encore aucun fichier.
 
 ## Blog
 
