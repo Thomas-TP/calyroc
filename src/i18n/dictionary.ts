@@ -1,11 +1,14 @@
+import type { PackId } from "../lib/packs";
 import { de } from "./dictionaries/de";
 import { en } from "./dictionaries/en";
 import { es } from "./dictionaries/es";
 import { fr } from "./dictionaries/fr";
 import { it } from "./dictionaries/it";
+import { nl } from "./dictionaries/nl";
+import { pl } from "./dictionaries/pl";
 import { pt } from "./dictionaries/pt";
+import { ru } from "./dictionaries/ru";
 import type { Locale } from "./locales";
-import type { PackId } from "../lib/packs";
 
 export interface ServiceItem {
   title: string;
@@ -77,9 +80,13 @@ export interface Dictionary {
     work: string;
     pricing: string;
     about: string;
+    blog: string;
+    studio: string;
     contact: string;
     themeToLight: string;
     themeToDark: string;
+    openMenu: string;
+    closeMenu: string;
   };
   home: {
     eyebrow: string;
@@ -88,6 +95,7 @@ export interface Dictionary {
     ctaPrimary: string;
     ctaSecondary: string;
     trustLine: string;
+    scrollHint: string;
     processEyebrow: string;
     processTitle: string;
     processSteps: ProcessStep[];
@@ -163,6 +171,7 @@ export interface Dictionary {
     terms: string[];
     faqTitle: string;
     faq: FaqItem[];
+    faqSeeMoreLabel: string;
     ctaLabel: string;
   };
   aboutPage: {
@@ -202,6 +211,29 @@ export interface Dictionary {
     paymentCancelledBody: string;
   };
   legalPageNotice: string;
+  blogPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    readMoreLabel: string;
+    backLabel: string;
+    minutesLabel: string;
+  };
+  faqPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    items: FaqItem[];
+  };
+  trackingPage: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    currentBadge: string;
+    doneBadge: string;
+    ctaTitle: string;
+    ctaLabel: string;
+  };
   notFoundPage: {
     eyebrow: string;
     title: string;
@@ -212,11 +244,18 @@ export interface Dictionary {
   chatbot: {
     label: string;
     title: string;
+    aiBadge: string;
     intro: string;
     placeholder: string;
     send: string;
     errorMessage: string;
     disclaimer: string;
+    close: string;
+    copy: string;
+    copied: string;
+    expand: string;
+    collapse: string;
+    resizeHandle: string;
   };
   email: {
     clientConfirmation: {
@@ -254,7 +293,7 @@ export interface Dictionary {
   };
 }
 
-const dictionaries: Record<Locale, Dictionary> = { fr, en, es, it, de, pt };
+const dictionaries: Record<Locale, Dictionary> = { fr, en, es, it, de, pt, nl, pl, ru };
 
 export function getDictionary(locale: Locale): Dictionary {
   return dictionaries[locale];

@@ -9,7 +9,15 @@ import { Reveal } from "@/components/Reveal";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
-import { buildAlternates } from "@/i18n/seo";
+import { localizedSlugs } from "@/i18n/routes";
+import {
+  buildAlternates,
+  buildBreadcrumbJsonLd,
+  buildOpenGraph,
+  buildTwitter,
+  geneva,
+  SITE_URL,
+} from "@/i18n/seo";
 
 export async function generateMetadata({
   params,
@@ -19,11 +27,19 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const dictionary = getDictionary(locale);
+  const title = `${dictionary.nav.pricing} — Calyroc`;
 
   return {
-    title: `${dictionary.nav.pricing} — Calyroc`,
+    title,
     description: dictionary.pricingPage.subtitle,
-    alternates: buildAlternates(locale, "tarifs"),
+    alternates: buildAlternates(locale, localizedSlugs.tarifs),
+    openGraph: buildOpenGraph(
+      locale,
+      localizedSlugs.tarifs[locale],
+      title,
+      dictionary.pricingPage.subtitle,
+    ),
+    twitter: buildTwitter(title, dictionary.pricingPage.subtitle),
   };
 }
 
@@ -46,11 +62,61 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
     })),
   };
 
+  // One Service + Offer per pack -- price is parsed from the display
+  // string ("1'490 CHF" -> "1490") since that's the single source of
+  // truth already shown to visitors, rather than duplicating a numeric
+  // price separately in the dictionary.
+  const servicesJsonLd = pricingPage.packs.map((pack) => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: pack.name,
+    name: `${pack.name} — Calyroc`,
+    description: pack.description,
+    provider: {
+      "@type": "ProfessionalService",
+      name: "Calyroc",
+      url: SITE_URL,
+      // Google's rich-results validator requires an address on the
+      // provider for the Local Business feature -- flagged by an Ahrefs
+      // Site Audit crawl ("Missing required address property"). Uses the
+      // nearby, better-known city (localized per locale) rather than the
+      // registered legal address, which only appears verbatim on the
+      // legal pages themselves.
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: geneva[locale as Locale],
+        addressRegion: geneva[locale as Locale],
+        addressCountry: "CH",
+      },
+    },
+    offers: {
+      "@type": "Offer",
+      price: pack.price.replace(/[^\d]/g, ""),
+      priceCurrency: "CHF",
+      url: `${SITE_URL}/${locale}/${localizedSlugs.tarifs[locale as Locale]}`,
+    },
+  }));
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(locale as Locale, [
+    { name: dictionary.nav.pricing, path: localizedSlugs.tarifs[locale as Locale] },
+  ]);
+
   return (
     <section className="mx-auto max-w-6xl px-6 pb-24 pt-32 md:px-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      {servicesJsonLd.map((serviceJsonLd) => (
+        <script
+          key={serviceJsonLd.serviceType}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+        />
+      ))}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <PageHeader
         eyebrow={pricingPage.eyebrow}
@@ -103,6 +169,13 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       <div className="mx-auto mt-16 max-w-3xl">
         <h2 className="font-display text-lg font-bold text-paper">{pricingPage.faqTitle}</h2>
         <FaqAccordion items={pricingPage.faq} />
+        <Link
+          href={`/${locale}/faq`}
+          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-bronze transition-colors hover:text-bronze-soft"
+        >
+          {pricingPage.faqSeeMoreLabel}
+          <span aria-hidden>→</span>
+        </Link>
       </div>
 
       <div className="mt-16 text-center">

@@ -6,7 +6,8 @@ import { Reveal } from "@/components/Reveal";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
-import { buildAlternates } from "@/i18n/seo";
+import { localizedSlugs } from "@/i18n/routes";
+import { buildAlternates, buildBreadcrumbJsonLd, buildOpenGraph, buildTwitter } from "@/i18n/seo";
 
 export async function generateMetadata({
   params,
@@ -16,11 +17,19 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const dictionary = getDictionary(locale);
+  const title = `${dictionary.nav.work} — Calyroc`;
 
   return {
-    title: `${dictionary.nav.work} — Calyroc`,
+    title,
     description: dictionary.workPage.subtitle,
-    alternates: buildAlternates(locale, "realisations"),
+    alternates: buildAlternates(locale, localizedSlugs.realisations),
+    openGraph: buildOpenGraph(
+      locale,
+      localizedSlugs.realisations[locale],
+      title,
+      dictionary.workPage.subtitle,
+    ),
+    twitter: buildTwitter(title, dictionary.workPage.subtitle),
   };
 }
 
@@ -30,8 +39,16 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: s
   const dictionary = getDictionary(locale as Locale);
   const { workPage } = dictionary;
 
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(locale as Locale, [
+    { name: dictionary.nav.work, path: localizedSlugs.realisations[locale as Locale] },
+  ]);
+
   return (
     <section className="mx-auto max-w-6xl px-6 pb-24 pt-32 md:px-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <PageHeader eyebrow={workPage.eyebrow} title={workPage.title} subtitle={workPage.subtitle} />
 
       <div className="mt-16 flex flex-col gap-10">

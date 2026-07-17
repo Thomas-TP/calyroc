@@ -18,7 +18,7 @@ export default function NotFound() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-bronze/10 blur-3xl"
       />
       <img
-        src="/logo-icon.png"
+        src="/logo-icon-sm.webp"
         alt=""
         width={56}
         height={56}
@@ -32,7 +32,7 @@ export default function NotFound() {
       </h1>
       <p className="relative mt-4 max-w-md text-stone">{notFoundPage.subtitle}</p>
       <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
-        <Link href={`/${locale}/`} className="btn-primary">
+        <Link href={`/${locale}`} className="btn-primary">
           {notFoundPage.ctaHome}
         </Link>
         <Link href={`/${locale}/contact`} className="btn-secondary">

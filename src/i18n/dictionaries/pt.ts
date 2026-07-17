@@ -13,9 +13,13 @@ export const pt: Dictionary = {
     work: "Projetos",
     pricing: "Preços",
     about: "Sobre mim",
+    blog: "Blog",
+    studio: "Estúdio",
     contact: "Contacto",
     themeToLight: "Mudar para modo claro",
     themeToDark: "Mudar para modo escuro",
+    openMenu: "Abrir o menu",
+    closeMenu: "Fechar o menu",
   },
   home: {
     eyebrow: "Estúdio web sediado na Suíça",
@@ -26,6 +30,7 @@ export const pt: Dictionary = {
     ctaSecondary: "Ver projetos",
     trustLine:
       "Fala com o Thomas, não com um gestor de projeto — desde a primeira resposta até à publicação.",
+    scrollHint: "Deslizar para baixo",
     processEyebrow: "Como funciona",
     processTitle: "Quatro passos, sem zonas cinzentas.",
     processSteps: [
@@ -176,7 +181,8 @@ export const pt: Dictionary = {
   workPage: {
     eyebrow: "Projetos",
     title: "Projetos reais, não maquetas.",
-    subtitle: "Dois projetos construídos e em produção, com utilizadores e tráfego reais.",
+    subtitle:
+      "Dois projetos construídos e em produção — uma plataforma de e-commerce e um portfólio pessoal — com utilizadores e tráfego reais.",
     problemLabel: "Contexto",
     stackLabel: "Stack",
     featuresLabel: "Funcionalidades",
@@ -228,7 +234,7 @@ export const pt: Dictionary = {
     eyebrow: "Preços",
     title: "Preços claros, sem letras miúdas.",
     subtitle:
-      "Três planos base para começar depressa, e um orçamento sob medida para tudo o resto.",
+      "Três planos base a preço fixo para começar depressa sem surpresas na fatura, mais um orçamento sob medida para tudo o resto.",
     guaranteeLabel: "O preço acordado é o preço que paga — sem custos escondidos.",
     deliveryLabel: "Prazo",
     finderEyebrow: "Não sabe qual pacote escolher?",
@@ -347,6 +353,7 @@ export const pt: Dictionary = {
           "Um sinal de 30-50% na encomenda via Stripe, depois o saldo na entrega, antes de publicar.",
       },
     ],
+    faqSeeMoreLabel: "Ver todas as perguntas",
     ctaLabel: "Pedir orçamento",
   },
   aboutPage: {
@@ -393,7 +400,8 @@ export const pt: Dictionary = {
   contactPage: {
     eyebrow: "Contacto",
     title: "Vamos falar sobre o seu projeto.",
-    subtitle: "Descreva o que quer construir, respondo em 48h com um retorno concreto.",
+    subtitle:
+      "Descreva o que quer construir, respondo em 48h com um retorno concreto e um orçamento claro, fixo e sem surpresas.",
     formName: "Nome",
     formEmail: "Email",
     formPackLabel: "Pacote pretendido",
@@ -414,7 +422,68 @@ export const pt: Dictionary = {
       "O pagamento foi cancelado, não foi cobrado qualquer montante. Pode tentar novamente a qualquer momento ou escrever-me diretamente.",
   },
   legalPageNotice:
-    "Esta página legal só existe em francês, versão de referência legalmente válida.",
+    "Esta página foi traduzida para maior comodidade de leitura; apenas a versão francesa é juridicamente vinculativa em caso de litígio ou divergência de interpretação.",
+  blogPage: {
+    eyebrow: "Blog",
+    title: "Notas de estúdio.",
+    subtitle:
+      "Escolhas técnicas, aprendizagens e bastidores dos projetos Calyroc, escritos pelo próprio developer que os constrói.",
+    readMoreLabel: "Ler o artigo",
+    backLabel: "← Voltar ao blog",
+    minutesLabel: "min de leitura",
+  },
+  faqPage: {
+    eyebrow: "Perguntas frequentes",
+    title: "Todas as perguntas.",
+    subtitle:
+      "Para além dos preços: o processo, as tecnologias, o que acontece após a entrega. Não encontra a sua pergunta? Escreva-me diretamente.",
+    items: [
+      {
+        question: "Como decorre um projeto, do primeiro contacto até à publicação?",
+        answer:
+          "Descreve o seu projeto através do formulário de contacto ou do Ask Calyroc. Recebe um orçamento claro em 48 horas, com preço fixo e prazo realista. O desenvolvimento começa após o pagamento do sinal, com pontos de situação regulares para acompanhar a evolução do site. Na entrega, estão incluídas duas rondas de revisões antes da publicação definitiva.",
+      },
+      {
+        question: "Que tecnologias utiliza?",
+        answer:
+          "Next.js, TypeScript e Cloudflare Workers para a maioria dos projetos — a mesma base que utilizo nos meus próprios sites em produção. As escolhas técnicas adaptam-se, no entanto, a cada projeto (base de dados, pagamentos, integrações específicas).",
+      },
+      {
+        question: "O meu site vai ficar bem posicionado no Google?",
+        answer:
+          "O SEO técnico básico está incluído em cada pacote: estrutura semântica, tempos de carregamento otimizados, dados estruturados, mapa do site. Um bom posicionamento também depende do conteúdo e do tempo, mas as bases técnicas ficam prontas desde a entrega.",
+      },
+      {
+        question: "A quem pertence o código e o site depois de o projeto ser entregue?",
+        answer:
+          "O código-fonte e os entregáveis são-lhe integralmente cedidos após a receção do pagamento completo. Reservo apenas o direito de mencionar o projeto no meu portefólio, salvo acordo em contrário.",
+      },
+      {
+        question: "Oferece manutenção após a entrega?",
+        answer:
+          "Sim, como opção por 35 CHF/mês: alojamento, atualizações de segurança e pequenas alterações de conteúdo, sem que tenha de se preocupar com isso.",
+      },
+      {
+        question: "Trabalha com clientes fora da Suíça?",
+        answer:
+          "Sim, todo o processo decorre à distância e o site (assim como o assistente Ask Calyroc) está disponível em 6 idiomas — francês, inglês, espanhol, italiano, alemão e português.",
+      },
+      {
+        question: "Como posso contactá-lo durante o desenvolvimento?",
+        answer:
+          "Diretamente — lida comigo, não com um gestor de projeto nem com um serviço de apoio ao cliente. É uma das principais vantagens de trabalhar com um estúdio individual em vez de uma agência.",
+      },
+    ],
+  },
+  trackingPage: {
+    eyebrow: "Acompanhamento do projeto",
+    title: "Em que ponto está o seu projeto?",
+    subtitle: "O progresso em tempo real, sem ter de perguntar.",
+    currentBadge: "Em curso",
+    doneBadge: "Concluído",
+    ctaTitle: "Alguma pergunta sobre o progresso?",
+    ctaLabel: "Escrever ao Thomas",
+  },
   notFoundPage: {
     eyebrow: "404",
     title: "Esta página não existe.",
@@ -426,12 +495,19 @@ export const pt: Dictionary = {
   chatbot: {
     label: "Pergunte à Calyroc",
     title: "Ask Calyroc",
+    aiBadge: "IA",
     intro:
-      "Olá! Posso responder a perguntas sobre os serviços e preços da Calyroc. Para um orçamento real, aceda ao formulário de contacto.",
+      "Olá! Sou o assistente de IA da Calyroc e posso responder a perguntas sobre os serviços e preços. Para um orçamento real, aceda ao [formulário de contacto](/pt/contact).",
     placeholder: "Escreva a sua pergunta...",
     send: "Enviar",
     errorMessage: "Ocorreu um erro, tente novamente ou escreva para hello@calyroc.com.",
     disclaimer: "Respostas geradas por IA, sem valor contratual.",
+    close: "Fechar",
+    copy: "Copiar",
+    copied: "Copiado",
+    expand: "Ampliar",
+    collapse: "Reduzir",
+    resizeHandle: "Redimensionar a janela",
   },
   email: {
     clientConfirmation: {

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { ViewTransitions } from "next-view-transitions";
 import type { ReactNode } from "react";
-import { AskCalyroc } from "@/components/AskCalyroc";
+import { AskCalyrocLoader } from "@/components/AskCalyrocLoader";
 import { BronzeSweep } from "@/components/BronzeSweep";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { MotionProvider } from "@/components/MotionProvider";
@@ -11,7 +11,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale, locales } from "@/i18n/locales";
-import { SITE_URL } from "@/i18n/seo";
+import { buildOpenGraph, buildTwitter, SITE_URL } from "@/i18n/seo";
 import { THEME_INIT_SCRIPT } from "@/lib/theme-script";
 import "../globals.css";
 
@@ -24,15 +24,6 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#ede9e1" },
     { media: "(prefers-color-scheme: dark)", color: "#0b0b0c" },
   ],
-};
-
-const ogLocales: Record<Locale, string> = {
-  fr: "fr_CH",
-  en: "en_US",
-  es: "es_ES",
-  it: "it_IT",
-  de: "de_CH",
-  pt: "pt_PT",
 };
 
 export async function generateMetadata({
@@ -54,23 +45,11 @@ export async function generateMetadata({
     authors: [{ name: "Calyroc", url: SITE_URL }],
     creator: "Calyroc",
     publisher: "Calyroc",
-    openGraph: {
-      title: dictionary.meta.title,
-      description: dictionary.meta.description,
-      url: `${SITE_URL}/${locale}/`,
-      siteName: "Calyroc",
-      locale: ogLocales[locale],
-      type: "website",
-      images: [
-        { url: "/og-image.png", width: 1200, height: 630, alt: "Calyroc", type: "image/png" },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: dictionary.meta.title,
-      description: dictionary.meta.description,
-      images: ["/og-image.png"],
-    },
+    // Fallback only -- every page's own generateMetadata sets its own
+    // openGraph/twitter via buildOpenGraph/buildTwitter (see i18n/seo.ts for
+    // why that's required, not optional).
+    openGraph: buildOpenGraph(locale, "", dictionary.meta.title, dictionary.meta.description),
+    twitter: buildTwitter(dictionary.meta.title, dictionary.meta.description),
   };
 }
 
@@ -93,13 +72,27 @@ export default async function LocaleLayout({
           <Script id="theme-init" strategy="beforeInteractive">
             {THEME_INIT_SCRIPT}
           </Script>
+          {/* Umami Cloud: cookieless analytics, so no consent banner is
+              required (see confidentialite page). Simply omitted until
+              NEXT_PUBLIC_UMAMI_WEBSITE_ID is set -- this is a build-time
+              env var (inlined by Next.js), not a Workers runtime secret,
+              so it must be present in the environment when running
+              `bunx opennextjs-cloudflare build`, not just as a `wrangler
+              secret`. */}
+          {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+            <Script
+              src="https://cloud.umami.is/script.js"
+              data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+              strategy="afterInteractive"
+            />
+          )}
           <MotionProvider>
             <GrainOverlay />
             <BronzeSweep />
             <SiteHeader locale={locale as Locale} dictionary={dictionary} />
-            {children}
+            <main>{children}</main>
             <SiteFooter locale={locale as Locale} dictionary={dictionary} />
-            <AskCalyroc locale={locale as Locale} dictionary={dictionary} />
+            <AskCalyrocLoader locale={locale as Locale} dictionary={dictionary} />
           </MotionProvider>
         </body>
       </html>

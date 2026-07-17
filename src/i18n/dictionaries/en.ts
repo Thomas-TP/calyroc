@@ -11,9 +11,13 @@ export const en: Dictionary = {
     work: "Work",
     pricing: "Pricing",
     about: "About",
+    blog: "Blog",
+    studio: "Studio",
     contact: "Contact",
     themeToLight: "Switch to light mode",
     themeToDark: "Switch to dark mode",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   home: {
     eyebrow: "Web studio based in Switzerland",
@@ -23,6 +27,7 @@ export const en: Dictionary = {
     ctaPrimary: "Request a quote",
     ctaSecondary: "See the work",
     trustLine: "You talk to Thomas, not a project manager — from the first reply to launch day.",
+    scrollHint: "Scroll down",
     processEyebrow: "How it works",
     processTitle: "Four steps, no grey areas.",
     processSteps: [
@@ -174,7 +179,8 @@ export const en: Dictionary = {
   workPage: {
     eyebrow: "Work",
     title: "Real projects, not mockups.",
-    subtitle: "Two projects built and shipped to production, with real users and real traffic.",
+    subtitle:
+      "Two projects built and shipped to production — a live e-commerce platform and a personal portfolio — with real users and real traffic.",
     problemLabel: "Context",
     stackLabel: "Stack",
     featuresLabel: "Features",
@@ -222,7 +228,8 @@ export const en: Dictionary = {
   pricingPage: {
     eyebrow: "Pricing",
     title: "Clear pricing, no hidden line items.",
-    subtitle: "Three base packages to start fast, and a custom quote for anything beyond that.",
+    subtitle:
+      "Three fixed-price base packages to start fast with no billing surprises, plus a custom quote for anything beyond that scope.",
     guaranteeLabel: "The price you're quoted is the price you pay — no hidden costs.",
     deliveryLabel: "Timeline",
     finderEyebrow: "Not sure which package?",
@@ -340,6 +347,7 @@ export const en: Dictionary = {
           "A 30-50% deposit at order via Stripe, then the balance at delivery, before the site goes live.",
       },
     ],
+    faqSeeMoreLabel: "See all questions",
     ctaLabel: "Request a quote",
   },
   aboutPage: {
@@ -386,7 +394,7 @@ export const en: Dictionary = {
     eyebrow: "Contact",
     title: "Let's talk about your project.",
     subtitle:
-      "Describe what you want to build, I'll get back to you within 48h with real feedback.",
+      "Describe what you want to build, and I'll get back to you within 48h with real feedback and a clear, fixed-price scope.",
     formName: "Name",
     formEmail: "Email",
     formPackLabel: "Package",
@@ -407,7 +415,68 @@ export const en: Dictionary = {
       "The payment was cancelled and no amount was charged. You can try again anytime, or email me directly.",
   },
   legalPageNotice:
-    "This legal page only exists in French, the legally authoritative reference version.",
+    "This page has been translated for your convenience; only the French version is legally binding in the event of a dispute or discrepancy in interpretation.",
+  blogPage: {
+    eyebrow: "Blog",
+    title: "Studio notes.",
+    subtitle:
+      "Technical choices, lessons learned, and behind-the-scenes notes on Calyroc projects, written by the developer who builds them.",
+    readMoreLabel: "Read the article",
+    backLabel: "← Back to the blog",
+    minutesLabel: "min read",
+  },
+  faqPage: {
+    eyebrow: "FAQ",
+    title: "All the questions.",
+    subtitle:
+      "Beyond pricing: the process, the technology, what happens after delivery. Don't see your question? Write to me directly.",
+    items: [
+      {
+        question: "How does a project go from first contact to launch?",
+        answer:
+          "You describe your project through the contact form or Ask Calyroc. You get a clear quote within 48 hours, with a fixed price and a realistic timeline. Development starts once the deposit is paid, with regular check-ins so you can see the site take shape. At delivery, two rounds of revisions are included before the site goes live.",
+      },
+      {
+        question: "What technology do you use?",
+        answer:
+          "Next.js, TypeScript, and Cloudflare Workers for most projects — the same stack I use for my own production sites. The technical choices still adapt to each project (database, payments, specific integrations).",
+      },
+      {
+        question: "Will my site rank well on Google?",
+        answer:
+          "Baseline technical SEO is included with every pack: semantic structure, optimized load times, structured data, sitemap. Strong rankings also depend on content and time, but the technical foundations are in place from day one.",
+      },
+      {
+        question: "Who owns the code and the site once the project is delivered?",
+        answer:
+          "The source code and deliverables are fully transferred to you once payment is complete. I only keep the right to mention the project in my portfolio, unless otherwise agreed.",
+      },
+      {
+        question: "Do you offer maintenance after delivery?",
+        answer:
+          "Yes, as an option at CHF 35/month: hosting, security updates, and small content changes, without you having to think about it.",
+      },
+      {
+        question: "Do you work with clients outside Switzerland?",
+        answer:
+          "Yes, the whole process happens remotely, and the site (as well as the Ask Calyroc assistant) is available in 6 languages — French, English, Spanish, Italian, German, and Portuguese.",
+      },
+      {
+        question: "How do I reach you during development?",
+        answer:
+          "Directly — you deal with me, not a project manager or a support desk. That's one of the main advantages of working with a solo studio rather than an agency.",
+      },
+    ],
+  },
+  trackingPage: {
+    eyebrow: "Project tracking",
+    title: "Where does your project stand?",
+    subtitle: "Real-time progress, without having to ask.",
+    currentBadge: "In progress",
+    doneBadge: "Done",
+    ctaTitle: "A question about progress?",
+    ctaLabel: "Write to Thomas",
+  },
   notFoundPage: {
     eyebrow: "404",
     title: "This page doesn't exist.",
@@ -419,12 +488,19 @@ export const en: Dictionary = {
   chatbot: {
     label: "Ask Calyroc",
     title: "Ask Calyroc",
+    aiBadge: "AI",
     intro:
-      "Hello! I can answer questions about Calyroc's services and pricing. For a real quote, please use the contact form.",
+      "Hello! I'm Calyroc's AI assistant, and I can answer your questions about services and pricing. For a real quote, please use the [contact form](/en/contact).",
     placeholder: "Ask a question...",
     send: "Send",
     errorMessage: "Something went wrong, try again or email hello@calyroc.com.",
     disclaimer: "AI-generated answers, not contractually binding.",
+    close: "Close",
+    copy: "Copy",
+    copied: "Copied",
+    expand: "Expand",
+    collapse: "Collapse",
+    resizeHandle: "Resize window",
   },
   email: {
     clientConfirmation: {

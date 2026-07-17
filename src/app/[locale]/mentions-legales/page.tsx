@@ -4,7 +4,8 @@ import { LegalPageView } from "@/components/LegalPageView";
 import { getDictionary } from "@/i18n/dictionary";
 import { mentionsLegales } from "@/i18n/legal";
 import { isLocale, type Locale } from "@/i18n/locales";
-import { buildAlternates } from "@/i18n/seo";
+import { localizedSlugs } from "@/i18n/routes";
+import { buildAlternates, buildOpenGraph, buildTwitter } from "@/i18n/seo";
 
 export async function generateMetadata({
   params,
@@ -13,12 +14,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const dictionary = getDictionary(locale);
+  const { title, metaDescription } = mentionsLegales[locale];
+  const pageTitle = `${title} — Calyroc`;
 
   return {
-    title: `${mentionsLegales.title} — Calyroc`,
-    description: dictionary.meta.description,
-    alternates: buildAlternates(locale, "mentions-legales"),
+    title: pageTitle,
+    description: metaDescription,
+    alternates: buildAlternates(locale, localizedSlugs.mentionsLegales),
+    openGraph: buildOpenGraph(
+      locale,
+      localizedSlugs.mentionsLegales[locale],
+      pageTitle,
+      metaDescription,
+    ),
+    twitter: buildTwitter(pageTitle, metaDescription),
   };
 }
 
@@ -34,7 +43,7 @@ export default async function MentionsLegalesPage({
   return (
     <section className="mx-auto max-w-6xl px-6 pb-24 pt-32 md:px-10">
       <LegalPageView
-        content={mentionsLegales}
+        content={mentionsLegales[locale as Locale]}
         notice={locale === "fr" ? undefined : dictionary.legalPageNotice}
       />
     </section>

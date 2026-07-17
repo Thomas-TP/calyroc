@@ -13,9 +13,13 @@ export const de: Dictionary = {
     work: "Projekte",
     pricing: "Preise",
     about: "Über mich",
+    blog: "Blog",
+    studio: "Studio",
     contact: "Kontakt",
     themeToLight: "Zu hellem Modus wechseln",
     themeToDark: "Zu dunklem Modus wechseln",
+    openMenu: "Menü öffnen",
+    closeMenu: "Menü schliessen",
   },
   home: {
     eyebrow: "Webstudio mit Sitz in der Schweiz",
@@ -26,6 +30,7 @@ export const de: Dictionary = {
     ctaSecondary: "Projekte ansehen",
     trustLine:
       "Sie sprechen mit Thomas, nicht mit einem Projektleiter — von der ersten Antwort bis zum Livegang.",
+    scrollHint: "Nach unten scrollen",
     processEyebrow: "So läuft es ab",
     processTitle: "Vier Schritte, keine Grauzonen.",
     processSteps: [
@@ -118,7 +123,8 @@ export const de: Dictionary = {
       },
       {
         title: "Relaunch",
-        description: "Modernisieren Sie eine bestehende Website, ohne Ihr SEO-Ranking zu verlieren.",
+        description:
+          "Modernisieren Sie eine bestehende Website, ohne Ihr SEO-Ranking zu verlieren.",
         includes: [
           "Audit der aktuellen Website (Performance, SEO, Inhalt)",
           "Migration bestehender Inhalte",
@@ -181,7 +187,7 @@ export const de: Dictionary = {
     eyebrow: "Projekte",
     title: "Echte Projekte, keine Mockups.",
     subtitle:
-      "Zwei Projekte, gebaut und live in Produktion, mit echten Nutzern und echtem Traffic.",
+      "Zwei Projekte, gebaut und live in Produktion — eine E-Commerce-Plattform und ein persönliches Portfolio — mit echten Nutzern und echtem Traffic.",
     problemLabel: "Kontext",
     stackLabel: "Stack",
     featuresLabel: "Funktionen",
@@ -233,7 +239,7 @@ export const de: Dictionary = {
     eyebrow: "Preise",
     title: "Klare Preise, keine versteckten Posten.",
     subtitle:
-      "Drei Basispakete für einen schnellen Start, und ein individuelles Angebot für alles andere.",
+      "Drei Basispakete zum Festpreis für einen schnellen, überraschungsfreien Start, plus ein individuelles Angebot für alles andere.",
     guaranteeLabel:
       "Der vereinbarte Preis ist der Preis, den Sie zahlen — keine versteckten Kosten.",
     deliveryLabel: "Frist",
@@ -353,6 +359,7 @@ export const de: Dictionary = {
           "Eine Anzahlung von 30-50% bei Auftrag via Stripe, danach der Restbetrag bei Lieferung, vor dem Livegang.",
       },
     ],
+    faqSeeMoreLabel: "Alle Fragen ansehen",
     ctaLabel: "Angebot anfragen",
   },
   aboutPage: {
@@ -400,7 +407,7 @@ export const de: Dictionary = {
     eyebrow: "Kontakt",
     title: "Sprechen wir über Ihr Projekt.",
     subtitle:
-      "Beschreiben Sie, was Sie bauen möchten — ich melde mich innert 48h mit konkretem Feedback.",
+      "Beschreiben Sie, was Sie bauen möchten — ich melde mich innert 48h mit konkretem Feedback und einem klaren Festpreis.",
     formName: "Name",
     formEmail: "E-Mail",
     formPackLabel: "Gewünschtes Paket",
@@ -422,7 +429,68 @@ export const de: Dictionary = {
       "Die Zahlung wurde abgebrochen, es wurde kein Betrag belastet. Sie können es jederzeit erneut versuchen oder mir direkt schreiben.",
   },
   legalPageNotice:
-    "Diese rechtliche Seite existiert nur auf Französisch, der rechtsgültigen Referenzversion.",
+    "Diese Seite wurde zu Ihrer Bequemlichkeit übersetzt; im Streitfall oder bei Auslegungsunterschieden ist ausschliesslich die französische Fassung rechtsverbindlich.",
+  blogPage: {
+    eyebrow: "Blog",
+    title: "Notizen aus dem Studio.",
+    subtitle:
+      "Technische Entscheidungen, Erfahrungen und Einblicke hinter die Calyroc-Projekte, geschrieben vom Entwickler selbst.",
+    readMoreLabel: "Artikel lesen",
+    backLabel: "← Zurück zum Blog",
+    minutesLabel: "Min. Lesezeit",
+  },
+  faqPage: {
+    eyebrow: "FAQ",
+    title: "Alle Fragen.",
+    subtitle:
+      "Über die Preise hinaus: der Ablauf, die Technologien, was nach der Lieferung passiert. Ihre Frage ist nicht dabei? Schreiben Sie mir direkt.",
+    items: [
+      {
+        question: "Wie läuft ein Projekt ab, vom Erstkontakt bis zur Veröffentlichung?",
+        answer:
+          "Sie beschreiben Ihr Projekt über das Kontaktformular oder Ask Calyroc. Sie erhalten innert 48 Stunden ein klares Angebot mit Festpreis und realistischer Frist. Die Entwicklung beginnt nach Zahlung der Anzahlung, mit regelmässigen Zwischenständen, damit Sie den Fortschritt sehen. Bei der Lieferung sind zwei Korrekturrunden inbegriffen, bevor die Website definitiv online geht.",
+      },
+      {
+        question: "Welche Technologien verwenden Sie?",
+        answer:
+          "Next.js, TypeScript und Cloudflare Workers für die meisten Projekte — dieselbe Basis, die ich auch für meine eigenen Produktionsseiten nutze. Die technischen Entscheidungen passen sich trotzdem jedem Projekt an (Datenbank, Zahlungen, spezifische Integrationen).",
+      },
+      {
+        question: "Wird meine Website bei Google gut gefunden?",
+        answer:
+          "Technisches Basis-SEO ist in jedem Paket enthalten: semantische Struktur, optimierte Ladezeiten, strukturierte Daten, Sitemap. Eine gute Platzierung hängt auch von Inhalt und Zeit ab, aber die technischen Grundlagen stehen bereits bei der Lieferung.",
+      },
+      {
+        question: "Wem gehören Code und Website nach Abschluss des Projekts?",
+        answer:
+          "Quellcode und Liefergegenstände gehen nach vollständiger Zahlung vollumfänglich in Ihr Eigentum über. Ich behalte lediglich das Recht, das Projekt in meinem Portfolio zu erwähnen, sofern nichts anderes vereinbart wird.",
+      },
+      {
+        question: "Bieten Sie Wartung nach der Lieferung an?",
+        answer:
+          "Ja, optional für 35 CHF/Monat: Hosting, Sicherheitsupdates und kleine Inhaltsänderungen, ohne dass Sie sich darum kümmern müssen.",
+      },
+      {
+        question: "Arbeiten Sie auch mit Kunden ausserhalb der Schweiz?",
+        answer:
+          "Ja, der gesamte Prozess läuft remote ab, und die Website (ebenso wie der Ask-Calyroc-Assistent) ist in 6 Sprachen verfügbar — Französisch, Englisch, Spanisch, Italienisch, Deutsch und Portugiesisch.",
+      },
+      {
+        question: "Wie erreiche ich Sie während der Entwicklung?",
+        answer:
+          "Direkt — Sie haben es mit mir zu tun, nicht mit einem Projektmanager oder einem Kundendienst. Das ist einer der Hauptvorteile, mit einem Einzelstudio statt einer Agentur zu arbeiten.",
+      },
+    ],
+  },
+  trackingPage: {
+    eyebrow: "Projektverfolgung",
+    title: "Wo steht Ihr Projekt?",
+    subtitle: "Der Fortschritt in Echtzeit, ohne nachfragen zu müssen.",
+    currentBadge: "In Bearbeitung",
+    doneBadge: "Erledigt",
+    ctaTitle: "Eine Frage zum Fortschritt?",
+    ctaLabel: "An Thomas schreiben",
+  },
   notFoundPage: {
     eyebrow: "404",
     title: "Diese Seite existiert nicht.",
@@ -434,13 +502,20 @@ export const de: Dictionary = {
   chatbot: {
     label: "Fragen Sie Calyroc",
     title: "Ask Calyroc",
+    aiBadge: "KI",
     intro:
-      "Guten Tag, ich beantworte Ihre Fragen zu den Leistungen und Preisen von Calyroc. Für ein genaues Angebot nutzen Sie bitte das Kontaktformular.",
+      "Guten Tag! Ich bin der KI-Assistent von Calyroc und beantworte Ihre Fragen zu den Leistungen und Preisen. Für ein genaues Angebot nutzen Sie bitte das [Kontaktformular](/de/contact).",
     placeholder: "Stellen Sie Ihre Frage...",
     send: "Senden",
     errorMessage:
       "Etwas ist schiefgelaufen, versuchen Sie es erneut oder schreiben Sie an hello@calyroc.com.",
     disclaimer: "KI-generierte Antworten, ohne vertragliche Verbindlichkeit.",
+    close: "Schliessen",
+    copy: "Kopieren",
+    copied: "Kopiert",
+    expand: "Vergrössern",
+    collapse: "Verkleinern",
+    resizeHandle: "Fenstergrösse ändern",
   },
   email: {
     clientConfirmation: {

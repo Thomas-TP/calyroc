@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { PaymentStatusBanner } from "@/components/PaymentStatusBanner";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
-import { buildAlternates } from "@/i18n/seo";
+import { buildAlternates, buildOpenGraph, buildTwitter } from "@/i18n/seo";
 
 export async function generateMetadata({
   params,
@@ -15,11 +15,14 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const dictionary = getDictionary(locale);
+  const title = `${dictionary.nav.contact} — Calyroc`;
 
   return {
-    title: `${dictionary.nav.contact} — Calyroc`,
+    title,
     description: dictionary.contactPage.subtitle,
     alternates: buildAlternates(locale, "contact"),
+    openGraph: buildOpenGraph(locale, "contact", title, dictionary.contactPage.subtitle),
+    twitter: buildTwitter(title, dictionary.contactPage.subtitle),
   };
 }
 

@@ -6,7 +6,8 @@ import { Reveal } from "@/components/Reveal";
 import { TransitionLink as Link } from "@/components/TransitionLink";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
-import { buildAlternates } from "@/i18n/seo";
+import { localizedSlugs } from "@/i18n/routes";
+import { buildAlternates, buildOpenGraph, buildTwitter } from "@/i18n/seo";
 
 export async function generateMetadata({
   params,
@@ -16,11 +17,19 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const dictionary = getDictionary(locale);
+  const title = `${dictionary.nav.about} — Calyroc`;
 
   return {
-    title: `${dictionary.nav.about} — Calyroc`,
+    title,
     description: dictionary.aboutPage.subtitle,
-    alternates: buildAlternates(locale, "a-propos"),
+    alternates: buildAlternates(locale, localizedSlugs.aPropos),
+    openGraph: buildOpenGraph(
+      locale,
+      localizedSlugs.aPropos[locale],
+      title,
+      dictionary.aboutPage.subtitle,
+    ),
+    twitter: buildTwitter(title, dictionary.aboutPage.subtitle),
   };
 }
 

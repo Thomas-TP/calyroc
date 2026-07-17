@@ -8,7 +8,7 @@ import { HomeWorkTeaser } from "@/components/HomeWorkTeaser";
 import { PriceCompareWidget } from "@/components/PriceCompareWidget";
 import { getDictionary } from "@/i18n/dictionary";
 import { isLocale, type Locale } from "@/i18n/locales";
-import { buildAlternates, SITE_URL } from "@/i18n/seo";
+import { buildAlternates, buildOpenGraph, buildTwitter, geneva, SITE_URL } from "@/i18n/seo";
 
 export async function generateMetadata({
   params,
@@ -23,6 +23,8 @@ export async function generateMetadata({
     title: dictionary.meta.title,
     description: dictionary.meta.description,
     alternates: buildAlternates(locale, ""),
+    openGraph: buildOpenGraph(locale, "", dictionary.meta.title, dictionary.meta.description),
+    twitter: buildTwitter(dictionary.meta.title, dictionary.meta.description),
   };
 }
 
@@ -38,18 +40,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     name: "Calyroc",
     url: SITE_URL,
     logo: `${SITE_URL}/logo-icon.png`,
-    image: `${SITE_URL}/og-image.png`,
+    image: `${SITE_URL}/logo-icon.png`,
     description: dictionary.meta.description,
     email: "hello@calyroc.com",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Gland",
-      addressRegion: "Vaud",
+      addressLocality: geneva[locale as Locale],
+      addressRegion: geneva[locale as Locale],
       addressCountry: "CH",
     },
     areaServed: "Europe",
     priceRange: "590-2900+ CHF",
-    sameAs: ["https://www.linkedin.com/in/thomas-tp"],
+    sameAs: ["https://www.linkedin.com/company/calyroc", "https://www.linkedin.com/in/thomas-tp"],
   };
 
   return (

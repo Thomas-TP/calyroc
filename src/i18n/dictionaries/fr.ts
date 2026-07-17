@@ -11,9 +11,13 @@ export const fr: Dictionary = {
     work: "Réalisations",
     pricing: "Tarifs",
     about: "À propos",
+    blog: "Blog",
+    studio: "Studio",
     contact: "Contact",
     themeToLight: "Passer en mode clair",
     themeToDark: "Passer en mode sombre",
+    openMenu: "Ouvrir le menu",
+    closeMenu: "Fermer le menu",
   },
   home: {
     eyebrow: "Studio web basé en Suisse",
@@ -24,6 +28,7 @@ export const fr: Dictionary = {
     ctaSecondary: "Voir les réalisations",
     trustLine:
       "Vous échangez directement avec Thomas, pas avec un chef de projet — de la première réponse à la mise en ligne.",
+    scrollHint: "Défiler vers le bas",
     processEyebrow: "Comment ça se passe",
     processTitle: "Quatre étapes, aucune zone grise.",
     processSteps: [
@@ -44,7 +49,8 @@ export const fr: Dictionary = {
       },
       {
         title: "Livraison + 2 révisions incluses",
-        description: "Le site est à vous, avec deux tours de retouches inclus dans le prix annoncé.",
+        description:
+          "Le site est à vous, avec deux tours de retouches inclus dans le prix annoncé.",
       },
     ],
     priceCompareEyebrow: "Le même site, ailleurs",
@@ -177,7 +183,7 @@ export const fr: Dictionary = {
     eyebrow: "Réalisations",
     title: "Des projets réels, pas des maquettes.",
     subtitle:
-      "Deux projets construits et livrés en production, avec de vrais utilisateurs et un vrai trafic.",
+      "Deux projets construits et livrés en production — une plateforme e-commerce et un portfolio personnel — avec de vrais utilisateurs et un vrai trafic.",
     problemLabel: "Le contexte",
     stackLabel: "Stack",
     featuresLabel: "Fonctionnalités",
@@ -229,7 +235,7 @@ export const fr: Dictionary = {
     eyebrow: "Tarifs",
     title: "Des prix clairs, sans case cachée.",
     subtitle:
-      "Trois formules de base pour démarrer vite, et un devis sur-mesure pour tout ce qui sort du cadre.",
+      "Trois formules de base à prix fixe pour démarrer vite, sans surprise à la facture, et un devis sur-mesure pour tout ce qui sort du cadre.",
     guaranteeLabel: "Prix annoncé, prix payé — aucun coût caché.",
     deliveryLabel: "Délai",
     finderEyebrow: "Pas sûr de la formule ?",
@@ -348,6 +354,7 @@ export const fr: Dictionary = {
           "Un acompte de 30 à 50 % à la commande via Stripe, puis le solde à la livraison, avant la mise en ligne définitive.",
       },
     ],
+    faqSeeMoreLabel: "Voir toutes les questions",
     ctaLabel: "Demander un devis",
   },
   aboutPage: {
@@ -395,13 +402,14 @@ export const fr: Dictionary = {
     eyebrow: "Contact",
     title: "Parlons de votre projet.",
     subtitle:
-      "Décrivez ce que vous souhaitez construire, je vous réponds sous 48h avec un premier retour concret.",
+      "Décrivez ce que vous souhaitez construire, je vous réponds sous 48h avec un premier retour concret et sans jargon technique inutile.",
     formName: "Nom",
     formEmail: "Email",
     formPackLabel: "Formule souhaitée",
     formPackUnsureLabel: "Je ne sais pas encore",
     formMessage: "Votre projet",
-    formMessagePlaceholder: "Décrivez votre activité, ce que vous souhaitez construire, vos délais...",
+    formMessagePlaceholder:
+      "Décrivez votre activité, ce que vous souhaitez construire, vos délais...",
     formSubmit: "Envoyer",
     formSubmitting: "Envoi en cours...",
     formSuccess: "Message envoyé — je vous réponds sous 48h.",
@@ -416,7 +424,68 @@ export const fr: Dictionary = {
       "Le paiement a été annulé, aucun montant n'a été prélevé. Vous pouvez réessayer à tout moment ou m'écrire directement.",
   },
   legalPageNotice:
-    "Cette page légale n'existe qu'en français, version juridiquement valable de référence.",
+    "Cette page a été traduite pour votre confort de lecture ; seule la version française fait foi en cas de divergence d'interprétation ou de litige.",
+  blogPage: {
+    eyebrow: "Blog",
+    title: "Notes de studio.",
+    subtitle:
+      "Choix techniques, retours d'expérience et coulisses des projets Calyroc, écrits par le développeur qui les construit lui-même.",
+    readMoreLabel: "Lire l'article",
+    backLabel: "← Retour au blog",
+    minutesLabel: "min de lecture",
+  },
+  faqPage: {
+    eyebrow: "FAQ",
+    title: "Toutes les questions.",
+    subtitle:
+      "Au-delà des tarifs : le processus, les technologies, la suite après la livraison. Une question n'y figure pas ? Écrivez-moi directement.",
+    items: [
+      {
+        question: "Comment se déroule un projet, du premier contact à la mise en ligne ?",
+        answer:
+          "Vous décrivez votre projet via le formulaire de contact ou Ask Calyroc. Vous recevez un devis clair sous 48h, avec un prix fixe et un délai réaliste. Le développement démarre après versement de l'acompte, avec des points d'étape réguliers pour que vous voyiez le site avancer. À la livraison, deux tours de révisions sont inclus avant mise en ligne définitive.",
+      },
+      {
+        question: "Quelles technologies utilisez-vous ?",
+        answer:
+          "Next.js, TypeScript et Cloudflare Workers pour l'essentiel des projets — la même stack que j'utilise pour mes propres sites en production. Le choix technique s'adapte toutefois à chaque projet (base de données, paiement, intégrations spécifiques).",
+      },
+      {
+        question: "Mon site sera-t-il bien référencé sur Google ?",
+        answer:
+          "Le SEO technique de base est inclus dans chaque formule : structure sémantique, temps de chargement optimisé, données structurées, sitemap. Un bon référencement dépend aussi du contenu et du temps, mais les fondations techniques sont posées dès la livraison.",
+      },
+      {
+        question: "Qui possède le code et le site une fois le projet livré ?",
+        answer:
+          "Le code source et les livrables vous sont intégralement cédés à réception du paiement complet. Je conserve simplement le droit de mentionner le projet dans mon portfolio, sauf accord contraire.",
+      },
+      {
+        question: "Proposez-vous de la maintenance après la livraison ?",
+        answer:
+          "Oui, en option à 35 CHF/mois : hébergement, mises à jour de sécurité et petites modifications de contenu, sans que vous ayez à vous en soucier.",
+      },
+      {
+        question: "Travaillez-vous avec des clients en dehors de la Suisse ?",
+        answer:
+          "Oui, l'ensemble du processus se fait à distance et le site (comme l'assistant Ask Calyroc) est disponible en 6 langues — français, anglais, espagnol, italien, allemand et portugais.",
+      },
+      {
+        question: "Comment vous contacter pendant le développement ?",
+        answer:
+          "Directement — vous échangez avec moi, pas avec un chef de projet ni un service client. C'est l'un des principaux avantages de travailler avec un studio solo plutôt qu'une agence.",
+      },
+    ],
+  },
+  trackingPage: {
+    eyebrow: "Suivi de projet",
+    title: "Où en est votre projet ?",
+    subtitle: "Voici l'avancement en temps réel, sans avoir à demander.",
+    currentBadge: "En cours",
+    doneBadge: "Terminé",
+    ctaTitle: "Une question sur l'avancement ?",
+    ctaLabel: "Écrire à Thomas",
+  },
   notFoundPage: {
     eyebrow: "404",
     title: "Cette page n'existe pas.",
@@ -428,12 +497,19 @@ export const fr: Dictionary = {
   chatbot: {
     label: "Demander à Calyroc",
     title: "Ask Calyroc",
+    aiBadge: "IA",
     intro:
-      "Bonjour, je peux répondre à vos questions sur les services et les tarifs de Calyroc. Pour un devis précis, direction le formulaire de contact.",
+      "Bonjour ! Je suis l'assistant IA de Calyroc et je peux répondre à vos questions sur les services et les tarifs. Pour un devis précis, direction le [formulaire de contact](/fr/contact).",
     placeholder: "Posez votre question...",
     send: "Envoyer",
     errorMessage: "Une erreur est survenue, réessayez ou écrivez à hello@calyroc.com.",
     disclaimer: "Réponses générées par IA, sans valeur contractuelle.",
+    close: "Fermer",
+    copy: "Copier",
+    copied: "Copié",
+    expand: "Agrandir",
+    collapse: "Réduire",
+    resizeHandle: "Redimensionner la fenêtre",
   },
   email: {
     clientConfirmation: {

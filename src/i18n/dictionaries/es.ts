@@ -6,16 +6,20 @@ export const es: Dictionary = {
   meta: {
     title: "Calyroc — Estudio web para sitios modernos y de alto rendimiento",
     description:
-      "Sitios web corporativos y de comercio electrónico a medida, diseñados y desarrollados por Thomas Prud'homme. Stack moderno, entrega rápida, precios transparentes.",
+      "Sitios web y tiendas online a medida, diseñados y desarrollados por Thomas Prud'homme. Stack moderno, entrega rápida, precios transparentes.",
   },
   nav: {
     services: "Servicios",
     work: "Proyectos",
     pricing: "Precios",
     about: "Sobre mí",
+    blog: "Blog",
+    studio: "Estudio",
     contact: "Contacto",
     themeToLight: "Cambiar a modo claro",
     themeToDark: "Cambiar a modo oscuro",
+    openMenu: "Abrir el menú",
+    closeMenu: "Cerrar el menú",
   },
   home: {
     eyebrow: "Estudio web con sede en Suiza",
@@ -26,6 +30,7 @@ export const es: Dictionary = {
     ctaSecondary: "Ver proyectos",
     trustLine:
       "Habla con Thomas, no con un jefe de proyecto — desde la primera respuesta hasta la publicación.",
+    scrollHint: "Desplazarse hacia abajo",
     processEyebrow: "Cómo funciona",
     processTitle: "Cuatro pasos, sin zonas grises.",
     processSteps: [
@@ -175,7 +180,8 @@ export const es: Dictionary = {
   workPage: {
     eyebrow: "Proyectos",
     title: "Proyectos reales, no maquetas.",
-    subtitle: "Dos proyectos construidos y en producción, con usuarios y tráfico reales.",
+    subtitle:
+      "Dos proyectos construidos y en producción — una plataforma de e-commerce y un portfolio personal — con usuarios y tráfico reales.",
     problemLabel: "Contexto",
     stackLabel: "Stack",
     featuresLabel: "Funcionalidades",
@@ -223,7 +229,8 @@ export const es: Dictionary = {
   pricingPage: {
     eyebrow: "Precios",
     title: "Precios claros, sin letra pequeña.",
-    subtitle: "Tres planes base para empezar rápido, y un presupuesto a medida para todo lo demás.",
+    subtitle:
+      "Tres planes base a precio fijo para empezar rápido y sin sorpresas en la factura, más un presupuesto a medida para todo lo demás.",
     guaranteeLabel: "El precio acordado es el precio que paga — sin costes ocultos.",
     deliveryLabel: "Plazo",
     finderEyebrow: "¿No sabe qué plan elegir?",
@@ -341,6 +348,7 @@ export const es: Dictionary = {
           "Un depósito del 30-50% al encargar vía Stripe, y el saldo en la entrega, antes de publicar.",
       },
     ],
+    faqSeeMoreLabel: "Ver todas las preguntas",
     ctaLabel: "Solicitar presupuesto",
   },
   aboutPage: {
@@ -387,7 +395,8 @@ export const es: Dictionary = {
   contactPage: {
     eyebrow: "Contacto",
     title: "Hablemos de su proyecto.",
-    subtitle: "Describa lo que desea construir, le respondo en 48h con una valoración concreta.",
+    subtitle:
+      "Describa lo que desea construir, y le respondo en 48h con una valoración concreta y un presupuesto claro y fijo.",
     formName: "Nombre",
     formEmail: "Email",
     formPackLabel: "Plan deseado",
@@ -408,7 +417,68 @@ export const es: Dictionary = {
       "El pago se ha cancelado, no se ha realizado ningún cargo. Puede intentarlo de nuevo en cualquier momento o escribirme directamente.",
   },
   legalPageNotice:
-    "Esta página legal solo existe en francés, versión de referencia legalmente válida.",
+    "Esta página ha sido traducida por su comodidad de lectura; solo la versión francesa es jurídicamente vinculante en caso de litigio o divergencia de interpretación.",
+  blogPage: {
+    eyebrow: "Blog",
+    title: "Notas de estudio.",
+    subtitle:
+      "Decisiones técnicas, aprendizajes y detrás de escena de los proyectos de Calyroc, escritos por el propio desarrollador.",
+    readMoreLabel: "Leer el artículo",
+    backLabel: "← Volver al blog",
+    minutesLabel: "min de lectura",
+  },
+  faqPage: {
+    eyebrow: "Preguntas frecuentes",
+    title: "Todas las preguntas.",
+    subtitle:
+      "Más allá de los precios: el proceso, la tecnología, qué ocurre tras la entrega. ¿No encuentra su pregunta? Escríbame directamente.",
+    items: [
+      {
+        question: "¿Cómo se desarrolla un proyecto, del primer contacto a la puesta en línea?",
+        answer:
+          "Describe su proyecto a través del formulario de contacto o Ask Calyroc. Recibe un presupuesto claro en 48 horas, con un precio fijo y un plazo realista. El desarrollo comienza tras el pago del anticipo, con puntos de seguimiento regulares para que vea el sitio avanzar. En la entrega, se incluyen dos rondas de revisiones antes de la puesta en línea definitiva.",
+      },
+      {
+        question: "¿Qué tecnologías utiliza?",
+        answer:
+          "Next.js, TypeScript y Cloudflare Workers para la mayoría de los proyectos — la misma base que utilizo para mis propios sitios en producción. Las decisiones técnicas se adaptan igualmente a cada proyecto (base de datos, pagos, integraciones específicas).",
+      },
+      {
+        question: "¿Mi sitio tendrá un buen posicionamiento en Google?",
+        answer:
+          "El SEO técnico básico está incluido en cada formula: estructura semántica, tiempos de carga optimizados, datos estructurados, mapa del sitio. Un buen posicionamiento también depende del contenido y del tiempo, pero las bases técnicas quedan listas desde la entrega.",
+      },
+      {
+        question: "¿Quién es propietario del código y del sitio una vez entregado el proyecto?",
+        answer:
+          "El código fuente y los entregables se le ceden íntegramente al recibir el pago completo. Solo conservo el derecho de mencionar el proyecto en mi portafolio, salvo acuerdo contrario.",
+      },
+      {
+        question: "¿Ofrece mantenimiento después de la entrega?",
+        answer:
+          "Sí, como opción por 35 CHF/mes: alojamiento, actualizaciones de seguridad y pequeñas modificaciones de contenido, sin que tenga que preocuparse por ello.",
+      },
+      {
+        question: "¿Trabaja con clientes fuera de Suiza?",
+        answer:
+          "Sí, todo el proceso se realiza a distancia y el sitio (así como el asistente Ask Calyroc) está disponible en 6 idiomas — francés, inglés, español, italiano, alemán y portugués.",
+      },
+      {
+        question: "¿Cómo puedo contactarle durante el desarrollo?",
+        answer:
+          "Directamente — trata conmigo, no con un jefe de proyecto ni un servicio de atención al cliente. Es una de las principales ventajas de trabajar con un estudio individual en lugar de una agencia.",
+      },
+    ],
+  },
+  trackingPage: {
+    eyebrow: "Seguimiento de proyecto",
+    title: "¿Cómo va su proyecto?",
+    subtitle: "El avance en tiempo real, sin tener que preguntar.",
+    currentBadge: "En curso",
+    doneBadge: "Terminado",
+    ctaTitle: "¿Alguna pregunta sobre el avance?",
+    ctaLabel: "Escribir a Thomas",
+  },
   notFoundPage: {
     eyebrow: "404",
     title: "Esta página no existe.",
@@ -420,12 +490,19 @@ export const es: Dictionary = {
   chatbot: {
     label: "Pregunte a Calyroc",
     title: "Ask Calyroc",
+    aiBadge: "IA",
     intro:
-      "Hola, puedo responder a sus preguntas sobre los servicios y precios de Calyroc. Para un presupuesto exacto, diríjase al formulario de contacto.",
+      "¡Hola! Soy el asistente de IA de Calyroc y puedo responder a sus preguntas sobre los servicios y precios. Para un presupuesto exacto, diríjase al [formulario de contacto](/es/contact).",
     placeholder: "Escriba su pregunta...",
     send: "Enviar",
     errorMessage: "Ha ocurrido un error, inténtelo de nuevo o escriba a hello@calyroc.com.",
     disclaimer: "Respuestas generadas por IA, sin valor contractual.",
+    close: "Cerrar",
+    copy: "Copiar",
+    copied: "Copiado",
+    expand: "Ampliar",
+    collapse: "Reducir",
+    resizeHandle: "Redimensionar la ventana",
   },
   email: {
     clientConfirmation: {

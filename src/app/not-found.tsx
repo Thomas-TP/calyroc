@@ -8,13 +8,13 @@ export default function RootNotFound() {
   return (
     <html lang="fr" className="dark">
       <body className="bg-onyx font-body text-paper antialiased">
-        <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+        <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-bronze/10 blur-3xl"
           />
           <img
-            src="/logo-icon.png"
+            src="/logo-icon-sm.webp"
             alt=""
             width={56}
             height={56}
@@ -37,7 +37,7 @@ export default function RootNotFound() {
               Nous contacter
             </a>
           </div>
-        </section>
+        </main>
       </body>
     </html>
   );
